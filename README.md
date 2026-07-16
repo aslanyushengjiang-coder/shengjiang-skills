@@ -12,7 +12,17 @@
 
 ## 安装
 
-把需要的 Skill 文件夹复制到当前 Agent 的 skills 目录：
+GitHub CLI 2.96.0 及以上可以直接安装：
+
+```bash
+# Codex：安装到用户级，所有项目可用
+gh skill install aslanyushengjiang-coder/yushengjiang-skills ysj-knowledge --agent codex --scope user
+
+# Claude Code：安装到用户级，所有项目可用
+gh skill install aslanyushengjiang-coder/yushengjiang-skills ysj-knowledge --agent claude-code --scope user
+```
+
+也可以手动把 Skill 文件夹复制到当前 Agent 的 skills 目录：
 
 ```text
 Codex 项目：      .agents/skills/ysj-knowledge/

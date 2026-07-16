@@ -27,6 +27,7 @@ class YsjKnowledgeTests(unittest.TestCase):
     def test_skill_package_is_complete(self) -> None:
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         self.assertTrue(skill_text.startswith("---\nname: ysj-knowledge\n"))
+        self.assertIn("\nlicense: MIT\n---\n", skill_text)
         self.assertLessEqual(len(skill_text.splitlines()), 500)
         self.assertIn("references/architecture.md", skill_text)
         self.assertIn("references/audit-rules.md", skill_text)
