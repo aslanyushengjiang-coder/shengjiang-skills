@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- 重写 `ysj-knowledge` 产品说明，补齐输入源、Harness Core、知识区域、业务输出、经验飞轮和 Sensors 闭环。
+- 新增横版主视觉、纵向全景架构图和自检优先级图；明确 `v0.1.0` 的已实现能力与后续接入边界。
+
 ## 0.1.0 - 2026-07-16
 
 - 发布首个 Skill：`ysj-knowledge`。
