@@ -1,4 +1,4 @@
-# ysj-knowledge 架构说明
+# shengjiang-knowledge 架构说明
 
 > 搭建或升级知识库时读取。这里解释各层为什么存在，不要求用户照抄固定目录名。
 
