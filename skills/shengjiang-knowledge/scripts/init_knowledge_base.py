@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Preview or create the ysj-knowledge minimal folder structure."""
+"""Preview or create the shengjiang-knowledge minimal folder structure."""
 
 from __future__ import annotations
 

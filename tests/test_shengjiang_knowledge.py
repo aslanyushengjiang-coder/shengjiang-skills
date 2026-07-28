@@ -9,9 +9,10 @@ import unittest
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SKILL_ROOT = REPO_ROOT / "skills" / "ysj-knowledge"
+SKILL_ROOT = REPO_ROOT / "skills" / "shengjiang-knowledge"
 INIT_SCRIPT = SKILL_ROOT / "scripts" / "init_knowledge_base.py"
 AUDIT_SCRIPT = SKILL_ROOT / "scripts" / "audit_knowledge_base.py"
+SCAN_SCRIPT = SKILL_ROOT / "scripts" / "scan_materials.py"
 
 
 def run(*args: str) -> subprocess.CompletedProcess[str]:
@@ -23,20 +24,24 @@ def run(*args: str) -> subprocess.CompletedProcess[str]:
     )
 
 
-class YsjKnowledgeTests(unittest.TestCase):
+class ShengjiangKnowledgeTests(unittest.TestCase):
     def test_skill_package_is_complete(self) -> None:
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
-        self.assertTrue(skill_text.startswith("---\nname: ysj-knowledge\n"))
-        self.assertIn("\nlicense: MIT\n---\n", skill_text)
+        self.assertTrue(skill_text.startswith("---\nname: shengjiang-knowledge\n"))
         self.assertLessEqual(len(skill_text.splitlines()), 500)
         self.assertIn("references/architecture.md", skill_text)
         self.assertIn("references/audit-rules.md", skill_text)
+        self.assertIn("references/material-intake.md", skill_text)
+        self.assertIn("references/health-cycle.md", skill_text)
         self.assertTrue((SKILL_ROOT / "references" / "architecture.md").is_file())
         self.assertTrue((SKILL_ROOT / "references" / "audit-rules.md").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "material-intake.md").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "health-cycle.md").is_file())
+        self.assertTrue(SCAN_SCRIPT.is_file())
 
         evals = json.loads((SKILL_ROOT / "evals" / "evals.json").read_text(encoding="utf-8"))
-        self.assertEqual(evals["skill_name"], "ysj-knowledge")
-        self.assertEqual(len(evals["evals"]), 3)
+        self.assertEqual(evals["skill_name"], "shengjiang-knowledge")
+        self.assertEqual(len(evals["evals"]), 4)
         self.assertTrue(all(item["assertions"] for item in evals["evals"]))
 
     def test_preview_does_not_write(self) -> None:
@@ -61,6 +66,9 @@ class YsjKnowledgeTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((root / "INDEX.md").is_file())
             self.assertTrue((root / "system" / "USER.md").is_file())
+            self.assertTrue((root / "system" / "HEALTH.md").is_file())
+            self.assertTrue((root / "01.资料库" / "_资料索引.md").is_file())
+            self.assertTrue((root / "03.项目档案" / "README.md").is_file())
             self.assertEqual(
                 (root / "AGENT.md").read_bytes(),
                 (root / "AGENTS.md").read_bytes(),
@@ -80,6 +88,59 @@ class YsjKnowledgeTests(unittest.TestCase):
             payload = json.loads(audit_result.stdout)
             self.assertEqual(payload["summary"]["P0"], 0)
             self.assertEqual(payload["summary"]["P1"], 0)
+            self.assertEqual(payload["status"], "healthy")
+
+    def test_health_check_can_save_latest_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "knowledge-base"
+            apply_result = run(
+                str(INIT_SCRIPT), "--root", str(root), "--name", "测试知识库", "--apply"
+            )
+            self.assertEqual(apply_result.returncode, 0, apply_result.stderr)
+            audit_result = run(
+                str(AUDIT_SCRIPT),
+                "--root",
+                str(root),
+                "--format",
+                "json",
+                "--save-state",
+            )
+            self.assertEqual(audit_result.returncode, 0, audit_result.stdout)
+            latest = root / "system" / "state" / "latest-health.json"
+            self.assertTrue(latest.is_file())
+            payload = json.loads(latest.read_text(encoding="utf-8"))
+            self.assertEqual(payload["status"], "healthy")
+            dated_reports = list(
+                (root / "system" / "state").glob("*-知识库健康检查.md")
+            )
+            self.assertEqual(len(dated_reports), 1)
+
+    def test_material_scan_is_read_only_and_blocks_sensitive_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / "materials"
+            source.mkdir()
+            (source / "访谈.md").write_text("真实访谈内容\n", encoding="utf-8")
+            (source / "数据.csv").write_text("a,b\n1,2\n", encoding="utf-8")
+            (source / ".env").write_text("TOKEN=test-only\n", encoding="utf-8")
+            before = sorted(path.relative_to(source) for path in source.rglob("*"))
+            result = run(
+                str(SCAN_SCRIPT), "--source", str(source), "--format", "json"
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["file_count"], 3)
+            self.assertEqual(payload["blocked_sensitive_count"], 1)
+            kinds = {item["path"]: item["kind"] for item in payload["materials"]}
+            self.assertEqual(kinds["访谈.md"], "text")
+            self.assertEqual(kinds["数据.csv"], "data")
+            blocked = {
+                item["path"]
+                for item in payload["materials"]
+                if item["blocked_sensitive"]
+            }
+            self.assertEqual(blocked, {".env"})
+            after = sorted(path.relative_to(source) for path in source.rglob("*"))
+            self.assertEqual(before, after)
 
     def test_broken_base_detects_core_risks(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

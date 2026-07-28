@@ -1,82 +1,73 @@
-# yushengjiang-skills
+# Shengjiang Skills
 
-余生姜在真实业务中持续使用、测试和迭代的 AI Skills。
+余生姜在真实业务中持续使用、测试和迭代的开源 AI Skills。
 
-这里不收集“看起来很厉害”的提示词。每个 Skill 都必须来自重复发生的真实任务，有明确输入、执行边界、输出结果和验收方法。
+系列统一使用 `shengjiang-*` 命名。这里不收集“看起来很厉害”的提示词；每个 Skill 都必须来自重复发生的真实任务，有明确输入、执行边界、输出结果和自动化验收。
 
-## 首个 Skill：`ysj-knowledge`
+## 系列目录
 
-![ysj-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/ysj-knowledge/assets/ysj-knowledge-harness.png)
+| Skill | 解决什么问题 | 状态 |
+| --- | --- | --- |
+| [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 下载后搭建个人 / 团队系统知识库，接入已有资料，持续检查健康状态 | v0.2.0 |
+
+## shengjiang-knowledge
+
+![shengjiang-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/shengjiang-knowledge/assets/shengjiang-knowledge-harness.png)
 
 > 你的文件不是知识库。只有当 AI 能稳定读到用户画像、当前工作、业务规则和原始事实，执行后还能接受检查、记录纠正并升级经验，它才是一套能运行的知识库。
 
-`ysj-knowledge` 解决的不是“文件放得整不整齐”，而是五个更实际的问题：
-
-- 换一个会话，AI 又要从头认识你；
-- 文件越来越多，AI 却找不到真正的事实源；
-- “最终版 / 最新版”越积越多，回答开始互相冲突；
-- 用户纠正过的问题，下次仍然再犯；
-- 知识库搭完以后无人巡检，入口、索引和目录慢慢漂移。
-
-它把本地文件夹接成一条可运行的 Harness 闭环：
-
-```text
-输入有归口
-  → Guides 约束 AI 怎么理解和行动
-  → Model 读取原始资料并执行业务任务
-  → 输出进入内容、课程、项目交付或企业服务
-  → Sensors 检查入口、断链、版本、积压与敏感文件
-  → 用户纠正和执行经验写回规则，下一次做得更稳
-```
-
-### 一个 Skill，四种模式
+它提供四个完整工作流：
 
 | 模式 | 适合什么情况 | 它会做什么 |
 | --- | --- | --- |
-| 搭建 | 空目录或资料很少 | 建立最小入口、上下文、导航、当前工作和反馈层 |
-| 接入 | 已经有很多资料 | 保留原目录，补入口、索引、事实源与版本规则 |
-| 自检 | 担心知识库失效 | 只读检查入口、断链、版本冲突、积压和敏感文件 |
-| 修复 | 已经发现问题 | 先给精确修改预览，确认后修复，再重新巡检 |
+| 搭建 | 空目录或资料很少 | 建立入口、用户画像、规则、导航、当前工作、资料区、输出区、项目档案和健康状态层 |
+| 资料接入 | 有 PDF、Word、表格、录音、网页或旧文件夹 | 先扫描，再读取内容，区分外部观点、用户判断、业务事实和项目材料，确认后结构化写入 |
+| 健康检查 | 担心知识库慢慢失效 | 检查入口、断链、版本冲突、收件箱积压、敏感文件和导航漂移，保存最新状态 |
+| 修复 | 已经发现问题 | 给出路径级修改预览，确认后修复，再重新检查 |
 
-[查看完整说明与框架图](skills/ysj-knowledge/) · [查看 v0.1.0](https://github.com/aslanyushengjiang-coder/yushengjiang-skills/releases/tag/v0.1.0)
+## 一条命令安装
 
-## 30 秒安装
-
-GitHub CLI 2.96.0 及以上可以直接安装：
+适用于支持 [Skills CLI](https://www.npmjs.com/package/skills) 的 Agent 项目：
 
 ```bash
-# Codex：安装到用户级，所有项目可用
-gh skill install aslanyushengjiang-coder/yushengjiang-skills ysj-knowledge --agent codex --scope user
-
-# Claude Code：安装到用户级，所有项目可用
-gh skill install aslanyushengjiang-coder/yushengjiang-skills ysj-knowledge --agent claude-code --scope user
+npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
+  --skill shengjiang-knowledge \
+  -y
 ```
 
-也可以手动把 Skill 文件夹复制到当前 Agent 的 skills 目录：
+也可以使用 GitHub CLI 安装：
+
+```bash
+# Codex
+gh skill install aslanyushengjiang-coder/shengjiang-skills \
+  shengjiang-knowledge \
+  --agent codex \
+  --scope user
+
+# Claude Code
+gh skill install aslanyushengjiang-coder/shengjiang-skills \
+  shengjiang-knowledge \
+  --agent claude-code \
+  --scope user
+```
+
+安装后直接这样说：
 
 ```text
-Codex 项目：      .agents/skills/ysj-knowledge/
-Claude Code 项目：.claude/skills/ysj-knowledge/
+调用 shengjiang-knowledge，把这个空文件夹搭成我的系统知识库，先预览。
+调用 shengjiang-knowledge，读取这批资料，区分外部观点和我的判断，先给接入方案。
+调用 shengjiang-knowledge，检查知识库健康状态并保存报告，不要自动修复。
+调用 shengjiang-knowledge，根据巡检报告给修复预览，我确认后再改。
 ```
 
-长期逻辑只维护一份。需要同时支持多个 Agent 时，让其他入口指向同一份 `SKILL.md`，不要复制出多份长期维护版本。
-
-## 直接这样用
-
-```text
-/ysj-knowledge 帮我把这个文件夹搭成 AI 知识库，先审计，不要直接搬文件。
-/ysj-knowledge 接入这个已有资料库，告诉我入口、事实源和版本冲突在哪里。
-/ysj-knowledge 检查知识库有没有断链、多个最终版、积压或敏感文件风险。
-/ysj-knowledge 根据巡检报告给修复预览，我确认后再改。
-```
-
-## 开源原则
+## 开源标准
 
 - 来自真实、重复发生的工作；
-- 输入和输出足够明确；
-- 有边界、有验收、有测试；
+- 默认只读，写入前给预览；
+- 原始事实、外部观点、用户判断和 Agent 提炼明确分层；
+- 有清晰边界、自动化测试和可验证结果；
 - 用户纠正会回到规则与评测；
-- 能被别人安装、使用和继续改进。
+- 不把向量库、云端 RAG 或第三方同步冒充成本地现成功能。
 
 ## 作者
 

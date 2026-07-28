@@ -60,6 +60,8 @@ RECOMMENDED_P1 = {
     "AGENT.md": "缺少跨 Agent 的镜像入口。",
     "CLAUDE.md": "缺少 Claude Code 入口。",
     "_本周.md": "缺少当前工作文件。",
+    "01.资料库/_资料索引.md": "缺少可追溯的资料接入索引。",
+    "system/HEALTH.md": "缺少知识库健康检查频率和状态处理规则。",
     "system/log.md": "缺少知识库变更日志。",
     "system/MEMORY_LOG.md": "缺少用户纠正记录。",
     "system/state/README.md": "缺少巡检状态目录。",
@@ -106,6 +108,14 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--current-days", type=int, default=14, help="Age threshold for current-work reminders"
+    )
+    parser.add_argument(
+        "--save-state",
+        action="store_true",
+        help=(
+            "Save the Markdown report and latest-health.json under system/state. "
+            "Without this flag the command remains read-only."
+        ),
     )
     return parser.parse_args()
 
@@ -460,6 +470,15 @@ def summary(findings: list[Finding]) -> dict[str, int]:
     return {"P0": counts["P0"], "P1": counts["P1"], "P2": counts["P2"]}
 
 
+def health_status(findings: list[Finding]) -> str:
+    counts = summary(findings)
+    if counts["P0"]:
+        return "critical"
+    if counts["P1"]:
+        return "attention"
+    return "healthy"
+
+
 def render_markdown(root: Path, findings: list[Finding]) -> str:
     counts = summary(findings)
     if counts["P0"]:
@@ -497,6 +516,29 @@ def render_markdown(root: Path, findings: list[Finding]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def make_payload(root: Path, findings: list[Finding]) -> dict[str, object]:
+    return {
+        "root": str(root),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "status": health_status(findings),
+        "summary": summary(findings),
+        "findings": [asdict(finding) for finding in findings],
+    }
+
+
+def save_state(root: Path, payload: dict[str, object], markdown: str) -> tuple[Path, Path]:
+    state_dir = root / "system" / "state"
+    state_dir.mkdir(parents=True, exist_ok=True)
+    report_path = state_dir / f"{datetime.now().astimezone().date().isoformat()}-知识库健康检查.md"
+    latest_path = state_dir / "latest-health.json"
+    report_path.write_text(markdown, encoding="utf-8")
+    latest_path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return report_path, latest_path
+
+
 def main() -> int:
     args = parse_args()
     root = Path(args.root).expanduser().resolve(strict=False)
@@ -517,16 +559,18 @@ def main() -> int:
     check_duplicate_names(files, root, findings)
 
     findings = sorted(findings, key=lambda item: (item.severity, item.code, item.path))
+    payload = make_payload(root, findings)
+    markdown = render_markdown(root, findings)
+
+    if args.save_state:
+        report_path, latest_path = save_state(root, payload, markdown)
+        print(f"Saved health report: {report_path}", file=sys.stderr)
+        print(f"Saved latest state: {latest_path}", file=sys.stderr)
+
     if args.format == "json":
-        payload = {
-            "root": str(root),
-            "generated_at": datetime.now(timezone.utc).isoformat(),
-            "summary": summary(findings),
-            "findings": [asdict(finding) for finding in findings],
-        }
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
-        print(render_markdown(root, findings), end="")
+        print(markdown, end="")
 
     counts = summary(findings)
     if counts["P0"]:
