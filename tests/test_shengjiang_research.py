@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / "skills" / "shengjiang-social-media-research"
+SKILL = ROOT / "skills" / "shengjiang-research"
 SCRIPT = SKILL / "scripts" / "tikhub_request.py"
 
 
@@ -24,7 +24,7 @@ class SocialMediaResearchSkillTests(unittest.TestCase):
 
     def test_skill_name_and_two_routes(self):
         content = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-        self.assertIn("name: shengjiang-social-media-research", content)
+        self.assertIn("name: shengjiang-research", content)
         self.assertIn("第三方 TikHub API", content)
         self.assertIn("社媒助手", content)
         self.assertIn("不自带社媒数据源", content)
@@ -81,7 +81,7 @@ class SocialMediaResearchSkillTests(unittest.TestCase):
         payload = json.loads(
             (SKILL / "evals" / "evals.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(payload["skill_name"], "shengjiang-social-media-research")
+        self.assertEqual(payload["skill_name"], "shengjiang-research")
         self.assertGreaterEqual(len(payload["evals"]), 4)
 
 
