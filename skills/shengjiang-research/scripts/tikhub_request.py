@@ -98,7 +98,7 @@ def main() -> int:
             "Authorization": f"Bearer {api_key}",
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "User-Agent": "shengjiang-social-media-research/1.0",
+            "User-Agent": "shengjiang-research/1.0",
         },
     )
 
@@ -129,4 +129,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

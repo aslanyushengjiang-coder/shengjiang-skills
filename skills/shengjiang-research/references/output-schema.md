@@ -57,4 +57,3 @@
 `topic`、`hook_type`、`audience_problem`、`sentiment`、`content_structure`、`opportunity` 等 AI 分析字段必须与原始字段分开，并标注为推导结果。
 
 不要把不同平台口径不一致的数字直接横向比较。分析报告应注明采集时间、样本范围、缺失字段和平台口径限制。
-

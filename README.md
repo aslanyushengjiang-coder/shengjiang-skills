@@ -9,7 +9,7 @@
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 下载后搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
-| [`shengjiang-social-media-research`](skills/shengjiang-social-media-research/) | 用付费 API 自动调研或用社媒助手免费手动采集，整理账号、作品、评论与逐字稿 | v0.5.0 |
+| [`shengjiang-research`](skills/shengjiang-research/) | 用付费 API 自动调研或用社媒助手免费手动采集，整理账号、作品、评论与逐字稿 | v0.6.0 |
 
 ## shengjiang-knowledge
 
@@ -42,16 +42,16 @@ npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
 
 ```bash
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill shengjiang-social-media-research \
+  --skill shengjiang-research \
   -y
 ```
 
 安装后可以直接说：
 
 ```text
-调用 shengjiang-social-media-research，用免费路线教我调研这批小红书对标账号。
-调用 shengjiang-social-media-research，读取社媒助手导出的 Excel，整理账号、作品和评论洞察。
-调用 shengjiang-social-media-research，用我自己的 TikHub API 做 3 条样本采集，先给请求预览。
+调用 shengjiang-research，用免费路线教我调研这批小红书对标账号。
+调用 shengjiang-research，读取社媒助手导出的 Excel，整理账号、作品和评论洞察。
+调用 shengjiang-research，用我自己的 TikHub API 做 3 条样本采集，先给请求预览。
 ```
 
 说明：Skill 不自带社媒数据源。自动化路线使用用户自行购买和配置的第三方 [TikHub API](https://docs.tikhub.io/)；免费路线通过第三方[社媒助手](https://socialext.com/download)由用户手动采集、导出 Excel，再交给 AI 整理分析。
