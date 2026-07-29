@@ -8,37 +8,43 @@
 
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
-| [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 下载后搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
-| [`shengjiang-research`](skills/shengjiang-research/) | 用付费 API 自动调研或用社媒助手免费手动采集，整理账号、作品、评论与逐字稿 | v0.6.0 |
+| [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
+| [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.0 |
 
-## shengjiang-knowledge
+## shengjiang-research
 
-![shengjiang-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/shengjiang-knowledge/assets/shengjiang-knowledge-harness.png)
+`shengjiang-research` 是从余生姜本地长期使用的全平台调研 Skill 开源出来的 API-first 版本。
 
-> 你的文件不是知识库。只有当 AI 能稳定读到用户画像、当前工作、业务规则和原始事实，执行后还能接受检查、记录纠正并升级经验，它才是一套能运行的知识库。
+它能处理：
 
-它提供六个完整工作流：
+- 抖音、小红书、视频号、TikTok、YouTube、B站、快手、微博、Instagram、X、Reddit、知乎等平台；
+- 账号资料、作品列表、单条详情、评论、字幕、公开互动和关键词搜索；
+- 单篇内容、账号批量、话题调研、评论洞察、逐字稿和结构化表格；
+- 端点发现、请求数拆算、费用预估、1–3 条小样本验证、批量采集和脱敏交付。
 
-| 模式 | 适合什么情况 | 它会做什么 |
-| --- | --- | --- |
-| 搭建 | 空目录或资料很少 | 建立入口、用户画像、规则、导航、当前工作、资料区、输出区、项目档案和健康状态层 |
-| 自媒体模式 | 做自媒体、个人 IP 或内容生产 | 一键建立账号定位、对标调研、用户洞察、素材、选题、文稿流转、发布和数据复盘工作台 |
-| 资料接入 | 有 PDF、Word、表格、录音、网页或旧文件夹 | 先扫描，再读取内容，区分外部观点、用户判断、业务事实和项目材料，确认后结构化写入 |
-| 健康检查 | 担心知识库慢慢失效 | 检查入口、断链、版本冲突、收件箱积压、敏感文件和导航漂移，保存最新状态 |
-| 修复 | 已经发现问题 | 给出路径级修改预览，确认后修复，再重新检查 |
-| 自我纠错 | 用户指出错误或要求“别再犯” | 记录纠正并计数，同类满 3 次提议升级为固定规则，重要任务前先翻最近纠正 |
+### 先说清费用
 
-## 一条命令安装
+Skill 代码采用 MIT 协议免费开源，但 TikHub 是第三方付费 API：
+
+- 用户自行注册、充值并配置自己的 `TIKHUB_API_KEY`；
+- TikHub 官方当前公开口径是多数接口从 `0.001 USD / 次`起，不同端点通常约 `0.001–0.01 USD / 次`，少数特殊端点更高；
+- 新账号当前约有 `0.05 USD` 试用额度，通常可测试约 50 次基础请求；
+- 每次批量调研前，Skill 会先拆请求数、查询具体端点价格、给出费用预估，只跑 1–3 条样本，确认后再批量；
+- 价格、免费额度和端点会变化，以 [TikHub 价格页](https://tikhub.io/pricing)、[接入指南](https://tikhub.io/getting-started)和具体端点文档为准。
+
+粗略量级：
+
+| 成功请求数 | 按 0.001 USD / 次 | 按 0.01 USD / 次 |
+| ---: | ---: | ---: |
+| 3 次 | 0.003 USD | 0.03 USD |
+| 100 次 | 0.10 USD | 1.00 USD |
+| 1,000 次 | 1.00 USD | 10.00 USD |
+
+实际费用还取决于作品列表每页条数、是否逐条抓详情、评论页数、特殊高价端点和第三方 ASR。Skill 不承诺固定价格。
+
+### 安装
 
 适用于支持 [Skills CLI](https://www.npmjs.com/package/skills) 的 Agent 项目：
-
-```bash
-npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill shengjiang-knowledge \
-  -y
-```
-
-安装生姜社媒调研：
 
 ```bash
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
@@ -49,47 +55,51 @@ npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
 安装后可以直接说：
 
 ```text
-调用 shengjiang-research，用免费路线教我调研这批小红书对标账号。
-调用 shengjiang-research，读取社媒助手导出的 Excel，整理账号、作品和评论洞察。
-调用 shengjiang-research，用我自己的 TikHub API 做 3 条样本采集，先给请求预览。
+调用 shengjiang-research，抓这个小红书账号近 100 条作品和每条一页评论。
+先查 TikHub 端点和价格，拆算请求数与预计费用，只跑 1–3 条样本。
+
+调用 shengjiang-research，调研这 20 个抖音账号。
+Skill 免费和 API 付费要分开说明，批量前先给我费用预览。
+
+调用 shengjiang-research，处理这份已有的社媒 Excel。
+保留原始文件，清洗去重后生成账号、作品、评论洞察和选题。
 ```
 
-说明：Skill 不自带社媒数据源。自动化路线使用用户自行购买和配置的第三方 [TikHub API](https://docs.tikhub.io/)；免费路线通过第三方[社媒助手](https://socialext.com/download)由用户手动采集、导出 Excel，再交给 AI 整理分析。
+### 配置
 
-也可以使用 GitHub CLI 安装：
+Key 只放在用户自己的本机环境变量或 macOS Keychain，禁止发到聊天或提交到 Git：
 
 ```bash
-# Codex
-gh skill install aslanyushengjiang-coder/shengjiang-skills \
-  shengjiang-knowledge \
-  --agent codex \
-  --scope user
-
-# Claude Code
-gh skill install aslanyushengjiang-coder/shengjiang-skills \
-  shengjiang-knowledge \
-  --agent claude-code \
-  --scope user
+export TIKHUB_API_KEY="替换成你自己的 Key"
+python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-config
 ```
 
-安装后直接这样说：
+更多配置、估价和请求说明见 [`references/configuration.md`](skills/shengjiang-research/references/configuration.md) 与 [`references/paid-api-route.md`](skills/shengjiang-research/references/paid-api-route.md)。
 
-```text
-调用 shengjiang-knowledge，把这个空文件夹搭成我的系统知识库，先预览。
-调用 shengjiang-knowledge，按自媒体模式搭建知识库，能管理对标、选题、文稿和发布数据，先预览。
-调用 shengjiang-knowledge，读取这批资料，区分外部观点和我的判断，先给接入方案。
-调用 shengjiang-knowledge，检查知识库健康状态并保存报告，不要自动修复。
-调用 shengjiang-knowledge，根据巡检报告给修复预览，我确认后再改。
+## shengjiang-knowledge
+
+![shengjiang-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/shengjiang-knowledge/assets/shengjiang-knowledge-harness.png)
+
+> 你的文件不是知识库。只有当 AI 能稳定读到用户画像、当前工作、业务规则和原始事实，执行后还能接受检查、记录纠正并升级经验，它才是一套能运行的知识库。
+
+它提供搭建、自媒体模式、资料接入、健康检查、修复和自我纠错六个工作流。
+
+安装：
+
+```bash
+npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
+  --skill shengjiang-knowledge \
+  -y
 ```
 
 ## 开源标准
 
 - 来自真实、重复发生的工作；
-- 默认只读，写入前给预览；
+- 付费或外部依赖提前说清；
+- 默认先预览，写入或批量扣费前确认范围；
 - 原始事实、外部观点、用户判断和 Agent 提炼明确分层；
 - 有清晰边界、自动化测试和可验证结果；
-- 用户纠正会回到规则与评测；
-- 不把向量库、云端 RAG 或第三方同步冒充成本地现成功能。
+- 不把第三方 API、免费额度或私有连接器说成自建能力。
 
 ## 作者
 
