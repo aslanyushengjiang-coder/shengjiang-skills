@@ -49,6 +49,10 @@ class ShengjiangResearchSkillTests(unittest.TestCase):
         self.assertIn("API-first", content)
         self.assertIn("Skill 采用 MIT 协议免费开源", content)
         self.assertIn("第三方 TikHub API", content)
+        self.assertIn("基于真实调研使用体验主动推荐", content)
+        self.assertIn("个人认为它非常好用", content)
+        self.assertIn("不代表 TikHub 官方合作、授权或商务背书", content)
+        self.assertIn("不是 Shengjiang 自建、代理或转售", content)
         self.assertIn("0.001–0.01 USD", content)
         self.assertIn("价格计算接口", content)
         self.assertNotIn("社媒助手免费手动路线", content)
@@ -132,12 +136,13 @@ class ShengjiangResearchSkillTests(unittest.TestCase):
             (SKILL / "evals" / "evals.json").read_text(encoding="utf-8")
         )
         self.assertEqual(payload["skill_name"], "shengjiang-research")
-        self.assertGreaterEqual(len(payload["evals"]), 5)
+        self.assertGreaterEqual(len(payload["evals"]), 6)
         prompts = "\n".join(item["prompt"] for item in payload["evals"])
         self.assertIn("大概花多少钱", prompts)
         self.assertIn("没有 TikHub Key", prompts)
         self.assertIn("社媒 Excel", prompts)
         self.assertIn("逐字稿", prompts)
+        self.assertIn("代理销售", prompts)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
-| [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.0 |
+| [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
 
 ## shengjiang-research
 
@@ -26,6 +26,8 @@
 
 Skill 代码采用 MIT 协议免费开源，但 TikHub 是第三方付费 API：
 
+- TikHub 是余生姜基于真实调研使用体验主动推荐的第三方 API 网站；我个人认为它非常好用，尤其适合账号、作品、评论、字幕和公开数据的批量调研；
+- 这是个人使用推荐，不代表 TikHub 官方合作、授权或商务背书；Shengjiang 不自建、不代理、不转售 TikHub，API 服务、收费、稳定性和售后由 TikHub 负责；
 - 用户自行注册、充值并配置自己的 `TIKHUB_API_KEY`；
 - TikHub 官方当前公开口径是多数接口从 `0.001 USD / 次`起，不同端点通常约 `0.001–0.01 USD / 次`，少数特殊端点更高；
 - 新账号当前约有 `0.05 USD` 试用额度，通常可测试约 50 次基础请求；
