@@ -41,7 +41,7 @@ class ShengjiangKnowledgeTests(unittest.TestCase):
 
         evals = json.loads((SKILL_ROOT / "evals" / "evals.json").read_text(encoding="utf-8"))
         self.assertEqual(evals["skill_name"], "shengjiang-knowledge")
-        self.assertEqual(len(evals["evals"]), 4)
+        self.assertEqual(len(evals["evals"]), 6)
         self.assertTrue(all(item["assertions"] for item in evals["evals"]))
 
     def test_preview_does_not_write(self) -> None:
@@ -88,6 +88,43 @@ class ShengjiangKnowledgeTests(unittest.TestCase):
             payload = json.loads(audit_result.stdout)
             self.assertEqual(payload["summary"]["P0"], 0)
             self.assertEqual(payload["summary"]["P1"], 0)
+            self.assertEqual(payload["status"], "healthy")
+
+    def test_creator_profile_builds_content_workbench(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "creator-knowledge-base"
+            apply_result = run(
+                str(INIT_SCRIPT),
+                "--root",
+                str(root),
+                "--name",
+                "自媒体知识库",
+                "--profile",
+                "creator",
+                "--apply",
+            )
+            self.assertEqual(apply_result.returncode, 0, apply_result.stderr)
+            self.assertIn("Profile: creator", apply_result.stdout)
+            expected_files = [
+                "01.资料库/01.账号定位/README.md",
+                "01.资料库/02.对标调研/_调研索引.md",
+                "01.资料库/03.用户洞察/_用户洞察索引.md",
+                "01.资料库/04.素材库/_素材索引.md",
+                "02.输出区/01.选题池/_选题索引.md",
+                "02.输出区/02.草稿/README.md",
+                "02.输出区/03.审核/README.md",
+                "02.输出区/04.定稿/README.md",
+                "02.输出区/05.待发布/README.md",
+                "02.输出区/06.已发布与复盘/_发布复盘索引.md",
+            ]
+            for relative in expected_files:
+                self.assertTrue((root / relative).is_file(), relative)
+
+            audit_result = run(
+                str(AUDIT_SCRIPT), "--root", str(root), "--format", "json"
+            )
+            self.assertEqual(audit_result.returncode, 0, audit_result.stdout)
+            payload = json.loads(audit_result.stdout)
             self.assertEqual(payload["status"], "healthy")
 
     def test_health_check_can_save_latest_state(self) -> None:
