@@ -16,6 +16,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--root", required=True, help="Knowledge-base root path")
     parser.add_argument("--name", help="Human-readable knowledge-base name")
     parser.add_argument(
+        "--profile",
+        choices=("general", "creator"),
+        default="general",
+        help="Template profile: general-purpose or creator/self-media.",
+    )
+    parser.add_argument(
         "--apply",
         action="store_true",
         help="Create missing files. Without this flag the command is read-only.",
@@ -48,25 +54,45 @@ def main() -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
 
-    template_root = Path(__file__).resolve().parent.parent / "assets" / "minimal-template"
+    assets_root = Path(__file__).resolve().parent.parent / "assets"
+    template_root = assets_root / "minimal-template"
     if not template_root.is_dir():
         print(f"ERROR: template directory not found: {template_root}", file=sys.stderr)
         return 2
 
     name = args.name or root.name
-    template_files = sorted(path for path in template_root.rglob("*") if path.is_file())
-    plan: list[tuple[str, Path]] = []
+    sources: dict[Path, Path] = {
+        path.relative_to(template_root): path
+        for path in template_root.rglob("*")
+        if path.is_file()
+    }
+    if args.profile != "general":
+        profile_root = assets_root / "profiles" / args.profile
+        if not profile_root.is_dir():
+            print(
+                f"ERROR: profile template directory not found: {profile_root}",
+                file=sys.stderr,
+            )
+            return 2
+        sources.update(
+            {
+                path.relative_to(profile_root): path
+                for path in profile_root.rglob("*")
+                if path.is_file()
+            }
+        )
 
-    for source in template_files:
-        relative = source.relative_to(template_root)
+    plan: list[tuple[str, Path, Path]] = []
+    for relative, source in sorted(sources.items()):
         destination = root / relative
         action = "skip" if destination.exists() else "create"
-        plan.append((action, relative))
+        plan.append((action, relative, source))
 
     mode = "APPLY" if args.apply else "PREVIEW"
     print(f"{mode}: {root}")
     print(f"Knowledge base: {name}")
-    for action, relative in plan:
+    print(f"Profile: {args.profile}")
+    for action, relative, _source in plan:
         print(f"{action:>6}  {relative}")
 
     if not args.apply:
@@ -75,12 +101,11 @@ def main() -> int:
 
     created = 0
     skipped = 0
-    for action, relative in plan:
+    for action, relative, source in plan:
         destination = root / relative
         if action == "skip":
             skipped += 1
             continue
-        source = template_root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(render(source.read_text(encoding="utf-8"), name), encoding="utf-8")
         created += 1

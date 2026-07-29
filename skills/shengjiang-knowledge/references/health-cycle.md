@@ -63,7 +63,8 @@ python3 scripts/audit_knowledge_base.py \
 
 - 收件箱超过 30 天：提醒归位，不自动删除。
 - `_本周.md` 超过 14 天：确认是否仍代表真实优先级。
-- 用户纠正：追加 `MEMORY_LOG.md`。
+- 用户纠正：立刻追加 `MEMORY_LOG.md`，标注该类纠正第几次。
 - 结构、规则或事实源变化：追加 `log.md`。
-- 同类纠正反复发生：提议升级 `PROCEDURES.md` 或 Skill。
+- 同类纠正达到 3 次：主动提议升级 `PROCEDURES.md` 或 Skill；升级须用户确认。
+- 重要任务开始前：先翻 `MEMORY_LOG.md` 最近的纠正。
 - 经验文件被引用且长期未更新：提醒确认有效性。
