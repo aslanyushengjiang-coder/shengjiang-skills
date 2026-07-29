@@ -2,6 +2,22 @@
 
 不同平台字段不同。先保存原始导出，再映射到以下通用字段；不存在的字段保持为空。
 
+## 任务总览
+
+| 字段 | 含义 |
+| --- | --- |
+| `research_goal` | 调研目标 |
+| `platforms` | 平台 |
+| `sample_scope` | 账号、作品、评论和时间范围 |
+| `endpoints` | 实际使用的 TikHub 端点 |
+| `estimated_requests` | 执行前预计成功请求数 |
+| `actual_requests` | 执行后记录的成功请求数 |
+| `estimated_cost_usd` | 执行前预估费用 |
+| `actual_cost_usd` | 可从 TikHub 账单核实的实际费用 |
+| `price_checked_at` | 单价查询时间 |
+| `price_source` | 具体端点文档或官方价格计算 API |
+| `collected_at` | 采集时间 |
+
 ## 账号表
 
 | 字段 | 含义 |
@@ -56,4 +72,6 @@
 
 `topic`、`hook_type`、`audience_problem`、`sentiment`、`content_structure`、`opportunity` 等 AI 分析字段必须与原始字段分开，并标注为推导结果。
 
-不要把不同平台口径不一致的数字直接横向比较。分析报告应注明采集时间、样本范围、缺失字段和平台口径限制。
+逐字稿需另外记录 `transcript_source`，只能写平台官方字幕、作者文本或具体第三方 ASR 服务商。
+
+不要把不同平台口径不一致的数字直接横向比较。分析报告应注明采集时间、样本范围、请求数、费用、缺失字段和平台口径限制。

@@ -1,4 +1,4 @@
 interface:
   display_name: "生姜调研"
-  short_description: "跨平台采集账号、作品、评论与逐字稿，并生成结构化调研资产"
-  default_prompt: "使用 $shengjiang-research 调研这个社媒账号，先说明付费 API 与免费手动路线，再给执行预览。"
+  short_description: "用用户自己的付费 API 做全平台社媒调研，执行前先算请求与费用"
+  default_prompt: "使用 $shengjiang-research 调研这个社媒账号。先查 TikHub 端点和单价，拆算请求数与预计费用，只跑 1–3 条样本，确认后再批量。"
