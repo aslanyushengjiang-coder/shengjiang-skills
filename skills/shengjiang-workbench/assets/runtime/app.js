@@ -6,16 +6,23 @@
   const storageKey = `shengjiang-workbench:${config.id || "default"}:v1`;
   const statuses = {
     tasks: ["todo", "doing", "done"],
+    calendar: ["scheduled", "done"],
     inbox: ["new", "sorted"],
+    habits: ["active", "done"],
     projects: ["planned", "active", "done"],
+    journal: ["draft", "reviewed"],
     knowledge: ["new", "reviewed"],
     content: ["idea", "draft", "review", "published"],
     meetings: ["open", "actioned"],
     metrics: ["recorded", "reviewed"],
+    health: ["recorded", "reviewed"],
+    finance: ["planned", "recorded"],
+    home: ["todo", "doing", "done"],
     custom: ["new", "doing", "done"],
   };
   const statusLabels = {
     todo: "待办", doing: "进行中", done: "已完成",
+    scheduled: "已安排",
     new: "待整理", sorted: "已整理",
     planned: "待开始", active: "推进中",
     reviewed: "已复盘", idea: "想法", draft: "草稿",
@@ -25,6 +32,10 @@
   };
 
   const $ = (selector) => document.querySelector(selector);
+  const localDateKey = (date = new Date()) => {
+    const offset = date.getTimezoneOffset() * 60_000;
+    return new Date(date.getTime() - offset).toISOString().slice(0, 10);
+  };
   const escapeHtml = (value = "") => String(value)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -41,6 +52,8 @@
         title: item.title || "未命名",
         note: item.note || "",
         status: item.status || (statuses[module.type] || statuses.custom)[0],
+        date: item.date || "",
+        completion_dates: Array.isArray(item.completion_dates) ? item.completion_dates : [],
         created_at: item.created_at || new Date().toISOString(),
       }));
     });
@@ -74,12 +87,18 @@
   const iconSvg = (name) => {
     const paths = {
       tasks: '<path d="m9 11 2 2 4-5"/><path d="M5 4h14v16H5z"/>',
+      calendar: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
       inbox: '<path d="M4 5h16v13H4z"/><path d="M4 14h5l2 2h2l2-2h5"/>',
+      habits: '<path d="M6 13c2.5-5 8-7 12-5-1 6-5 10-11 10"/><path d="M5 20c1-4 4-7 9-10"/>',
       projects: '<path d="M4 7h6l2 2h8v10H4z"/>',
+      journal: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/>',
       knowledge: '<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M8 4v16"/>',
       content: '<path d="M4 20h4l11-11-4-4L4 16z"/><path d="m13 7 4 4"/>',
       meetings: '<circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/>',
       metrics: '<path d="M5 19V9M12 19V5M19 19v-7"/>',
+      health: '<path d="M12 20s-7-4.2-7-9a4 4 0 0 1 7-2.7A4 4 0 0 1 19 11c0 4.8-7 9-7 9z"/><path d="M8 13h2l1-3 2 6 1-3h2"/>',
+      finance: '<circle cx="12" cy="12" r="8"/><path d="M9 10c0-1 1-2 3-2s3 1 3 2-1 2-3 2-3 1-3 2 1 2 3 2 3-1 3-2M12 6v12"/>',
+      home: '<path d="m4 11 8-7 8 7"/><path d="M6 10v10h12V10M10 20v-6h4v6"/>',
       custom: '<rect x="5" y="5" width="14" height="14" rx="2"/>',
       search: '<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>',
       assistant: '<path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4z"/><path d="m18 15 .7 2.3L21 18l-2.3.7L18 21l-.7-2.3L15 18l2.3-.7z"/>',
@@ -129,6 +148,13 @@
     (state.data[module.id] || []).map((item) => ({ ...item, module }))
   );
 
+  const habitDoneToday = (item) => (item.completion_dates || []).includes(localDateKey());
+
+  const displayStatus = (module, item) => {
+    if (module.type === "habits") return habitDoneToday(item) ? "今日已打卡" : "今日待打卡";
+    return statusLabels[item.status] || item.status;
+  };
+
   const renderDashboardIntro = (module) => {
     if (module.id !== modules[0]?.id) return "";
     const items = allItems();
@@ -136,6 +162,27 @@
     const todayItems = state.data[module.id] || [];
     const todayDone = todayItems.filter((item) => item.status === "done").length;
     const todayProgress = todayItems.length ? Math.round((todayDone / todayItems.length) * 100) : 0;
+    const calendarModule = modules.find((item) => item.type === "calendar");
+    const habitsModule = modules.find((item) => item.type === "habits");
+    const inboxModule = modules.find((item) => item.type === "inbox");
+    const calendarItems = calendarModule ? state.data[calendarModule.id] || [] : [];
+    const datedToday = calendarItems.filter((item) => item.date === localDateKey()).length;
+    const unscheduled = calendarItems.filter((item) => !item.date && item.status !== "done").length;
+    const habitItems = habitsModule ? state.data[habitsModule.id] || [] : [];
+    const habitsDone = habitItems.filter(habitDoneToday).length;
+    const inboxOpen = inboxModule
+      ? (state.data[inboxModule.id] || []).filter((item) => item.status !== "sorted").length
+      : 0;
+    const hasDailyLifeModules = Boolean(calendarModule || habitsModule);
+    const stats = hasDailyLifeModules ? `
+        <div class="stat"><strong>${datedToday}</strong><span>今日日程${unscheduled ? ` · ${unscheduled} 条待排期` : ""}</span></div>
+        <div class="stat"><strong>${habitsDone}/${habitItems.length}</strong><span>今日习惯</span></div>
+        <div class="stat"><strong>${inboxOpen}</strong><span>收集箱待确认</span></div>
+    ` : `
+        <div class="stat"><strong>${todayItems.length}</strong><span>今日任务</span></div>
+        <div class="stat"><strong>${items.length - completed}</strong><span>待处理内容</span></div>
+        <div class="stat"><strong>${completed}</strong><span>累计完成与复盘</span></div>
+    `;
     return `
       <section class="dashboard-head">
         <div>
@@ -148,9 +195,7 @@
         </div>
       </section>
       <section class="stats">
-        <div class="stat"><strong>${todayItems.length}</strong><span>今日任务</span></div>
-        <div class="stat"><strong>${items.length - completed}</strong><span>待处理内容</span></div>
-        <div class="stat"><strong>${completed}</strong><span>累计完成与复盘</span></div>
+        ${stats}
       </section>
     `;
   };
@@ -170,8 +215,9 @@
         <p>${escapeHtml(item.note || "暂无补充说明")}</p>
         <div class="card-meta">
           <button class="status" type="button" data-cycle="${escapeHtml(item.id)}" data-module="${escapeHtml(module.id)}">
-            ${escapeHtml(statusLabels[item.status] || item.status)}
+            ${escapeHtml(displayStatus(module, item))}
           </button>
+          ${item.date ? `<small class="date-badge">${escapeHtml(item.date)}</small>` : ""}
           <small>${new Date(item.created_at).toLocaleDateString("zh-CN")}</small>
         </div>
       </article>
@@ -232,7 +278,7 @@
       <section class="panel search-panel">
         <p class="eyebrow">GLOBAL SEARCH</p>
         <h2>全局搜索</h2>
-        <p>从所有模块中查找任务、文章、错题、笔记和收集内容。</p>
+        <p>从所有模块中查找任务、日程、笔记、资料和收集内容。</p>
       </section>
       <div class="section-heading">
         <div>
@@ -253,20 +299,42 @@
     `;
   };
 
+  const assistantPrompts = () => {
+    if (modules.some((module) => ["vocabulary", "mistakes", "practice"].includes(module.id))) {
+      return [
+        "生成一篇雅思阅读并标注重点词汇",
+        "分析错题本里最薄弱的三个知识点",
+        "根据今日完成情况生成复盘",
+        "整理收集箱并建议归档模块",
+      ];
+    }
+    if (modules.some((module) => module.type === "content")) {
+      return [
+        "把收集箱里的灵感整理成三个选题",
+        "根据对标资料提炼可复用结构",
+        "检查这篇文案有没有 AI 味",
+        "根据发布数据生成下一步实验",
+      ];
+    }
+    return [
+      "把收集箱整理成任务、资料和可删除内容",
+      "结合日程和习惯，给我一个现实的今日安排",
+      "把一个大目标拆成这周能完成的下一步",
+      "根据本周记录生成一份不评判的复盘",
+    ];
+  };
+
   const renderAssistant = () => `
     <section class="assistant-hero">
       <div class="assistant-mark">${iconSvg("assistant")}</div>
       <p class="eyebrow">AI ASSISTANT</p>
       <h2>你的工作台 AI 助手</h2>
-      <p>可以继续接入模型 API，用于生成阅读、分析数据、复盘会议或整理收集箱。本地演示版不会把密钥写在网页里。</p>
+      <p>可以继续接入模型 API，用于安排今天、拆解目标、整理收集箱和生成复盘。所有写入动作都应该先预览，再由你确认。</p>
     </section>
     <section class="panel">
       <h2>你可以这样问</h2>
       <div class="prompt-grid">
-        <button type="button" data-ai-placeholder>生成一篇雅思阅读并标注重点词汇</button>
-        <button type="button" data-ai-placeholder>分析错题本里最薄弱的三个知识点</button>
-        <button type="button" data-ai-placeholder>根据今日完成情况生成复盘</button>
-        <button type="button" data-ai-placeholder>整理收集箱并建议归档模块</button>
+        ${assistantPrompts().map((prompt) => `<button type="button" data-ai-placeholder>${escapeHtml(prompt)}</button>`).join("")}
       </div>
       <label class="assistant-input">
         <textarea rows="4" placeholder="输入你想让 AI 完成的任务"></textarea>
@@ -303,6 +371,8 @@
     $("#composerTitle").textContent = `新增到${module.title}`;
     $("#itemTitle").value = "";
     $("#itemNote").value = "";
+    $("#itemDate").value = "";
+    $("#itemDateField").hidden = module.type !== "calendar";
     $("#composer").showModal();
     $("#itemTitle").focus();
   };
@@ -311,6 +381,17 @@
     const module = modules.find((item) => item.id === moduleId);
     const item = (state.data[moduleId] || []).find((entry) => entry.id === itemId);
     if (!module || !item) return;
+    if (module.type === "habits") {
+      const today = localDateKey();
+      const dates = Array.isArray(item.completion_dates) ? item.completion_dates : [];
+      item.completion_dates = dates.includes(today)
+        ? dates.filter((date) => date !== today)
+        : [...dates, today];
+      item.status = item.completion_dates.includes(today) ? "done" : "active";
+      save();
+      render();
+      return;
+    }
     const options = statuses[module.type] || statuses.custom;
     item.status = options[(options.indexOf(item.status) + 1) % options.length];
     save();
@@ -391,6 +472,8 @@
       title: $("#itemTitle").value.trim(),
       note: $("#itemNote").value.trim(),
       status: options[0],
+      date: module?.type === "calendar" ? $("#itemDate").value : "",
+      completion_dates: [],
       created_at: new Date().toISOString(),
     };
     if (!item.title) return;

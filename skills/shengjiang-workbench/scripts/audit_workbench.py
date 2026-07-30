@@ -19,12 +19,18 @@ REQUIRED_FILES = {
 }
 SUPPORTED_TYPES = {
     "tasks",
+    "calendar",
     "inbox",
+    "habits",
     "projects",
+    "journal",
     "knowledge",
     "content",
     "meetings",
     "metrics",
+    "health",
+    "finance",
+    "home",
     "custom",
 }
 SECRET_PATTERNS = {

@@ -14,29 +14,129 @@ SKILL_ROOT = Path(__file__).resolve().parents[1]
 RUNTIME_ROOT = SKILL_ROOT / "assets" / "runtime"
 SUPPORTED_TYPES = {
     "tasks",
+    "calendar",
     "inbox",
+    "habits",
     "projects",
+    "journal",
     "knowledge",
     "content",
     "meetings",
     "metrics",
+    "health",
+    "finance",
+    "home",
     "custom",
 }
 
 
 PRESETS: dict[str, dict[str, Any]] = {
     "personal": {
-        "name": "我的个人工作台",
+        "name": "我的日常工作台",
         "owner": "本地用户",
-        "persona": "个人效率",
-        "primary_goal": "把任务、资料和项目放进一个清晰的系统",
+        "persona": "DAILY LIFE WORKBENCH",
+        "primary_goal": "把今天要做的事、日程、习惯和生活记录放进一个轻量系统",
         "accent": "#2f6b57",
         "modules": [
-            {"id": "today", "title": "今日", "type": "tasks", "description": "今天最重要的行动"},
-            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "承接零散输入"},
-            {"id": "projects", "title": "项目", "type": "projects", "description": "跟踪目标和下一步"},
-            {"id": "knowledge", "title": "知识与资料", "type": "knowledge", "description": "保存可复用资料"},
+            {
+                "id": "today",
+                "title": "今日",
+                "type": "tasks",
+                "group": "今天",
+                "description": "只放今天真正要推进的下一步",
+            },
+            {
+                "id": "calendar",
+                "title": "日历",
+                "type": "calendar",
+                "group": "今天",
+                "description": "查看预约、截止日和本周节奏",
+            },
+            {
+                "id": "inbox",
+                "title": "收集箱",
+                "type": "inbox",
+                "group": "日常",
+                "description": "先接住想法、截图、链接和提醒，再决定是否变成计划",
+            },
+            {
+                "id": "habits",
+                "title": "习惯",
+                "type": "habits",
+                "group": "日常",
+                "description": "记录今天是否完成，不制造额外压力",
+            },
+            {
+                "id": "goals",
+                "title": "目标与项目",
+                "type": "projects",
+                "group": "长期",
+                "description": "把长期目标拆成当前项目和明确下一步",
+            },
+            {
+                "id": "journal",
+                "title": "记录与复盘",
+                "type": "journal",
+                "group": "长期",
+                "description": "留下心情、发生的事和可复用的经验",
+            },
         ],
+        "starter_items": {
+            "today": [
+                {
+                    "title": "确认今天最重要的一件事",
+                    "status": "doing",
+                    "note": "只写一个可以立刻开始的动作",
+                },
+                {
+                    "title": "处理一条收集箱内容",
+                    "status": "todo",
+                    "note": "决定：删除、保存，还是变成行动",
+                },
+            ],
+            "calendar": [
+                {
+                    "title": "本周回顾",
+                    "status": "scheduled",
+                    "note": "回看完成、调整和暂停的事情",
+                }
+            ],
+            "inbox": [
+                {
+                    "title": "把脑子里惦记的一件事先记下来",
+                    "status": "new",
+                    "note": "先收集，不要求它立刻变成任务",
+                }
+            ],
+            "habits": [
+                {
+                    "title": "活动身体 20 分钟",
+                    "status": "active",
+                    "note": "散步、拉伸或运动都算",
+                    "completion_dates": [],
+                },
+                {
+                    "title": "睡前离开屏幕 30 分钟",
+                    "status": "active",
+                    "note": "根据自己的作息调整",
+                    "completion_dates": [],
+                },
+            ],
+            "goals": [
+                {
+                    "title": "写下这个月真正想推进的一个目标",
+                    "status": "planned",
+                    "note": "补充一个本周就能完成的下一步",
+                }
+            ],
+            "journal": [
+                {
+                    "title": "今天发生了什么？",
+                    "status": "draft",
+                    "note": "记录一件事、一个感受和一个明天想调整的地方",
+                }
+            ],
+        },
     },
     "creator": {
         "name": "我的内容工作台",

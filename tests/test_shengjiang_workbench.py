@@ -94,6 +94,38 @@ class ShengjiangWorkbenchTests(unittest.TestCase):
             self.assertEqual(payload["status"], "healthy")
             self.assertEqual(payload["summary"]["P0"], 0)
 
+    def test_personal_preset_is_a_daily_life_workbench(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / "personal"
+            result = run(
+                BUILD_SCRIPT,
+                "--preset",
+                "personal",
+                "--output",
+                str(output),
+                "--apply",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            config = json.loads((output / "workbench.json").read_text(encoding="utf-8"))
+            self.assertEqual(config["name"], "我的日常工作台")
+            self.assertEqual(
+                [module["id"] for module in config["modules"]],
+                ["today", "calendar", "inbox", "habits", "goals", "journal"],
+            )
+            self.assertEqual(
+                [module["type"] for module in config["modules"]],
+                ["tasks", "calendar", "inbox", "habits", "projects", "journal"],
+            )
+            app = (output / "app.js").read_text(encoding="utf-8")
+            self.assertIn("habitDoneToday", app)
+            self.assertIn("item.completion_dates", app)
+            self.assertIn('module?.type === "calendar"', app)
+            self.assertIn("所有写入动作都应该先预览", app)
+            index = (output / "index.html").read_text(encoding="utf-8")
+            self.assertIn('id="itemDate"', index)
+            audit = run(AUDIT_SCRIPT, "--root", str(output), "--format", "json")
+            self.assertEqual(audit.returncode, 0, audit.stdout)
+
     def test_study_preset_matches_benchmark_information_architecture(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / "study"
@@ -242,6 +274,7 @@ class ShengjiangWorkbenchTests(unittest.TestCase):
         self.assertIn("不知道自己需要哪些模块", prompts)
         self.assertIn("手机电脑数据同步", prompts)
         self.assertIn("空壳", prompts)
+        self.assertIn("普通人每天都能用", prompts)
 
 
 if __name__ == "__main__":
