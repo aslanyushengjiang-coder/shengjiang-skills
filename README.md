@@ -10,6 +10,7 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
+| [`shengjiang-workbench`](skills/shengjiang-workbench/) | 访谈需求、规划模块并生成能在本地运行和持续迭代的个人 AI 工作台 | v0.8.0 |
 
 ## shengjiang-research
 
@@ -92,6 +93,37 @@ python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-con
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
   --skill shengjiang-knowledge \
   -y
+```
+
+## shengjiang-workbench
+
+它不是一份固定的“同款提示词”。Skill 会先判断用户真正的工作流程，再规划模块、生成本地可运行初版、检查结构，并根据截图或反馈继续迭代。
+
+首版支持：
+
+- `personal`、`creator`、`study`、`product` 四类快速场景；
+- 内置个人信息填写表、一键生成提示词和长期维护升级指令；
+- 自定义需求画像和 3–10 个模块；
+- 新增、删除、状态流转和全局搜索；
+- 浏览器本地保存；
+- JSON 导入、导出和备份；
+- 结构健康检查与疑似密钥扫描。
+
+云同步、登录、多人协作和真实 AI API 属于可选升级，不包含在纯本地版里。
+
+安装：
+
+```bash
+npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
+  --skill shengjiang-workbench \
+  -y
+```
+
+安装后可以直接说：
+
+```text
+调用 shengjiang-workbench，先判断我做自媒体需要哪些模块，
+再给我生成一个能在本地直接打开、可以持续修改的个人 AI 工作台。
 ```
 
 ## 开源标准
