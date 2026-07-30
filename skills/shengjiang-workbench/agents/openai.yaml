@@ -1,0 +1,4 @@
+interface:
+  display_name: "生姜 AI 工作台"
+  short_description: "访谈需求并生成可运行、可持续迭代的个人 AI 工作台"
+  default_prompt: "使用 $shengjiang-workbench 访谈我的需求，并搭建一个能在本地直接运行的个人 AI 工作台。"

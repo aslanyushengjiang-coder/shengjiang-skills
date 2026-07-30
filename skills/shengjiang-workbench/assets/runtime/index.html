@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>个人 AI 工作台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">S</span>
+          <div>
+            <strong id="brandName">个人 AI 工作台</strong>
+            <small id="brandOwner">本地工作台</small>
+          </div>
+        </div>
+        <nav id="navigation" aria-label="工作台模块"></nav>
+        <button class="nav-item subtle" type="button" data-route="settings">
+          <span>⚙</span><span>设置与数据</span>
+        </button>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <button id="menuButton" class="icon-button menu-button" type="button" aria-label="打开菜单">☰</button>
+          <div>
+            <p class="eyebrow" id="personaLabel">PERSONAL WORKBENCH</p>
+            <h1 id="pageTitle">今日</h1>
+          </div>
+          <label class="search">
+            <span>⌕</span>
+            <input id="globalSearch" type="search" placeholder="搜索整个工作台" />
+          </label>
+        </header>
+
+        <section id="content" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <dialog id="composer">
+      <form id="composerForm" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">NEW ITEM</p>
+            <h2 id="composerTitle">新增内容</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-dialog aria-label="关闭">×</button>
+        </div>
+        <input id="composerModule" type="hidden" />
+        <label>
+          标题
+          <input id="itemTitle" name="title" required maxlength="120" placeholder="写清楚下一步要做什么" />
+        </label>
+        <label>
+          补充说明
+          <textarea id="itemNote" name="note" rows="4" maxlength="1000" placeholder="可以留空"></textarea>
+        </label>
+        <div class="dialog-actions">
+          <button class="button secondary" type="button" data-close-dialog>取消</button>
+          <button class="button primary" type="submit">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <input id="importFile" type="file" accept="application/json,.json" hidden />
+    <div id="toast" class="toast" role="status"></div>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "name": "我的内容工作台",
+  "owner": "示例用户",
+  "persona": "自媒体创作者",
+  "primary_goal": "把调研、选题、脚本、发布和复盘放进一个工作台",
+  "accent": "#2f6b57",
+  "modules": [
+    {
+      "id": "today",
+      "title": "今日",
+      "type": "tasks",
+      "description": "只看今天最重要的行动"
+    },
+    {
+      "id": "inbox",
+      "title": "收集箱",
+      "type": "inbox",
+      "description": "承接零散灵感、链接和待整理资料"
+    },
+    {
+      "id": "topics",
+      "title": "选题池",
+      "type": "content",
+      "description": "管理选题从想法到发布的状态"
+    },
+    {
+      "id": "benchmarks",
+      "title": "对标调研",
+      "type": "knowledge",
+      "description": "保存对标账号、作品和可复用结论"
+    },
+    {
+      "id": "metrics",
+      "title": "数据复盘",
+      "type": "metrics",
+      "description": "记录发布数据、观察和下一步实验"
+    }
+  ],
+  "starter_items": {
+    "today": [
+      {
+        "title": "填写第一条今日任务",
+        "status": "todo",
+        "note": "完成后点击状态按钮"
+      }
+    ],
+    "inbox": [
+      {
+        "title": "把一个零散想法放进来",
+        "status": "new",
+        "note": "整理后移动到对应模块"
+      }
+    ]
+  }
+}

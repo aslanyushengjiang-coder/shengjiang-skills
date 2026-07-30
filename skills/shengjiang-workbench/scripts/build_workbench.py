@@ -1,0 +1,252 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+import re
+import shutil
+import sys
+from typing import Any
+
+
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+RUNTIME_ROOT = SKILL_ROOT / "assets" / "runtime"
+SUPPORTED_TYPES = {
+    "tasks",
+    "inbox",
+    "projects",
+    "knowledge",
+    "content",
+    "meetings",
+    "metrics",
+    "custom",
+}
+
+
+PRESETS: dict[str, dict[str, Any]] = {
+    "personal": {
+        "name": "我的个人工作台",
+        "owner": "本地用户",
+        "persona": "个人效率",
+        "primary_goal": "把任务、资料和项目放进一个清晰的系统",
+        "accent": "#2f6b57",
+        "modules": [
+            {"id": "today", "title": "今日", "type": "tasks", "description": "今天最重要的行动"},
+            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "承接零散输入"},
+            {"id": "projects", "title": "项目", "type": "projects", "description": "跟踪目标和下一步"},
+            {"id": "knowledge", "title": "知识与资料", "type": "knowledge", "description": "保存可复用资料"},
+        ],
+    },
+    "creator": {
+        "name": "我的内容工作台",
+        "owner": "内容创作者",
+        "persona": "自媒体创作",
+        "primary_goal": "把调研、选题、脚本、发布和复盘放进一个系统",
+        "accent": "#cc5d36",
+        "modules": [
+            {"id": "today", "title": "今日", "type": "tasks", "description": "今天最重要的内容任务"},
+            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "灵感、链接和待整理资料"},
+            {"id": "topics", "title": "选题与内容", "type": "content", "description": "从想法流转到发布"},
+            {"id": "benchmarks", "title": "对标调研", "type": "knowledge", "description": "保存对标与可复用结论"},
+            {"id": "metrics", "title": "数据复盘", "type": "metrics", "description": "记录真实数据和下一步实验"},
+        ],
+    },
+    "study": {
+        "name": "我的学习工作台",
+        "owner": "学习者",
+        "persona": "学习与复习",
+        "primary_goal": "把计划、阅读、练习和复习组织成持续循环",
+        "accent": "#3768a6",
+        "modules": [
+            {"id": "today", "title": "今日学习", "type": "tasks", "description": "今天的学习计划"},
+            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "待整理资料和问题"},
+            {"id": "reading", "title": "每日阅读", "type": "knowledge", "description": "阅读材料、摘要和状态"},
+            {"id": "mistakes", "title": "错题本", "type": "knowledge", "description": "错题原因和复习记录"},
+            {"id": "practice", "title": "习题练习", "type": "tasks", "description": "练习与正确率改进"},
+        ],
+    },
+    "product": {
+        "name": "我的产品工作台",
+        "owner": "产品经理",
+        "persona": "产品与项目",
+        "primary_goal": "让需求、项目、会议和用户反馈保持在同一条链路",
+        "accent": "#7657a8",
+        "modules": [
+            {"id": "today", "title": "今日", "type": "tasks", "description": "当前优先事项"},
+            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "临时需求和反馈"},
+            {"id": "projects", "title": "项目", "type": "projects", "description": "目标、进度和下一步"},
+            {"id": "requirements", "title": "需求池", "type": "projects", "description": "需求价值、阶段和决策"},
+            {"id": "meetings", "title": "会议", "type": "meetings", "description": "决议和行动项"},
+            {"id": "metrics", "title": "数据复盘", "type": "metrics", "description": "指标、结论和实验"},
+        ],
+    },
+}
+
+
+def slugify(value: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+    return slug or "personal-workbench"
+
+
+def load_profile(profile_path: Path | None, preset: str | None) -> dict[str, Any]:
+    if profile_path:
+        try:
+            payload = json.loads(profile_path.read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            raise ValueError(f"需求画像不存在：{profile_path}")
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"需求画像不是有效 JSON：{exc}")
+        if not isinstance(payload, dict):
+            raise ValueError("需求画像顶层必须是 JSON 对象")
+        return payload
+    if preset:
+        return json.loads(json.dumps(PRESETS[preset], ensure_ascii=False))
+    raise ValueError("必须提供 --profile 或 --preset")
+
+
+def validate_profile(profile: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    name = profile.get("name")
+    modules = profile.get("modules")
+    if not isinstance(name, str) or not name.strip():
+        errors.append("name 必须是非空字符串")
+    if not isinstance(modules, list) or not 3 <= len(modules) <= 10:
+        errors.append("modules 必须包含 3–10 个模块")
+        return errors
+    seen: set[str] = set()
+    for index, module in enumerate(modules, start=1):
+        if not isinstance(module, dict):
+            errors.append(f"第 {index} 个模块必须是对象")
+            continue
+        module_id = module.get("id")
+        title = module.get("title")
+        module_type = module.get("type", "custom")
+        if not isinstance(module_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,39}", module_id):
+            errors.append(f"第 {index} 个模块 id 只能使用小写字母、数字和连字符")
+        elif module_id in seen:
+            errors.append(f"模块 id 重复：{module_id}")
+        else:
+            seen.add(module_id)
+        if not isinstance(title, str) or not title.strip():
+            errors.append(f"第 {index} 个模块缺少 title")
+        if module_type not in SUPPORTED_TYPES:
+            errors.append(f"模块 {module_id or index} 的类型不支持：{module_type}")
+    accent = profile.get("accent", "#2f6b57")
+    if not isinstance(accent, str) or not re.fullmatch(r"#[0-9a-fA-F]{6}", accent):
+        errors.append("accent 必须是六位十六进制颜色，例如 #2f6b57")
+    starter = profile.get("starter_items", {})
+    if not isinstance(starter, dict):
+        errors.append("starter_items 必须是对象")
+    elif any(key not in seen for key in starter):
+        errors.append("starter_items 只能引用已声明的模块 id")
+    return errors
+
+
+def normalized_config(profile: dict[str, Any]) -> dict[str, Any]:
+    config = {
+        "version": 1,
+        "id": slugify(str(profile.get("id") or profile["name"])),
+        "name": profile["name"].strip(),
+        "owner": str(profile.get("owner") or "本地用户").strip(),
+        "persona": str(profile.get("persona") or "个人工作台").strip(),
+        "primary_goal": str(profile.get("primary_goal") or "把重要工作放进一个清晰的系统").strip(),
+        "accent": profile.get("accent", "#2f6b57"),
+        "modules": [],
+        "starter_items": profile.get("starter_items", {}),
+    }
+    for module in profile["modules"]:
+        config["modules"].append(
+            {
+                "id": module["id"],
+                "title": module["title"].strip(),
+                "type": module.get("type", "custom"),
+                "description": str(module.get("description") or "").strip(),
+            }
+        )
+    return config
+
+
+def guide_text(config: dict[str, Any]) -> str:
+    return f"""# {config['name']}使用说明
+
+## 打开
+
+双击 `index.html`，或把它拖进浏览器。
+
+## 数据保存
+
+当前版本的数据保存在当前浏览器的本地存储中。刷新页面不会丢失，但清理浏览器数据、换浏览器或换设备不会自动同步。
+
+请定期进入“设置与数据”，点击“导出备份”。需要恢复时使用“导入备份”。
+
+## 当前模块
+
+{chr(10).join(f"- {module['title']}：{module['description']}" for module in config['modules'])}
+
+## 暂未包含
+
+- 云同步；
+- 账号登录；
+- 多人协作；
+- 真实 AI API。
+
+增加这些能力时需要后端或第三方服务。API Key 禁止写入网页文件。
+"""
+
+
+def build(config: dict[str, Any], output: Path, apply: bool) -> int:
+    files = ["index.html", "styles.css", "app.js", "config.js", "workbench.json", "使用说明.md"]
+    print(f"Mode: {'APPLY' if apply else 'PREVIEW'}")
+    print(f"Workbench: {config['name']}")
+    print(f"Output: {output}")
+    print("Modules: " + "、".join(module["title"] for module in config["modules"]))
+    print("Files: " + "、".join(files))
+    if not apply:
+        print("No files were written. Re-run with --apply to generate.")
+        return 0
+    if output.exists() and any(output.iterdir()):
+        print(f"ERROR: 输出目录不是空目录，拒绝覆盖：{output}", file=sys.stderr)
+        return 2
+    output.mkdir(parents=True, exist_ok=True)
+    for runtime_file in ("index.html", "styles.css", "app.js"):
+        shutil.copy2(RUNTIME_ROOT / runtime_file, output / runtime_file)
+    serialized = json.dumps(config, ensure_ascii=False, indent=2)
+    (output / "workbench.json").write_text(serialized + "\n", encoding="utf-8")
+    (output / "config.js").write_text(
+        "window.WORKBENCH_CONFIG = " + serialized + ";\n",
+        encoding="utf-8",
+    )
+    (output / "使用说明.md").write_text(guide_text(config), encoding="utf-8")
+    print("Generated successfully.")
+    return 0
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="生成本地优先的个人 AI 工作台")
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--profile", type=Path, help="需求画像 JSON")
+    source.add_argument("--preset", choices=sorted(PRESETS), help="内置场景")
+    parser.add_argument("--output", type=Path, required=True, help="输出目录")
+    parser.add_argument("--apply", action="store_true", help="真正写入；默认只预览")
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
+    try:
+        profile = load_profile(args.profile, args.preset)
+    except ValueError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+    errors = validate_profile(profile)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 2
+    output = args.output.expanduser().resolve()
+    return build(normalized_config(profile), output, args.apply)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
