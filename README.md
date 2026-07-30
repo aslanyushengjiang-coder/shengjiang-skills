@@ -102,6 +102,7 @@ npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
 首版支持：
 
 - `personal`、`creator`、`study`、`product` 四类快速场景；
+- 内置个人信息填写表、一键生成提示词和长期维护升级指令；
 - 自定义需求画像和 3–10 个模块；
 - 新增、删除、状态流转和全局搜索；
 - 浏览器本地保存；

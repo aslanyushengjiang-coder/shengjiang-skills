@@ -17,10 +17,19 @@
             <small id="brandOwner">本地工作台</small>
           </div>
         </div>
+        <button class="sidebar-new" type="button" data-add-active>＋ 新建</button>
         <nav id="navigation" aria-label="工作台模块"></nav>
-        <button class="nav-item subtle" type="button" data-route="settings">
-          <span>⚙</span><span>设置与数据</span>
-        </button>
+        <nav class="utility-navigation" aria-label="工作台工具">
+          <button class="nav-item subtle" type="button" data-route="search">
+            <span><svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg></span><span>全局搜索</span>
+          </button>
+          <button class="nav-item subtle" type="button" data-route="assistant">
+            <span><svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4z"/><path d="m18 15 .7 2.3L21 18l-2.3.7L18 21l-.7-2.3L15 18l2.3-.7z"/></svg></span><span>AI 助手</span>
+          </button>
+          <button class="nav-item subtle" type="button" data-route="settings">
+            <span><svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1A7 7 0 0 0 15 6l-.3-2.6h-4L10.5 6A7 7 0 0 0 9 7.1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1A7 7 0 0 0 10.5 18l.3 2.6h4L15 18a7 7 0 0 0 1.5-1.1l2.4 1 2-3.4-2-1.5a7 7 0 0 0 .1-1z"/></svg></span><span>设置与数据</span>
+          </button>
+        </nav>
       </aside>
 
       <main class="main">
@@ -31,7 +40,7 @@
             <h1 id="pageTitle">今日</h1>
           </div>
           <label class="search">
-            <span>⌕</span>
+            <span><svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg></span>
             <input id="globalSearch" type="search" placeholder="搜索整个工作台" />
           </label>
         </header>
@@ -39,6 +48,8 @@
         <section id="content" class="content" aria-live="polite"></section>
       </main>
     </div>
+
+    <nav id="mobileNavigation" class="mobile-navigation" aria-label="手机端导航"></nav>
 
     <dialog id="composer">
       <form id="composerForm" method="dialog">

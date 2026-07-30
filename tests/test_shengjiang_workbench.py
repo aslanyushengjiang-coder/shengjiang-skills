@@ -29,13 +29,18 @@ class ShengjiangWorkbenchTests(unittest.TestCase):
         expected = [
             "SKILL.md",
             "agents/openai.yaml",
+            "assets/01-个人信息填写表.md",
+            "assets/02-一键生成提示词.md",
+            "assets/03-长期维护与云端同步升级指令.md",
             "assets/profile.example.json",
+            "assets/runtime/config.js",
             "assets/runtime/index.html",
             "assets/runtime/styles.css",
             "assets/runtime/app.js",
             "references/intake.md",
             "references/module-catalog.md",
             "references/quality-bar.md",
+            "references/reconstruction-notes.md",
             "references/upgrade-path.md",
             "scripts/build_workbench.py",
             "scripts/audit_workbench.py",
@@ -88,6 +93,38 @@ class ShengjiangWorkbenchTests(unittest.TestCase):
             payload = json.loads(audit.stdout)
             self.assertEqual(payload["status"], "healthy")
             self.assertEqual(payload["summary"]["P0"], 0)
+
+    def test_study_preset_matches_benchmark_information_architecture(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / "study"
+            result = run(
+                BUILD_SCRIPT,
+                "--preset",
+                "study",
+                "--output",
+                str(output),
+                "--apply",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            config = json.loads((output / "workbench.json").read_text(encoding="utf-8"))
+            self.assertEqual(config["name"], "雅思工作台")
+            self.assertEqual(
+                [module["title"] for module in config["modules"]],
+                [
+                    "今日",
+                    "单词本",
+                    "每日阅读",
+                    "错题本",
+                    "习题练习",
+                    "听力口语",
+                    "语法笔记",
+                    "收集箱",
+                ],
+            )
+            index = (output / "index.html").read_text(encoding="utf-8")
+            self.assertIn("全局搜索", index)
+            self.assertIn("AI 助手", index)
+            self.assertIn("mobileNavigation", index)
 
     def test_custom_profile_and_runtime_contract(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

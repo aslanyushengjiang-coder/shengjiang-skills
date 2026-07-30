@@ -53,18 +53,138 @@ PRESETS: dict[str, dict[str, Any]] = {
         ],
     },
     "study": {
-        "name": "我的学习工作台",
-        "owner": "学习者",
-        "persona": "学习与复习",
-        "primary_goal": "把计划、阅读、练习和复习组织成持续循环",
-        "accent": "#3768a6",
+        "name": "雅思工作台",
+        "owner": "个人学习系统",
+        "persona": "IELTS STUDY WORKBENCH",
+        "primary_goal": "把每日学习、阅读、错题和复习放进同一个系统",
+        "accent": "#2f6b57",
         "modules": [
-            {"id": "today", "title": "今日学习", "type": "tasks", "description": "今天的学习计划"},
-            {"id": "inbox", "title": "收集箱", "type": "inbox", "description": "待整理资料和问题"},
-            {"id": "reading", "title": "每日阅读", "type": "knowledge", "description": "阅读材料、摘要和状态"},
-            {"id": "mistakes", "title": "错题本", "type": "knowledge", "description": "错题原因和复习记录"},
-            {"id": "practice", "title": "习题练习", "type": "tasks", "description": "练习与正确率改进"},
+            {
+                "id": "today",
+                "title": "今日",
+                "type": "tasks",
+                "group": "今天",
+                "description": "今天最重要的学习任务和完成进度",
+            },
+            {
+                "id": "vocabulary",
+                "title": "单词本",
+                "type": "knowledge",
+                "group": "核心学习",
+                "description": "单词记忆、掌握状态和间隔复习",
+            },
+            {
+                "id": "reading",
+                "title": "每日阅读",
+                "type": "knowledge",
+                "group": "核心学习",
+                "description": "阅读材料、中文翻译、重点词汇和理解记录",
+            },
+            {
+                "id": "mistakes",
+                "title": "错题本",
+                "type": "knowledge",
+                "group": "核心学习",
+                "description": "错题原因、薄弱知识点和定期复习",
+            },
+            {
+                "id": "practice",
+                "title": "习题练习",
+                "type": "tasks",
+                "group": "核心学习",
+                "description": "练习计划、正确率和自动回收错题",
+            },
+            {
+                "id": "listening-speaking",
+                "title": "听力口语",
+                "type": "knowledge",
+                "group": "更多",
+                "description": "听力素材、跟读和口语练习记录",
+            },
+            {
+                "id": "grammar",
+                "title": "语法笔记",
+                "type": "knowledge",
+                "group": "更多",
+                "description": "语法知识点与简明解释",
+            },
+            {
+                "id": "inbox",
+                "title": "收集箱",
+                "type": "inbox",
+                "group": "更多",
+                "description": "承接零散资料并建议归入对应模块",
+            },
         ],
+        "starter_items": {
+            "today": [
+                {
+                    "title": "完成一篇每日阅读",
+                    "status": "doing",
+                    "note": "阅读文章、查看重点词汇并写一句摘要",
+                },
+                {
+                    "title": "复习 20 个薄弱单词",
+                    "status": "todo",
+                    "note": "优先复习“似会不会”的词",
+                },
+                {
+                    "title": "复盘 3 道主谓一致错题",
+                    "status": "done",
+                    "note": "完成后更新错题本状态",
+                },
+            ],
+            "vocabulary": [
+                {
+                    "title": "resilient",
+                    "status": "new",
+                    "note": "adj. 有韧性的；能迅速恢复的",
+                },
+                {
+                    "title": "decline",
+                    "status": "reviewed",
+                    "note": "n./v. 下降；衰退",
+                },
+            ],
+            "reading": [
+                {
+                    "title": "Urban Bee Decline",
+                    "status": "new",
+                    "note": "城市蜜蜂数量下降主题阅读；重点词：habitat、pollinators。",
+                },
+                {
+                    "title": "Remote Work Trends",
+                    "status": "reviewed",
+                    "note": "分析远程办公趋势并记录三个高频表达。",
+                },
+            ],
+            "mistakes": [
+                {
+                    "title": "He, along with his friends, ___ going to the cinema tonight.",
+                    "status": "new",
+                    "note": "你的答案：are；正确答案：is。along with 不改变主语单复数。",
+                },
+                {
+                    "title": "The number of students ___ increasing.",
+                    "status": "new",
+                    "note": "你的答案：are；正确答案：is。the number of 作主语时谓语用单数。",
+                },
+            ],
+            "practice": [
+                {
+                    "title": "主谓一致专项练习",
+                    "status": "doing",
+                    "note": "目标 10 题；答错后记录到错题本",
+                }
+            ],
+            "inbox": [
+                {
+                    "title": "一篇关于城市生态的英文文章",
+                    "status": "new",
+                    "note": "建议归入：每日阅读",
+                }
+            ],
+        },
     },
     "product": {
         "name": "我的产品工作台",
@@ -161,6 +281,7 @@ def normalized_config(profile: dict[str, Any]) -> dict[str, Any]:
                 "id": module["id"],
                 "title": module["title"].strip(),
                 "type": module.get("type", "custom"),
+                "group": str(module.get("group") or "工作台").strip(),
                 "description": str(module.get("description") or "").strip(),
             }
         )
