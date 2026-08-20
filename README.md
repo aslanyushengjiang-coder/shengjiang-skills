@@ -20,12 +20,13 @@
 - 招聘汇报：区分平台导出与 HR 台账的数据边界，生成招聘漏斗、岗位进度、渠道对比和管理层摘要。
 - 薪酬分析：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单。
 
-安装：
+在 WorkBuddy 对话框中发送：
 
-```bash
-npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill jiang-hr \
-  -y
+```text
+请帮我安装这个 Skill：
+https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/main/skills/jiang-hr
+
+安装完成后告诉我是否成功，并确认它包含“批量筛简历、招聘汇报、薪酬分析”三个模式。
 ```
 
 ## shengjiang-research

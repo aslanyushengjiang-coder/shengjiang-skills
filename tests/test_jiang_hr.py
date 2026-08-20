@@ -49,8 +49,12 @@ class JiangHrPackageTests(unittest.TestCase):
     def test_readme_has_one_install_entry(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("skills/jiang-hr/", readme)
-        self.assertIn("--skill jiang-hr", readme)
-        self.assertEqual(readme.count("--skill jiang-hr"), 1)
+        self.assertIn("在 WorkBuddy 对话框中发送", readme)
+        self.assertIn(
+            "https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/main/skills/jiang-hr",
+            readme,
+        )
+        self.assertNotIn("--skill jiang-hr", readme)
 
 
 if __name__ == "__main__":
