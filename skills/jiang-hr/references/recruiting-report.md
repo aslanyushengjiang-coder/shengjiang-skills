@@ -1,9 +1,4 @@
----
-name: jiang-recruiting-report
-description: Combines recruiting-platform exports, HR tracking tables, and existing report templates into an auditable recruiting funnel, job progress table, channel comparison, and management summary. Use for 招聘汇报、招聘漏斗、岗位进度、渠道对比、招聘周报 or 招聘月报.
----
-
-# 生姜招聘汇报
+# 招聘汇报
 
 ## 目标
 
@@ -35,17 +30,9 @@ description: Combines recruiting-platform exports, HR tracking tables, and exist
 4. 异常差额表：无法对账的岗位、渠道、节点和差额说明。
 5. 管理层摘要：关键结论、事实、推断、待确认、主要卡点和下周动作。
 
-## 边界
-
-- 不修改原始导出和台账；在新文件或新工作表中生成结果。
-- 不把推断写成事实，不为缺失节点编造数据。
-- 不自动联系候选人、调整岗位状态或修改招聘系统。
-- 对外分享前移除姓名、手机号、邮箱、证件号等个人信息。
-
 ## 验收
 
 - 总盘与岗位、渠道拆分能够对上；无法对上的差额单列。
 - 漏斗人数不应无解释地向后增加。
 - 转化率分母为 0 时显示“—”，不产生公式错误。
-- 事实、推断和待确认分开呈现。
-- 关键结论能够回指原始字段。
+- 事实、推断和待确认分开呈现，关键结论能够回指原始字段。

@@ -10,31 +10,21 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
-| [`jiang-resume-screening`](skills/jiang-resume-screening/) | 按岗位 JD 批量筛选简历，保留评分证据、二筛条件和横向对比 | v0.8.0 |
-| [`jiang-recruiting-report`](skills/jiang-recruiting-report/) | 合并平台导出与 HR 台账，生成招聘漏斗、岗位进度和渠道对比 | v0.8.0 |
-| [`jiang-payroll-analysis`](skills/jiang-payroll-analysis/) | 按考勤、绩效和奖金规则核算薪酬并集中检查异常 | v0.8.0 |
+| [`jiang-hr`](skills/jiang-hr/) | 一个安装包覆盖批量筛简历、招聘汇报和薪酬分析三种 HR 工作流 | v0.8.0 |
 
-## HR Skills
+## Jiang HR Skill 包
 
-三套 HR Skill 来自真实招聘、汇报和薪酬核算流程，统一遵守“原始材料 → AI 处理 → 人工审核 → 可见交付”：
+`jiang-hr` 来自真实招聘、汇报和薪酬核算流程，一次安装即可根据任务自动切换三种模式：
 
-- `jiang-resume-screening`：先核对 JD 和简历数量，再按统一口径评分；每个结论保留原文证据，新增硬条件时不覆盖第一轮结果。
-- `jiang-recruiting-report`：区分平台导出与 HR 台账的数据边界，生成可回指的漏斗、岗位进度、渠道对比和管理层摘要。
-- `jiang-payroll-analysis`：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单，不自动发薪或发送工资条。
+- 批量筛简历：核对 JD 和简历数量，统一评分，保留原文证据、第一轮结果、硬条件二筛和横向对比。
+- 招聘汇报：区分平台导出与 HR 台账的数据边界，生成招聘漏斗、岗位进度、渠道对比和管理层摘要。
+- 薪酬分析：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单。
 
-安装任意一套：
+安装：
 
 ```bash
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill jiang-resume-screening \
-  -y
-
-npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill jiang-recruiting-report \
-  -y
-
-npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill jiang-payroll-analysis \
+  --skill jiang-hr \
   -y
 ```
 
