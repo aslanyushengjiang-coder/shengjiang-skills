@@ -1,5 +1,5 @@
 ---
-name: shengjiang-resume-screening
+name: jiang-resume-screening
 description: Screens batches of resumes against a job description and produces an evidence-backed scorecard, tiering, hard-condition rescreening, and shortlist comparison. Use for 筛简历、批量简历初筛、候选人评分、二次筛选 or JD-to-resume matching. Results support human review and never make automatic hiring decisions.
 ---
 

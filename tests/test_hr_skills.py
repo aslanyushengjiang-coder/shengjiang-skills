@@ -5,9 +5,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = {
-    "shengjiang-resume-screening": ["不自动联系", "原文证据", "待确认"],
-    "shengjiang-recruiting-report": ["不修改原始", "数据来源", "异常差额"],
-    "shengjiang-payroll-analysis": ["不自动发薪", "敏感信息", "公式错误"],
+    "jiang-resume-screening": ["不自动联系", "原文证据", "待确认"],
+    "jiang-recruiting-report": ["不修改原始", "数据来源", "异常差额"],
+    "jiang-payroll-analysis": ["不自动发薪", "敏感信息", "公式错误"],
 }
 
 

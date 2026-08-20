@@ -2,7 +2,7 @@
 
 余生姜在真实业务中持续使用、测试和迭代的开源 AI Skills。
 
-系列统一使用 `shengjiang-*` 命名。这里不收集“看起来很厉害”的提示词；每个 Skill 都必须来自重复发生的真实任务，有明确输入、执行边界、输出结果和自动化验收。
+底层系统能力沿用 `shengjiang-*`，职业工作流使用更短的 `jiang-*`。这里不收集“看起来很厉害”的提示词；每个 Skill 都必须来自重复发生的真实任务，有明确输入、执行边界、输出结果和自动化验收。
 
 ## 系列目录
 
@@ -10,31 +10,31 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
-| [`shengjiang-resume-screening`](skills/shengjiang-resume-screening/) | 按岗位 JD 批量筛选简历，保留评分证据、二筛条件和横向对比 | v0.8.0 |
-| [`shengjiang-recruiting-report`](skills/shengjiang-recruiting-report/) | 合并平台导出与 HR 台账，生成招聘漏斗、岗位进度和渠道对比 | v0.8.0 |
-| [`shengjiang-payroll-analysis`](skills/shengjiang-payroll-analysis/) | 按考勤、绩效和奖金规则核算薪酬并集中检查异常 | v0.8.0 |
+| [`jiang-resume-screening`](skills/jiang-resume-screening/) | 按岗位 JD 批量筛选简历，保留评分证据、二筛条件和横向对比 | v0.8.0 |
+| [`jiang-recruiting-report`](skills/jiang-recruiting-report/) | 合并平台导出与 HR 台账，生成招聘漏斗、岗位进度和渠道对比 | v0.8.0 |
+| [`jiang-payroll-analysis`](skills/jiang-payroll-analysis/) | 按考勤、绩效和奖金规则核算薪酬并集中检查异常 | v0.8.0 |
 
 ## HR Skills
 
 三套 HR Skill 来自真实招聘、汇报和薪酬核算流程，统一遵守“原始材料 → AI 处理 → 人工审核 → 可见交付”：
 
-- `shengjiang-resume-screening`：先核对 JD 和简历数量，再按统一口径评分；每个结论保留原文证据，新增硬条件时不覆盖第一轮结果。
-- `shengjiang-recruiting-report`：区分平台导出与 HR 台账的数据边界，生成可回指的漏斗、岗位进度、渠道对比和管理层摘要。
-- `shengjiang-payroll-analysis`：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单，不自动发薪或发送工资条。
+- `jiang-resume-screening`：先核对 JD 和简历数量，再按统一口径评分；每个结论保留原文证据，新增硬条件时不覆盖第一轮结果。
+- `jiang-recruiting-report`：区分平台导出与 HR 台账的数据边界，生成可回指的漏斗、岗位进度、渠道对比和管理层摘要。
+- `jiang-payroll-analysis`：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单，不自动发薪或发送工资条。
 
 安装任意一套：
 
 ```bash
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill shengjiang-resume-screening \
+  --skill jiang-resume-screening \
   -y
 
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill shengjiang-recruiting-report \
+  --skill jiang-recruiting-report \
   -y
 
 npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
-  --skill shengjiang-payroll-analysis \
+  --skill jiang-payroll-analysis \
   -y
 ```
 

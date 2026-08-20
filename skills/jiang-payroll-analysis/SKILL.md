@@ -1,5 +1,5 @@
 ---
-name: shengjiang-payroll-analysis
+name: jiang-payroll-analysis
 description: Reconciles employee master data, attendance, performance results, bonus rules, and payroll templates to calculate an auditable payroll worksheet and flag missing data, ID mismatches, duplicates, negative values, and unusual changes. Use for 薪酬核算、工资核算、绩效奖金、提成计算、考勤合并 or 异常工资检查.
 ---
 

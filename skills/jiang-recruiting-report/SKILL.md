@@ -1,5 +1,5 @@
 ---
-name: shengjiang-recruiting-report
+name: jiang-recruiting-report
 description: Combines recruiting-platform exports, HR tracking tables, and existing report templates into an auditable recruiting funnel, job progress table, channel comparison, and management summary. Use for 招聘汇报、招聘漏斗、岗位进度、渠道对比、招聘周报 or 招聘月报.
 ---
 
