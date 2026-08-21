@@ -50,13 +50,6 @@ https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/codex/hr-workb
 只生成“薪酬核算.xlsx”，只保留一个工作表“薪酬汇总”；不要生成其他文件，也不要展示分析或计算过程。
 ```
 
-如果工作区已经有最终结果，不需要重新核算：
-
-```text
-调用薪酬分析 Skill。工作区里的《薪酬核算.xlsx》就是最终结果。
-不要读取原始材料，不要重新核算，不要调用表格工具，也不要生成新文件；直接返回现有文件。
-```
-
 ## shengjiang-research
 
 `shengjiang-research` 是从余生姜本地长期使用的全平台调研 Skill 开源出来的 API-first 版本。

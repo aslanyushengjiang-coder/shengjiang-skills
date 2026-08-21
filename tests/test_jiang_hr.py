@@ -32,19 +32,9 @@ class JiangHrPackageTests(unittest.TestCase):
         for term in ["Word 招聘进度周报", "总招聘漏斗", "岗位招聘漏斗", "渠道招聘漏斗", "高清 PNG", "招聘优化建议"]:
             self.assertIn(term, content)
 
-    def test_recruiting_report_can_reuse_approved_excel_results(self) -> None:
-        content = (SKILL / "references" / "recruiting-report.md").read_text(encoding="utf-8")
-        for term in ["已有 Excel 结果复用模式", "唯一获批结果源", "不重算公式", "不重新汇总台账", "不展示文件扫描"]:
-            self.assertIn(term, content)
-
     def test_payroll_defaults_to_one_clean_excel_summary(self) -> None:
         content = (SKILL / "references" / "payroll-analysis.md").read_text(encoding="utf-8")
         for term in ["薪酬核算.xlsx", "薪酬汇总", "不在文件名前加序号", "不追加“虚拟演示”", "不额外生成 Word"]:
-            self.assertIn(term, content)
-
-    def test_payroll_can_return_approved_excel_without_recalculation(self) -> None:
-        content = (SKILL / "references" / "payroll-analysis.md").read_text(encoding="utf-8")
-        for term in ["已有 Excel 结果复用模式", "唯一获批结果", "不调用 Sheet Agent", "不创建新文件", "直接返回"]:
             self.assertIn(term, content)
 
     def test_evals_cover_all_modes(self) -> None:
