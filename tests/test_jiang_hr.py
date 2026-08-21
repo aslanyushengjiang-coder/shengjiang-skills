@@ -42,6 +42,11 @@ class JiangHrPackageTests(unittest.TestCase):
         for term in ["薪酬核算.xlsx", "薪酬汇总", "不在文件名前加序号", "不追加“虚拟演示”", "不额外生成 Word"]:
             self.assertIn(term, content)
 
+    def test_payroll_can_return_approved_excel_without_recalculation(self) -> None:
+        content = (SKILL / "references" / "payroll-analysis.md").read_text(encoding="utf-8")
+        for term in ["已有 Excel 结果复用模式", "唯一获批结果", "不调用 Sheet Agent", "不创建新文件", "直接返回"]:
+            self.assertIn(term, content)
+
     def test_evals_cover_all_modes(self) -> None:
         payload = json.loads((SKILL / "evals" / "evals.json").read_text(encoding="utf-8"))
         self.assertEqual(payload["skill_name"], "jiang-hr")
