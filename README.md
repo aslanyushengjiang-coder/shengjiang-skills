@@ -10,23 +10,44 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
-| [`jiang-hr`](skills/jiang-hr/) | 一个安装包覆盖批量筛简历、招聘汇报和薪酬分析三种 HR 工作流 | v0.8.0 |
+| [`jiang-hr`](skills/jiang-hr/) | 一个安装包覆盖批量筛简历、招聘汇报和薪酬分析三种 HR 工作流 | v0.8.1 |
 
 ## Jiang HR Skill 包
 
 `jiang-hr` 来自真实招聘、汇报和薪酬核算流程，一次安装即可根据任务自动切换三种模式：
 
 - 批量筛简历：核对 JD 和简历数量，统一评分，保留原文证据、第一轮结果、硬条件二筛和横向对比。
-- 招聘汇报：区分平台导出与 HR 台账的数据边界，生成招聘漏斗、岗位进度、渠道对比和管理层摘要。
-- 薪酬分析：只使用用户提供的规则核算，缺失、工号冲突和金额异常集中进入待确认清单。
+- 招聘汇报：区分平台导出与 HR 台账的数据边界，默认生成带总盘、岗位、渠道漏斗图的 Word 招聘进度周报，并补充主要卡点、优化建议和下周动作。
+- 薪酬分析：只使用用户提供的规则核算，默认生成单工作表的 `薪酬核算.xlsx`，把汇总数字、逐人明细和异常说明放在同一页。
 
 在 WorkBuddy 对话框中发送：
 
 ```text
 请帮我安装这个 Skill：
-https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/main/skills/jiang-hr
+https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/codex/hr-workbuddy-skills/skills/jiang-hr
 
 安装完成后告诉我是否成功，并确认它包含“批量筛简历、招聘汇报、薪酬分析”三个模式。
+```
+
+招聘汇报可直接说：
+
+```text
+调用 HR 汇报 Skill，读取当前工作区材料，生成一份 Word 招聘进度周报。
+文档里插入总招聘漏斗、岗位漏斗、渠道漏斗图，并写上关键结论、招聘优化建议和下周动作。
+```
+
+如果 Excel 已经包含最终结果，可以直接要求复用，不再重算：
+
+```text
+调用 HR 汇报 Skill，读取这份招聘 Excel。所有数字以 Excel 现有结果为准，不要重新统计或计算。
+把招聘看板、岗位进度、渠道对比和管理层周报整理成带漏斗图的 Word；不要展示分析过程，完成后只返回 Word 文件。
+```
+
+薪酬核算可直接说：
+
+```text
+调用薪酬分析 Skill，读取工作区里的考勤、绩效、奖金规则和工资模板，按规则核算薪资。
+只生成“薪酬核算.xlsx”，只保留一个工作表“薪酬汇总”；不要生成其他文件，也不要展示分析或计算过程。
 ```
 
 ## shengjiang-research
