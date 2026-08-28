@@ -1,0 +1,2 @@
+asset_id,scene_id,placement,goal,source_refs,exact_copy,ratio_or_size,runtime_profile,image_provider,image_mode,layout_mode,variant_id,status
+asset-001,S01,外卖首图,展示主推菜,<your-authoritative-dish-path>,,1:1,image2-api,unselected,edit-preserve-dish,none,V1,pending-real-store

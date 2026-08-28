@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1122" height="1402" viewBox="0 0 1122 1402" role="img" aria-label="{{accessibility_label}}">
+  <metadata>Built-in T02. Reuses the S07 deterministic original-photo layer principle. The source photograph is contained, not cropped or redrawn. {{truth_disclosure}}</metadata>
+  <rect width="1122" height="1402" fill="{{paper_color}}"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="{{brand_ink}}">
+    <text id="exact-store" x="84" y="104" font-size="28">{{store_name}}</text>
+    <text id="exact-item-id" x="1038" y="104" text-anchor="end" font-size="23">{{item_id}}</text>
+  </g>
+  <rect id="photo-well" x="72" y="168" width="978" height="814" fill="{{photo_well_color}}"/>
+  <image id="protected-dish" href="{{dish_data_uri}}" x="94" y="190" width="934" height="770" preserveAspectRatio="xMidYMid meet"/>
+  <g id="exact-copy" font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="{{brand_ink}}">
+    <text id="exact-dish-name" x="84" y="1100" font-size="58" font-weight="600">{{dish_name}}</text>
+    <text id="exact-spec" x="84" y="1178" font-size="32">{{spec_line}}</text>
+    <text id="exact-price" x="84" y="1250" font-size="42">{{price_line}}</text>
+    <text id="truth-disclosure" x="84" y="1358" font-size="22">{{truth_disclosure}}</text>
+  </g>
+</svg>

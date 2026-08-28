@@ -1,0 +1,15 @@
+{
+  "facts_source": "evals/fixtures/demo-store-profile.yaml + demo-menu-catalog.csv + demo-campaign-brief.yaml；虚构回归夹具，不是本期西餐门店事实",
+  "truth_status": "fictional_demo",
+  "truth_disclosure": "虚构演示案例 · AI菜品图 · 不可投放",
+  "store_name": "姜小面测试店",
+  "dish_image": "../../../assets/demo/dish-photo.png",
+  "brand_ink": "#7A2F2A",
+  "item_id": "demo-dish-001",
+  "dish_name": "番茄牛腩面",
+  "spec_line": "单人份｜不辣",
+  "price_line": "菜单价￥28.00",
+  "paper_color": "#F5EEE4",
+  "photo_well_color": "#E8C8A2",
+  "source_role": "demo-fixture"
+}

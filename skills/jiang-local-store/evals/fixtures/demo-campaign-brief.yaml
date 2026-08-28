@@ -1,0 +1,22 @@
+campaign_id: demo-opening-001
+type: 开业
+goal: 拉新
+featured_items:
+  - demo-dish-001
+target_aov: 28.00
+package_items:
+  - item_id: demo-dish-001
+    quantity: 1
+original_price: 28.00
+campaign_price: 25.00
+start_at: "2026-09-01 11:00"
+end_at: "2026-09-07 21:00"
+valid_hours: "11:00-21:00"
+blackout_dates: none
+reservation: 无需预约
+stacking: 不与其他优惠同享
+refund: 未核销可退，已核销不可退
+stores:
+  - demo-noodle-shop-001
+cta: 到店核销
+scope_note: 完全虚构，只用于Skill演示与测试，不得作为真实优惠发布

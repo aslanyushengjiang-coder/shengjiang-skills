@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1122" height="1402" viewBox="0 0 1122 1402" role="img" aria-label="虚构开业活动无字底图，AI 背景加确定性菜品照片卡">
+  <metadata>仅用于本地 Skill 回归。背景由本地图片工具生成；菜品层直接引用 S01 原图，不让图片模型重绘。</metadata>
+  <image href="campaign-background.png" x="0" y="0" width="1122" height="1402"/>
+  <image href="dish-photo.png" x="179" y="716" width="764" height="573" preserveAspectRatio="xMidYMid meet"/>
+</svg>

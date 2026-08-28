@@ -1,0 +1,526 @@
+{
+  "package": "jiang-local-store",
+  "version": "0.1.0",
+  "source_policy": "Distribution-only transformations; canonical sources are not edited. Paths identify source Skill resources, never a private machine location.",
+  "files": [
+    {
+      "distribution_file": "LICENSE",
+      "distribution_sha256": "416c108fe970c0c917901fab28fe277079b1177583e12e47502985642f6dc161",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "NOTICE.md",
+      "distribution_sha256": "7b82095de5e80366cbcb0785bf9eb0be067f779a0cc7d89ca94669450aeaaca6",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "README.md",
+      "distribution_sha256": "5f180e019272584c3940fa9430048eef425630371f0ed60d7762b0242742b3a1",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "SKILL.md",
+      "distribution_sha256": "24d11cc395a0e006012006e16ce94c6bf4f39b708d4c7baf015c5e0dd446e480",
+      "operation": "single public Skill name; bundled engine; remove private audit entrypoints",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "SKILL.md",
+      "source_sha256": "9bf5ad9c43e2cc671411a4e0dcc46a6cb16f9ee9b482e7d81d978c3c434fe533"
+    },
+    {
+      "distribution_file": "THIRD_PARTY_NOTICES.md",
+      "distribution_sha256": "13c26c324453c2c06e3bf4c7ded2f71bbd02cea4f33d0ede24a48482dbec97e5",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution",
+      "upstream_license_url": "https://raw.githubusercontent.com/ConardLi/garden-skills/main/LICENSE",
+      "upstream_license_sha256": "1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685"
+    },
+    {
+      "distribution_file": "agents/openai.yaml",
+      "distribution_sha256": "dd62b4f9d6780fa76715e3282e9c49292b5269d637b4d2764830d3d9a842d1aa",
+      "operation": "public task-profile example and display name; no canonical change",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "agents/openai.yaml",
+      "source_sha256": "fe12d4aa5af3ac7928a7043c824011976db998fb890aa192dc5ce6b17d865941"
+    },
+    {
+      "distribution_file": "assets/asset-manifest.example.csv",
+      "distribution_sha256": "7cf7ad855c262a4d32f7af1d7f19464a62bac1e462ca3150a30e132f378cfbe2",
+      "operation": "public task-profile example and display name; no canonical change",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/asset-manifest.example.csv",
+      "source_sha256": "9070850ece22c8632a8e27a37b7c71c4a886cb4102cce473d5ff34a2d1fb273e"
+    },
+    {
+      "distribution_file": "assets/campaign-brief.example.yaml",
+      "distribution_sha256": "45ec5b83179a227f9eff3e2446660ef2d6edb2d8d922e0cb1a18140667f50fab",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/campaign-brief.example.yaml",
+      "source_sha256": "45ec5b83179a227f9eff3e2446660ef2d6edb2d8d922e0cb1a18140667f50fab"
+    },
+    {
+      "distribution_file": "assets/demo/README.md",
+      "distribution_sha256": "adf22d7478357c9714dbb91f1517987ee07f7aafa4d8e45e9fb7e2c6d0b74ec7",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "assets/demo/campaign-background.png",
+      "distribution_sha256": "262cba605c6935c0c9012555443f55050aaaabf00c73fc523977e6d512a1d1ca",
+      "operation": "relocated; original bytes preserved",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/local-image-regression-20260827/S07-v2-开业活动-无字背景层.png",
+      "source_sha256": "262cba605c6935c0c9012555443f55050aaaabf00c73fc523977e6d512a1d1ca"
+    },
+    {
+      "distribution_file": "assets/demo/campaign-composite.svg",
+      "distribution_sha256": "3ddf163b3dbab6df6f2a694b1ef2fede39d4e297f7dd517c2266dfc618a78c5b",
+      "operation": "relocated public demo; SVG references rewritten",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/local-image-regression-20260827/S07-v2-开业活动-确定性菜品合成.svg",
+      "source_sha256": "bc39b56c94d66c7d89d8d7cfa5842be7e77e1e1e90b3b9d1893e7883328c8d06"
+    },
+    {
+      "distribution_file": "assets/demo/dish-photo.png",
+      "distribution_sha256": "2c9b860ab14b2e9fc51f89cfcabc9bfd0a9cb9f3217cf47c5f61ed1491a061dc",
+      "operation": "relocated; original bytes preserved",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/local-image-regression-20260827/S01-虚构番茄牛腩面-无字主图.png",
+      "source_sha256": "2c9b860ab14b2e9fc51f89cfcabc9bfd0a9cb9f3217cf47c5f61ed1491a061dc"
+    },
+    {
+      "distribution_file": "assets/demo/image-edit-prompt.txt",
+      "distribution_sha256": "c12b630bd1cab08d8b2ba3e3fc0466f6bca5cd51794e79c91e1aff9e153e6504",
+      "operation": "copied",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "assets/demo/storefront-preview.png",
+      "distribution_sha256": "26506b3c39308e90bdfb3490318b0dfc627071b7976530ea741f7f699a52f6cb",
+      "operation": "relocated; original bytes preserved",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/local-image-regression-20260827/S03-v3-虚构面馆-全图清字门头预览.png",
+      "source_sha256": "26506b3c39308e90bdfb3490318b0dfc627071b7976530ea741f7f699a52f6cb"
+    },
+    {
+      "distribution_file": "assets/menu-catalog.example.csv",
+      "distribution_sha256": "2ea2ede78019db96facfca4d38d088c84e5cbf4ecc95ff685e7e7d7f13d36eed",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/menu-catalog.example.csv",
+      "source_sha256": "2ea2ede78019db96facfca4d38d088c84e5cbf4ecc95ff685e7e7d7f13d36eed"
+    },
+    {
+      "distribution_file": "assets/store-profile.example.yaml",
+      "distribution_sha256": "bd7f0571b193115cadd0a6e7dc4eaa8bdafccd99bc27b92611cacedccb68efaa",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/store-profile.example.yaml",
+      "source_sha256": "bd7f0571b193115cadd0a6e7dc4eaa8bdafccd99bc27b92611cacedccb68efaa"
+    },
+    {
+      "distribution_file": "assets/style-references/README.md",
+      "distribution_sha256": "6b018340550ec399b37025f621cbccc7b5c305583da53cb4104ca9348d135787",
+      "operation": "narrow public-distribution authorization; no commercial inference",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/style-references/README.md",
+      "source_sha256": "9a1580b270ff9bd4596006f2b5715218b7924a948c36354921c71e2d7127162b"
+    },
+    {
+      "distribution_file": "assets/style-references/SOURCES.json",
+      "distribution_sha256": "535f07e9dc8cf496721ca3fef44889d56e73977345c7a242b2e8ce6e7dc77624",
+      "operation": "relative demo references and explicit narrow distribution rights",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/style-references/SOURCES.json",
+      "source_sha256": "98009aa79ea86424dff1ea6bf5118b25a3193fe8d8751e6cf08e4a95d480e581"
+    },
+    {
+      "distribution_file": "assets/style-references/tomato-beef-brand-reference.png",
+      "distribution_sha256": "7cd7449e0980dfdfd1bc237c97857286c08fdc57f694a7150709f9060e8c45d9",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/style-references/tomato-beef-brand-reference.png",
+      "source_sha256": "7cd7449e0980dfdfd1bc237c97857286c08fdc57f694a7150709f9060e8c45d9"
+    },
+    {
+      "distribution_file": "assets/templates/catalog.json",
+      "distribution_sha256": "ff3882b69871e3d92e42f15e5022e8ad826e6014a8204ac32c7c70a18ac6d052",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/catalog.json",
+      "source_sha256": "4b2fef5de926883d471d94cab2ee8674c07b0f0661fe9de6c3f1c182db67f43c"
+    },
+    {
+      "distribution_file": "assets/templates/dish-photo-card.svg",
+      "distribution_sha256": "b5eaeff1a4de60eb03e5698f4b657190a5bbe06ffc651402e5f8cc1c877fc957",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/dish-photo-card.svg",
+      "source_sha256": "b5eaeff1a4de60eb03e5698f4b657190a5bbe06ffc651402e5f8cc1c877fc957"
+    },
+    {
+      "distribution_file": "assets/templates/examples/dish-photo-card.input.json",
+      "distribution_sha256": "b5d189d235a4842cb71d780eb905528c34573673d2f2ac67466e34b225a39d6b",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/dish-photo-card.input.json",
+      "source_sha256": "9c64b731c3851514f8bd31b094cc4dc1fceda1223105636db9d57bd42ec42ebf"
+    },
+    {
+      "distribution_file": "assets/templates/examples/dish-photo-card.manifest.json",
+      "distribution_sha256": "be114653f5b8fd3ae8cc4114cf988c506c3cd1344c5668eee14a1485298cafb1",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/dish-photo-card.manifest.json",
+      "source_sha256": "cb3a35b2c36c2e3ca265a48a471420507cc35f3a2abe8c0558a7f22248879c1d"
+    },
+    {
+      "distribution_file": "assets/templates/examples/dish-photo-card.svg",
+      "distribution_sha256": "d3fe18a398553975d1d921b0af6860b07c1c51c6c8544a5e7af520c191e474c5",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/dish-photo-card.svg",
+      "source_sha256": "d3fe18a398553975d1d921b0af6860b07c1c51c6c8544a5e7af520c191e474c5"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-locked.input.json",
+      "distribution_sha256": "c77e04c94dd0aeb525542128070e14801830211535e3e9dfb620c5e8cf88aab1",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-locked.input.json",
+      "source_sha256": "2434aeb5b43e8c3d19905f6a6234d2c87f280fb1d5ca1dbf90cdb9ea0391bd87"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-locked.manifest.json",
+      "distribution_sha256": "c8eb518faa36583f2b79af3d2ab57f717fcef4f2a8aaa114e72dc4ffa0ca3bbc",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-locked.manifest.json",
+      "source_sha256": "0d8431e2f2c3ee665062eca38765550e8c59486487c76abda4f5e0dc3d80d9cd"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-locked.svg",
+      "distribution_sha256": "3feb532b52a87abc3595f70e45668162b9099872cf983fd6a1ae3e33e435fbe4",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-locked.svg",
+      "source_sha256": "3feb532b52a87abc3595f70e45668162b9099872cf983fd6a1ae3e33e435fbe4"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-spring.changes.json",
+      "distribution_sha256": "c638d63039175e3f62a08a8fcfb32c2d8a7bc1db1b9707c247cdbf08ca47de74",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-spring.changes.json",
+      "source_sha256": "c638d63039175e3f62a08a8fcfb32c2d8a7bc1db1b9707c247cdbf08ca47de74"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-spring.manifest.json",
+      "distribution_sha256": "38df90a011d59eeb5870e6f6e7fc91eaf0a46cf6cc4f2af84cede888d9d30749",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-spring.manifest.json",
+      "source_sha256": "38df90a011d59eeb5870e6f6e7fc91eaf0a46cf6cc4f2af84cede888d9d30749"
+    },
+    {
+      "distribution_file": "assets/templates/examples/festival-spring.svg",
+      "distribution_sha256": "8361b6285d555de2522897893d6a817c142e9d03112f14bf892fdf1ce46756ce",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/festival-spring.svg",
+      "source_sha256": "8361b6285d555de2522897893d6a817c142e9d03112f14bf892fdf1ce46756ce"
+    },
+    {
+      "distribution_file": "assets/templates/examples/previews/dish-photo-card.png",
+      "distribution_sha256": "e4231febaddeb08e35066d7a7dcc85816eb58f8855276a5eab9b4ce01f5bf261",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/previews/dish-photo-card.png",
+      "source_sha256": "e4231febaddeb08e35066d7a7dcc85816eb58f8855276a5eab9b4ce01f5bf261"
+    },
+    {
+      "distribution_file": "assets/templates/examples/previews/festival-locked.png",
+      "distribution_sha256": "b1af6e55c87cd4388f557009a3cdeb1a159a71398adad0a9db402a605c8597d3",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/previews/festival-locked.png",
+      "source_sha256": "b1af6e55c87cd4388f557009a3cdeb1a159a71398adad0a9db402a605c8597d3"
+    },
+    {
+      "distribution_file": "assets/templates/examples/previews/festival-spring.png",
+      "distribution_sha256": "11724249dae773d245a6379c917af2a17bab6e4e460bdee15e2474d018334584",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/previews/festival-spring.png",
+      "source_sha256": "11724249dae773d245a6379c917af2a17bab6e4e460bdee15e2474d018334584"
+    },
+    {
+      "distribution_file": "assets/templates/examples/previews/top-space-poster.png",
+      "distribution_sha256": "0f1836b1770772d1be3d257889280d19dfffac6d2010316089810284e5c850d9",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/previews/top-space-poster.png",
+      "source_sha256": "0f1836b1770772d1be3d257889280d19dfffac6d2010316089810284e5c850d9"
+    },
+    {
+      "distribution_file": "assets/templates/examples/top-space-poster.input.json",
+      "distribution_sha256": "0dad0f5b877399e7b5721eef805318f07bd666d7a8c3c446469378cca8120834",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/top-space-poster.input.json",
+      "source_sha256": "4af42a36fc0991296d2658d8f57c7aba8926cfeeb46b32393d76743ce93590ba"
+    },
+    {
+      "distribution_file": "assets/templates/examples/top-space-poster.manifest.json",
+      "distribution_sha256": "202c4daf01ab119ea9e80d0bb3232d706b32d9d46ff5e5b978f8bc9b51d85ebd",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/top-space-poster.manifest.json",
+      "source_sha256": "ca4133007bde919b8cc3ad8d04bd3532a928a020b723fdccc326fd826262054e"
+    },
+    {
+      "distribution_file": "assets/templates/examples/top-space-poster.svg",
+      "distribution_sha256": "6a08047963b9618bfd02679de6bcd171ad4f2f6a6c181b0206bca26b3ff70170",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/examples/top-space-poster.svg",
+      "source_sha256": "6a08047963b9618bfd02679de6bcd171ad4f2f6a6c181b0206bca26b3ff70170"
+    },
+    {
+      "distribution_file": "assets/templates/festival-locked.svg",
+      "distribution_sha256": "069eb92dfe0ab4fb27295ec57321b716f64eacef2f4d6c9fe06f0d83b15c141a",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/festival-locked.svg",
+      "source_sha256": "069eb92dfe0ab4fb27295ec57321b716f64eacef2f4d6c9fe06f0d83b15c141a"
+    },
+    {
+      "distribution_file": "assets/templates/top-space-poster.svg",
+      "distribution_sha256": "1a66b5ca3715fa5d1abeb90ce80729d423ffbab0ce8c05614fb21a16591fac5e",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "assets/templates/top-space-poster.svg",
+      "source_sha256": "1a66b5ca3715fa5d1abeb90ce80729d423ffbab0ce8c05614fb21a16591fac5e"
+    },
+    {
+      "distribution_file": "config/apimart.env.example",
+      "distribution_sha256": "d059c65b6d3308d708696d859a3abde74ce05974da3b5a2edbded83e6f5a0819",
+      "operation": "public namespace or bundled test documentation",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "config/apimart.env.example",
+      "source_sha256": "272ba59e34d209cd5fbff7c9210d420ed6da3bf97b5db4fcd6e879ae4ba58c8a"
+    },
+    {
+      "distribution_file": "config/image2.env.example",
+      "distribution_sha256": "23b67aca7729684fd31d6ad56f1f04e485f3e75522873fd491d31dab428368a8",
+      "operation": "public namespace or bundled test documentation",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "config/image2.env.example",
+      "source_sha256": "8d9acfb99cc17996f70ae2b3c0b88fb2b4e1c505cd1997f20b40825b5d96d5a4"
+    },
+    {
+      "distribution_file": "evals/evals.json",
+      "distribution_sha256": "6579d909a5a01dcc366313fd5ee8510629ad66ba099a8ea6f1d97e96051b248f",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/evals.json",
+      "source_sha256": "4f64ca8f6726927252818229958bb03e44d664996565eb1071e45a34f5e010a4"
+    },
+    {
+      "distribution_file": "evals/fixtures/demo-campaign-brief.yaml",
+      "distribution_sha256": "56466c026d2b74b5309a67e35ccb81d6f2b8f311ccc6b52cabc8ffc0b37b608f",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/fixtures/demo-campaign-brief.yaml",
+      "source_sha256": "924e5097b543cc382b89e85dfb0a5dd535bcfc85b3cf89620f857333ba3be8c7"
+    },
+    {
+      "distribution_file": "evals/fixtures/demo-logo.svg",
+      "distribution_sha256": "966cbbf408fca698f66276b349b746d9e78aa9d0fae3bc22620b7d79e3532857",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/fixtures/demo-logo.svg",
+      "source_sha256": "966cbbf408fca698f66276b349b746d9e78aa9d0fae3bc22620b7d79e3532857"
+    },
+    {
+      "distribution_file": "evals/fixtures/demo-menu-catalog.csv",
+      "distribution_sha256": "fc3690f01008b2c0c56f4391ce834e2a38ddf03c440ecb2102dd18e29c15a2c1",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/fixtures/demo-menu-catalog.csv",
+      "source_sha256": "cc0fb1798b534fedd27adeaf0a88a97015c6f92a3f78902bcb13b92106764d43"
+    },
+    {
+      "distribution_file": "evals/fixtures/demo-national-day-poster.svg",
+      "distribution_sha256": "923cdb15975aa1472d9152379916ae189a11afc39961bd4728913052c3900117",
+      "operation": "relocate public demo image reference; visual content unchanged",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/fixtures/demo-national-day-poster.svg",
+      "source_sha256": "69d3d8aa6a818be35ef6a6d1d978f8ace5ad03e72c037fddfc65d1da84aeceff"
+    },
+    {
+      "distribution_file": "evals/fixtures/demo-store-profile.yaml",
+      "distribution_sha256": "af9e2c0b0869f486f0c6fe68e76fc56574086658f5a7b66838675a54de77e7bb",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/fixtures/demo-store-profile.yaml",
+      "source_sha256": "a9d8cff2779e15fefbcab7ed3cbe7cd4486088297bc07090f9301349c988a391"
+    },
+    {
+      "distribution_file": "evals/test_builtin_templates.py",
+      "distribution_sha256": "18278861236d3cc706e7277ac211078b54b3f9bebc0c690408937a5594cf9448",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "evals/test_builtin_templates.py",
+      "source_sha256": "73a514face0fbcf7b656676f8f2223915c874e43b53d25a17a1ce9a14ff1f1a4"
+    },
+    {
+      "distribution_file": "references/builtin-templates.md",
+      "distribution_sha256": "48d89b08ac5ec1730ff9090aca0a5a20a67b59f545448ecb836941da2bfdeb03",
+      "operation": "portable demo paths; no internal audit log",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/builtin-templates.md",
+      "source_sha256": "6f66e3ffc41a738f2a2d596c7d66a094d1e231ba37129fdc7248ffd046222f32"
+    },
+    {
+      "distribution_file": "references/food-art-direction.md",
+      "distribution_sha256": "465a82da31431770c6b0ff39128a734bfff89573c434cc43fe73533dac280feb",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/food-art-direction.md",
+      "source_sha256": "465a82da31431770c6b0ff39128a734bfff89573c434cc43fe73533dac280feb"
+    },
+    {
+      "distribution_file": "references/food-style-prompts.md",
+      "distribution_sha256": "cf822b4cee319b3cd59d656810003dc13d1336b182914dbbb8007ec0875d0f38",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/food-style-prompts.md",
+      "source_sha256": "cf822b4cee319b3cd59d656810003dc13d1336b182914dbbb8007ec0875d0f38"
+    },
+    {
+      "distribution_file": "references/image2/apimart-setup.md",
+      "distribution_sha256": "b9d62d4af4d956cce906b3fdb405a5613fb94b08f652a45654f108a6389efeea",
+      "operation": "remove personal fallback; single-root paths; clarify absent resume/status; trusted HTTPS and authenticated redirect rejection documented",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "references/apimart-setup.md",
+      "source_sha256": "d7d7529153076bf1cc18218d624deaaf8708df0f2c14da144e576c345e43c598"
+    },
+    {
+      "distribution_file": "references/image2/overview.md",
+      "distribution_sha256": "45870d2cd5fcdbf8ca57dc0e104d902fe92856dc04093ba2d514aae516744039",
+      "operation": "copied; trusted HTTPS and authenticated redirect rejection documented",
+      "source": "Authored for this single-Skill distribution"
+    },
+    {
+      "distribution_file": "references/image2/prompt-system.md",
+      "distribution_sha256": "e0b3c5ecfe2be6587b2521d0e2f0ab541017aab71192557ae4f4fed5aa3b7e43",
+      "operation": "copied",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "references/prompt-system.md",
+      "source_sha256": "e0b3c5ecfe2be6587b2521d0e2f0ab541017aab71192557ae4f4fed5aa3b7e43"
+    },
+    {
+      "distribution_file": "references/image2/relay-setup.md",
+      "distribution_sha256": "72698881190839cbb6ee178c29ff34db5da7ae573e10ad3ee1a34c2b4915f06d",
+      "operation": "self-contained paths; public config namespace; explicit verification limits; trusted HTTPS and authenticated redirect rejection documented",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "references/relay-setup.md",
+      "source_sha256": "c62fbdbb48c5a41b9266986e6dae354c33e594b783efa16a36414a2196442788"
+    },
+    {
+      "distribution_file": "references/input-contract.md",
+      "distribution_sha256": "2a1a239bdd8d1fe1f40d968c8f919774d5e078203a1a734fc156e8b69e60330b",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/input-contract.md",
+      "source_sha256": "2a1a239bdd8d1fe1f40d968c8f919774d5e078203a1a734fc156e8b69e60330b"
+    },
+    {
+      "distribution_file": "references/lock-system.md",
+      "distribution_sha256": "ed0c7c789a5cdc78df35868d008e404151cffc86ddcf1747b8f1327d2f3c94e1",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/lock-system.md",
+      "source_sha256": "ed0c7c789a5cdc78df35868d008e404151cffc86ddcf1747b8f1327d2f3c94e1"
+    },
+    {
+      "distribution_file": "references/qa-checklist.md",
+      "distribution_sha256": "36933e60f3b1739d259a1fa41c564bc770bf1f819d7646b7948ad000bf562d85",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/qa-checklist.md",
+      "source_sha256": "36933e60f3b1739d259a1fa41c564bc770bf1f819d7646b7948ad000bf562d85"
+    },
+    {
+      "distribution_file": "references/runtime-routing.md",
+      "distribution_sha256": "6262d433b667057bbca7772d7476bf7965ca46bdba6f8d8bf79f66ab0d4f3bc9",
+      "operation": "single-root runtime and honest external dependencies",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/runtime-routing.md",
+      "source_sha256": "3e2a595892c469333638b57773b72b2a4eb8dd8c29cf4e0c4cfb19b4e3d5cfc6"
+    },
+    {
+      "distribution_file": "references/scene-prompts.md",
+      "distribution_sha256": "877198919c498360ee8b360accec40f28353d06d8f10e75d666a97380a95f9dd",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/scene-prompts.md",
+      "source_sha256": "877198919c498360ee8b360accec40f28353d06d8f10e75d666a97380a95f9dd"
+    },
+    {
+      "distribution_file": "references/social-notes.md",
+      "distribution_sha256": "36dcd3ec89a412b5f5fe30cee380abc2f0e92403552f8eac5c7e9a1f0013b111",
+      "operation": "distribution paths and public identifier only",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/social-notes.md",
+      "source_sha256": "a18b5a84170e27bcc42a7e2b51a6a8e49943b5bab6f1bc7f1581e3e99dd0e21d"
+    },
+    {
+      "distribution_file": "references/workbuddy-install.md",
+      "distribution_sha256": "69b11819894e0f0f31396b4b7b20e9201286a723f52a0077ffa14a1078bb7e19",
+      "operation": "single-Skill installation; bundled configuration and examples",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "references/workbuddy-install.md",
+      "source_sha256": "4c098c49fdfafe002338119ff35efd505a186104072da0c17c7069c0c7975a29"
+    },
+    {
+      "distribution_file": "scripts/apimart_image.py",
+      "distribution_sha256": "bd440191fc2dcb128cc1203fc5749b5382cea67e53921b8436fc80960ce2a731",
+      "operation": "bundled authenticated-redirect-safe adapter or tests; public namespace; APIMart personal fallback removed",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "scripts/apimart_image.py",
+      "source_sha256": "04d8181fd17d0e51679031ac7e4a2b504350b31987bd43897db24d860fae2d94"
+    },
+    {
+      "distribution_file": "scripts/fill_builtin_template.py",
+      "distribution_sha256": "3ebc7d593b316f19e479adadef5f620876debf5ebd5de08020d875309ef9409d",
+      "operation": "copied",
+      "source_skill": "local-store-visual-studio",
+      "source_relative_file": "scripts/fill_builtin_template.py",
+      "source_sha256": "3ebc7d593b316f19e479adadef5f620876debf5ebd5de08020d875309ef9409d"
+    },
+    {
+      "distribution_file": "scripts/image2_api.py",
+      "distribution_sha256": "914ead228d095d7cbb08cb0b3e6929f04032a41102abacdbd4791e767efd8a79",
+      "operation": "bundled authenticated-redirect-safe adapter or tests; public namespace; APIMart personal fallback removed",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "scripts/image2_api.py",
+      "source_sha256": "cc21a404a82fe24b60e61aeacf22200204a37331cc003c1d50f16472c6470098"
+    },
+    {
+      "distribution_file": "tests/test_image_adapters.py",
+      "distribution_sha256": "04ee2ca645634baaae1c2f7b4f321913ebba8df69edee55473088a5a2912cf78",
+      "operation": "bundled authenticated-redirect-safe adapter or tests; public namespace; APIMart personal fallback removed",
+      "source_skill": "ecommerce-image-studio",
+      "source_relative_file": "tests/test_image_adapters.py",
+      "source_sha256": "04ee2ca645634baaae1c2f7b4f321913ebba8df69edee55473088a5a2912cf78"
+    }
+  ],
+  "manifest_excludes_itself": true,
+  "public_assets_rights": "See NOTICE.md and assets/style-references/SOURCES.json",
+  "display_name": "Jiang-local-store"
+}

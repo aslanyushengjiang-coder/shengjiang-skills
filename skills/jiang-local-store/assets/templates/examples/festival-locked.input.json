@@ -1,0 +1,15 @@
+{
+  "facts_source": "evals/fixtures/demo-national-day-poster.svg；只用于准确改版测试，不是真实活动",
+  "truth_status": "fictional_demo",
+  "truth_disclosure": "虚构演示案例 · AI菜品图 · 不可投放",
+  "store_name": "姜小面测试店",
+  "dish_image": "../../../assets/demo/dish-photo.png",
+  "brand_ink": "#7A2F2A",
+  "headline": "开业测试活动",
+  "date": "2026年10月1日—10月7日",
+  "price_line": "￥25",
+  "background_color": "#F5EEE4",
+  "decoration_color": "#D9684D",
+  "footer_color": "#A44835",
+  "source_role": "demo-fixture"
+}

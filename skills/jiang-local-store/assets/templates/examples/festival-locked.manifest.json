@@ -1,0 +1,42 @@
+{
+  "template": "festival-locked",
+  "source_role": "demo-fixture",
+  "truth_status": "fictional_demo",
+  "facts_source": "evals/fixtures/demo-national-day-poster.svg；只用于准确改版测试，不是真实活动",
+  "exact_copy": {
+    "date": "2026年10月1日—10月7日",
+    "headline": "开业测试活动",
+    "price_line": "￥25",
+    "store_name": "姜小面测试店"
+  },
+  "images": [
+    {
+      "role": "dish_image",
+      "source_name": "dish-photo.png",
+      "sha256": "2c9b860ab14b2e9fc51f89cfcabc9bfd0a9cb9f3217cf47c5f61ed1491a061dc",
+      "bytes": 2196922,
+      "mime": "image/png",
+      "width": 1448,
+      "height": 1086,
+      "embedded_without_reencoding": true,
+      "source_role": "demo-fixture"
+    }
+  ],
+  "all_images_embedded": true,
+  "logo_status": "not-provided; store-name text is not a logo",
+  "qr_status": "not-provided; no fake QR created",
+  "output_file": "festival-locked.svg",
+  "output_sha256": "3feb532b52a87abc3595f70e45668162b9099872cf983fd6a1ae3e33e435fbe4",
+  "source_ready": true,
+  "raster_exported": true,
+  "visual_checked": true,
+  "user_approved": false,
+  "published": false,
+  "status": "demo-preview-checked-not-for-publication",
+  "image_generation_calls": 0,
+  "image_bytes_preserved": true,
+  "preview_file": "previews/festival-locked.png",
+  "preview_sha256": "b1af6e55c87cd4388f557009a3cdeb1a159a71398adad0a9db402a605c8597d3",
+  "visual_checked_at": "2026-08-28T14:23:33.879990+08:00",
+  "visual_scope": "Full-size PNG inspected; 390px static preview inspected. No real-device or print approval."
+}

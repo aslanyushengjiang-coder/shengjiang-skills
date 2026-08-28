@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-label="{{accessibility_label}}">
+  <metadata>Built-in T03. Derived from demo-national-day-poster.svg. Once filled, only the change-* background layers and change-date may be revised. No fake QR is supplied. {{truth_disclosure}}</metadata>
+  <rect id="change-background-base" width="1080" height="1350" fill="{{background_color}}"/>
+  <circle id="change-background-decoration-1" cx="930" cy="150" r="240" fill="{{decoration_color}}" opacity="0.72"/>
+  <path id="change-background-decoration-2" d="M0 1040 C260 900 430 980 590 1350 H0 Z" fill="{{footer_color}}" opacity="0.9"/>
+  <g id="protected-dish">
+    <image href="{{dish_data_uri}}" x="100" y="610" width="880" height="660" preserveAspectRatio="xMidYMid meet"/>
+  </g>
+  <g id="protected-logo">{{logo_layer}}</g>
+  <text id="protected-title" x="90" y="300" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="78" font-weight="600" fill="{{brand_ink}}">{{headline}}</text>
+  <text id="change-date" x="90" y="390" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="42" fill="{{brand_ink}}">{{date}}</text>
+  <g id="protected-price">
+    <text x="90" y="520" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="70" font-weight="600" fill="{{brand_ink}}">{{price_line}}</text>
+  </g>
+  <g id="protected-qr" transform="translate(820 90)">{{qr_layer}}</g>
+  <rect id="disclosure-background" x="76" y="1292" width="984" height="48" fill="#F5EEE4"/>
+  <text id="truth-disclosure" x="90" y="1325" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="22" fill="{{brand_ink}}">{{truth_disclosure}}</text>
+</svg>

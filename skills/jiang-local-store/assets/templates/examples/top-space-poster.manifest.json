@@ -1,0 +1,57 @@
+{
+  "template": "top-space-poster",
+  "source_role": "demo-fixture",
+  "truth_status": "fictional_demo",
+  "facts_source": "evals/fixtures/demo-store-profile.yaml + demo-menu-catalog.csv + demo-campaign-brief.yaml；虚构回归夹具，不是本期西餐门店事实",
+  "exact_copy": {
+    "headline_1": "番茄牛腩面",
+    "headline_2": "开业活动说明",
+    "offer_line": "原价￥28.00 · 活动价￥25.00",
+    "rule_1": "2026-09-01 11:00 至2026-09-07 21:00",
+    "rule_2": "可用时段11:00-21:00；无不可用日期",
+    "rule_3": "无需预约；不与其他优惠同享",
+    "rule_4": "未核销可退，已核销不可退；姜小面测试店到店核销",
+    "store_name": "姜小面测试店"
+  },
+  "images": [
+    {
+      "role": "dish_image",
+      "source_name": "dish-photo.png",
+      "sha256": "2c9b860ab14b2e9fc51f89cfcabc9bfd0a9cb9f3217cf47c5f61ed1491a061dc",
+      "bytes": 2196922,
+      "mime": "image/png",
+      "width": 1448,
+      "height": 1086,
+      "embedded_without_reencoding": true,
+      "source_role": "demo-fixture"
+    },
+    {
+      "role": "background_image",
+      "source_name": "campaign-background.png",
+      "sha256": "262cba605c6935c0c9012555443f55050aaaabf00c73fc523977e6d512a1d1ca",
+      "bytes": 1622405,
+      "mime": "image/png",
+      "width": 1122,
+      "height": 1402,
+      "embedded_without_reencoding": true,
+      "source_role": "style-only"
+    }
+  ],
+  "all_images_embedded": true,
+  "logo_status": "not-provided; store-name text is not a logo",
+  "qr_status": "not-provided; no fake QR created",
+  "output_file": "top-space-poster.svg",
+  "output_sha256": "6a08047963b9618bfd02679de6bcd171ad4f2f6a6c181b0206bca26b3ff70170",
+  "source_ready": true,
+  "raster_exported": true,
+  "visual_checked": true,
+  "user_approved": false,
+  "published": false,
+  "status": "demo-preview-checked-not-for-publication",
+  "image_generation_calls": 0,
+  "image_bytes_preserved": true,
+  "preview_file": "previews/top-space-poster.png",
+  "preview_sha256": "0f1836b1770772d1be3d257889280d19dfffac6d2010316089810284e5c850d9",
+  "visual_checked_at": "2026-08-28T14:23:33.879990+08:00",
+  "visual_scope": "Full-size PNG inspected; 390px static preview inspected. No real-device or print approval."
+}

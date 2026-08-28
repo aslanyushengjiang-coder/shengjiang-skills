@@ -1,0 +1,26 @@
+{
+  "reference_id": "SR-TOMATO-BEEF-001",
+  "file": "tomato-beef-brand-reference.png",
+  "source_role": "style-only",
+  "source": "Provider-supplied visual reference, authorized for inclusion in this public Skill distribution",
+  "original_bytes_preserved": true,
+  "sha256": "7cd7449e0980dfdfd1bc237c97857286c08fdc57f694a7150709f9060e8c45d9",
+  "width": 1122,
+  "height": 1402,
+  "allowed_use": [
+    "版式、配色气氛、上方留白、主体占比的视觉参考"
+  ],
+  "not_allowed_as": [
+    "西餐SKU实拍",
+    "真实套餐内容",
+    "真实品牌或活动事实",
+    "已经验收的本期海报成品"
+  ],
+  "rights": "Authorized to accompany this Skill on the provider GitHub for download and visual reference only; not a general commercial image license or evidence of a real restaurant/SKU.",
+  "related_source_refs": [
+    "../demo/campaign-composite.svg",
+    "../../evals/fixtures/demo-national-day-poster.svg"
+  ],
+  "public_distribution_authorized": true,
+  "distribution_scope": "jiang-local-store GitHub package"
+}

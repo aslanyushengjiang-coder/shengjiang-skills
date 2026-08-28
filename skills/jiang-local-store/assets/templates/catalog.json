@@ -1,0 +1,63 @@
+{
+  "templates": [
+    {
+      "id": "T01",
+      "template": "top-space-poster.svg",
+      "scene_ids": [
+        "S04",
+        "S07",
+        "S10"
+      ],
+      "size": [
+        1122,
+        1402
+      ],
+      "derived_from": "../../assets/demo/campaign-composite.svg",
+      "example_input": "examples/top-space-poster.input.json",
+      "example_svg": "examples/top-space-poster.svg",
+      "source_role": "demo-fixture",
+      "output_mode": "deterministic-svg"
+    },
+    {
+      "id": "T02",
+      "template": "dish-photo-card.svg",
+      "scene_ids": [
+        "S02",
+        "S05",
+        "S06"
+      ],
+      "size": [
+        1122,
+        1402
+      ],
+      "derived_from": "../../assets/demo/campaign-composite.svg",
+      "example_input": "examples/dish-photo-card.input.json",
+      "example_svg": "examples/dish-photo-card.svg",
+      "source_role": "demo-fixture",
+      "output_mode": "deterministic-svg"
+    },
+    {
+      "id": "T03",
+      "template": "festival-locked.svg",
+      "scene_ids": [
+        "S09"
+      ],
+      "size": [
+        1080,
+        1350
+      ],
+      "derived_from": "../../evals/fixtures/demo-national-day-poster.svg",
+      "example_input": "examples/festival-locked.input.json",
+      "example_svg": "examples/festival-locked.svg",
+      "revision_input": "examples/festival-spring.changes.json",
+      "revision_svg": "examples/festival-spring.svg",
+      "source_role": "demo-fixture",
+      "output_mode": "deterministic-svg"
+    }
+  ],
+  "style_reference": "../style-references/tomato-beef-brand-reference.png",
+  "renderer": "../../scripts/fill_builtin_template.py",
+  "reference_guide": "../../references/builtin-templates.md",
+  "status": "source templates; each output requires export and visual checks separately",
+  "original_reference_not_a_dish_source": true
+}

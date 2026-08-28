@@ -1,0 +1,23 @@
+store_id: demo-noodle-shop-001
+store_name: 姜小面测试店
+category: 餐饮
+address: 虚构测试地址，不对外使用
+business_hours: "11:00-21:00"
+audience: 社区午晚餐顾客
+public_scope: 随Skill提供的虚构演示资料，不得作为真实门店案例发布
+brand:
+  logo: evals/fixtures/demo-logo.svg
+  colors:
+    - "#7A2F2A"
+    - "#E8C8A2"
+    - "#F5EEE4"
+  typography_mood: 克制、清楚、普通社区餐饮可落地
+  existing_assets: []
+  forbidden_elements:
+    - 金碧辉煌
+    - 赛博霓虹
+    - 虚构奖项
+space_refs:
+  storefront: assets/demo/storefront-preview.png
+  interior: []
+  wall: []

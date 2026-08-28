@@ -1,0 +1,60 @@
+{
+  "template": "festival-locked",
+  "source_sha256": "3feb532b52a87abc3595f70e45668162b9099872cf983fd6a1ae3e33e435fbe4",
+  "change_set": {
+    "date": "2027年2月6日—2月12日",
+    "background_color": "#F8E7D0",
+    "decoration_color": "#C83D2F",
+    "footer_color": "#B32622"
+  },
+  "changed_layers": [
+    "change-background-base",
+    "change-background-decoration-1",
+    "change-background-decoration-2",
+    "change-date"
+  ],
+  "protected_layers": [
+    {
+      "id": "protected-dish",
+      "identical": true,
+      "sha256": "e7fe18f49e017c427802cc121e5c093833033406a5d0097e2584f899ce889678"
+    },
+    {
+      "id": "protected-logo",
+      "identical": true,
+      "sha256": "5630489fefad607d1e98cd5cb31e62255927ffe5e124a2441817d0783e7c135d"
+    },
+    {
+      "id": "protected-title",
+      "identical": true,
+      "sha256": "6e7967571dc499a61ae95538a788c3d1b42ed445796a16011e897ec3d48e10f1"
+    },
+    {
+      "id": "protected-price",
+      "identical": true,
+      "sha256": "4c71dca977fbbd9af4b868706b1104926c04350ca19482f95889cbef028fc4a4"
+    },
+    {
+      "id": "protected-qr",
+      "identical": true,
+      "sha256": "8fb0e442258a72b5d2c5b22d79b249e1fc6d4ee41fb860e0cc3585e130c1e40e"
+    }
+  ],
+  "truth_status": "inherited-from-source",
+  "facts_source": "festival-locked.svg",
+  "all_images_embedded": true,
+  "output_file": "festival-spring.svg",
+  "output_sha256": "8361b6285d555de2522897893d6a817c142e9d03112f14bf892fdf1ce46756ce",
+  "source_ready": true,
+  "raster_exported": true,
+  "visual_checked": true,
+  "user_approved": false,
+  "published": false,
+  "status": "demo-preview-checked-not-for-publication",
+  "image_generation_calls": 0,
+  "image_bytes_preserved": true,
+  "preview_file": "previews/festival-spring.png",
+  "preview_sha256": "11724249dae773d245a6379c917af2a17bab6e4e460bdee15e2474d018334584",
+  "visual_checked_at": "2026-08-28T14:23:33.879990+08:00",
+  "visual_scope": "Full-size PNG inspected; 390px static preview inspected. No real-device or print approval."
+}

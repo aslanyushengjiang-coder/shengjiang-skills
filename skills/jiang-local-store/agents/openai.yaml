@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jiang-local-store"
+  short_description: "用真实门店和菜品资料生成菜品图、门头、菜单、海报与活动视觉"
+  default_prompt: "Use $jiang-local-store to build a verified, visually consistent asset set for my real local store."

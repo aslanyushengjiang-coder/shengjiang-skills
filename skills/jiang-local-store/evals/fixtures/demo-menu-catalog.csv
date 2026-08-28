@@ -1,0 +1,2 @@
+item_id,category,name,spec,price,add_ons,featured,stock_status,image_path,portion,tableware,garnish,verified_ingredients,taste,spicy_level,allergens
+demo-dish-001,主食,番茄牛腩面,单人份,28.00,,true,available,assets/demo/dish-photo.png,以参考图为准,白色陶瓷深碗,少量葱花,"面条、番茄、牛腩、葱花、汤汁",待验证,不辣,待验证

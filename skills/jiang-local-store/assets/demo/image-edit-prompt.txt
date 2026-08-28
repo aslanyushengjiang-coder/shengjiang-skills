@@ -1,0 +1,1 @@
+Local fixture preflight only. Preserve the supplied dish identity and count; create no text, prices, logos or claims. This prompt is for testing request construction, not authorization to generate or publish.

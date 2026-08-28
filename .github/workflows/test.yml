@@ -17,3 +17,7 @@ jobs:
           python-version: "3.11"
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
+      - name: Restaurant template tests
+        run: python3 skills/jiang-local-store/evals/test_builtin_templates.py
+      - name: Restaurant image adapters (offline)
+        run: python3 skills/jiang-local-store/tests/test_image_adapters.py --live-source --output-root "$RUNNER_TEMP/local-store-api-test"

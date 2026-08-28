@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1122" height="1402" viewBox="0 0 1122 1402" role="img" aria-label="{{accessibility_label}}">
+  <metadata>Built-in T01. Derived from the existing S07 background plus original-photo composition. Image bytes are embedded, not redrawn. Copy occupies the upper safe area. {{truth_disclosure}}</metadata>
+  <image id="background-layer" href="{{background_data_uri}}" x="0" y="0" width="1122" height="1402" preserveAspectRatio="xMidYMid meet"/>
+  <image id="protected-dish" href="{{dish_data_uri}}" x="179" y="716" width="764" height="573" preserveAspectRatio="xMidYMid meet"/>
+  <g id="exact-copy" font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="{{brand_ink}}">
+    <text id="exact-store" x="84" y="106" font-size="28">{{store_name}}</text>
+    <text id="exact-headline-1" x="84" y="218" font-size="64" font-weight="600">{{headline_1}}</text>
+    <text id="exact-headline-2" x="84" y="302" font-size="64" font-weight="600">{{headline_2}}</text>
+    <text id="exact-offer" x="84" y="380" font-size="42">{{offer_line}}</text>
+    <text id="exact-rule-1" x="84" y="452" font-size="27">{{rule_1}}</text>
+    <text id="exact-rule-2" x="84" y="499" font-size="27">{{rule_2}}</text>
+    <text id="exact-rule-3" x="84" y="546" font-size="27">{{rule_3}}</text>
+    <text id="exact-rule-4" x="84" y="593" font-size="27">{{rule_4}}</text>
+    <text id="truth-disclosure" x="84" y="1370" font-size="22">{{truth_disclosure}}</text>
+  </g>
+</svg>

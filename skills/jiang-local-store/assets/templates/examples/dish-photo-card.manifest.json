@@ -1,0 +1,43 @@
+{
+  "template": "dish-photo-card",
+  "source_role": "demo-fixture",
+  "truth_status": "fictional_demo",
+  "facts_source": "evals/fixtures/demo-store-profile.yaml + demo-menu-catalog.csv + demo-campaign-brief.yaml；虚构回归夹具，不是本期西餐门店事实",
+  "exact_copy": {
+    "dish_name": "番茄牛腩面",
+    "item_id": "demo-dish-001",
+    "price_line": "菜单价￥28.00",
+    "spec_line": "单人份｜不辣",
+    "store_name": "姜小面测试店"
+  },
+  "images": [
+    {
+      "role": "dish_image",
+      "source_name": "dish-photo.png",
+      "sha256": "2c9b860ab14b2e9fc51f89cfcabc9bfd0a9cb9f3217cf47c5f61ed1491a061dc",
+      "bytes": 2196922,
+      "mime": "image/png",
+      "width": 1448,
+      "height": 1086,
+      "embedded_without_reencoding": true,
+      "source_role": "demo-fixture"
+    }
+  ],
+  "all_images_embedded": true,
+  "logo_status": "not-provided; store-name text is not a logo",
+  "qr_status": "not-provided; no fake QR created",
+  "output_file": "dish-photo-card.svg",
+  "output_sha256": "d3fe18a398553975d1d921b0af6860b07c1c51c6c8544a5e7af520c191e474c5",
+  "source_ready": true,
+  "raster_exported": true,
+  "visual_checked": true,
+  "user_approved": false,
+  "published": false,
+  "status": "demo-preview-checked-not-for-publication",
+  "image_generation_calls": 0,
+  "image_bytes_preserved": true,
+  "preview_file": "previews/dish-photo-card.png",
+  "preview_sha256": "e4231febaddeb08e35066d7a7dcc85816eb58f8855276a5eab9b4ce01f5bf261",
+  "visual_checked_at": "2026-08-28T14:23:33.879990+08:00",
+  "visual_scope": "Full-size PNG inspected; 390px static preview inspected. No real-device or print approval."
+}

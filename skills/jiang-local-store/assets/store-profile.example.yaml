@@ -1,0 +1,19 @@
+store_id: demo-store-001
+store_name: 待填写
+category: 餐饮
+address: 待填写
+business_hours: 待填写
+audience: 待填写
+public_scope: 待填写
+brand:
+  logo: /absolute/path/to/logo.png
+  colors:
+    - "#000000"
+    - "#FFFFFF"
+  typography_mood: 待填写
+  existing_assets: []
+  forbidden_elements: []
+space_refs:
+  storefront: /absolute/path/to/storefront.jpg
+  interior: []
+  wall: []
