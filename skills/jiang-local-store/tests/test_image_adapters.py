@@ -164,8 +164,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_json({'data': {'status': 'failed', 'error': {'message': 'MOCK failure'}}})
             if STATE['scenario'] == 'failed-task-echo-key':
                 return self.send_json({'data': {'status': 'failed', 'error': {'message': 'MOCK key=' + FAKE_KEY}}})
-            if STATE['scenario'] == 'processing-forever':
-                return self.send_json({'data': {'status': 'processing'}})
+            if STATE['scenario'] in {'processing-forever', 'pending-forever'}:
+                return self.send_json({'data': {'status': STATE['scenario'].split('-')[0]}})
             if STATE['scenario'] == 'unknown-status':
                 return self.send_json({'data': {'status': 'MOCK-new-state'}})
             statuses = STATE['statuses']
@@ -219,7 +219,7 @@ class AdapterTests(unittest.TestCase):
         self.out.mkdir(parents=True, exist_ok=True)
 
     def cli(self, kind, args, scenario='success', **env_overrides):
-        STATE.update(kind=kind, scenario=scenario, requests=[], statuses=['submitted', 'processing', 'completed'])
+        STATE.update(kind=kind, scenario=scenario, requests=[], statuses=['submitted', 'pending', 'processing', 'completed'])
         path = STATE['sources']['image2_api.py' if kind == 'sync' else 'apimart_image.py']
         argv = [sys.executable, str(path)] + list(args)
         started = time.monotonic()
@@ -318,7 +318,10 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(cp.returncode, 0, cp.stderr)
         self.assertEqual(json.loads(cp.stdout)['reported_cost_usd'], 0)
         self.assertEqual(STATE['requests'][0]['json']['n'], 1)
-        self.assertEqual(len([r for r in STATE['requests'] if r['path'].startswith('/v1/tasks/')]), 3)
+        polls = [r for r in STATE['requests'] if r['path'].startswith('/v1/tasks/')]
+        self.assertEqual(len(polls), 4)
+        self.assertEqual(len({r['path'] for r in polls}), 1)
+        self.assertEqual(len([r for r in STATE['requests'] if r['method'] == 'POST']), 1)
         self.assertEqual((self.out / 'protocol-fixture-01.png').read_bytes(), STATE['png'])
         self.assertIsNone(STATE['requests'][-1]['authorization'])
 
@@ -381,9 +384,11 @@ class AdapterTests(unittest.TestCase):
         self.assert_clean_failure(cp, 'Unexpected')
 
     def test_19_async_poll_deadline(self):
-        cp = self.generate('async', 'processing-forever', extra=['--timeout', '1', '--interval', '1'])
-        self.assert_clean_failure(cp, 'Timed out waiting')
-        self.assertFalse(list(self.out.glob('*.png')))
+        for scenario in ['processing-forever', 'pending-forever']:
+            with self.subTest(scenario=scenario):
+                cp = self.generate('async', scenario, extra=['--timeout', '1', '--interval', '1'])
+                self.assert_clean_failure(cp, 'Timed out waiting')
+                self.assertFalse(list(self.out.glob('*.png')))
 
     def test_20_sync_env_auth_prefix_preserves_space(self):
         cp = self.generate('sync', IMAGE2_AUTH_PREFIX='Bearer ')

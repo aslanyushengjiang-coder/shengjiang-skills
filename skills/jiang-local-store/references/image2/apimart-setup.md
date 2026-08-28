@@ -53,6 +53,7 @@ python3 scripts/apimart_image.py generate \
 
 真实凭据只走可信 HTTPS；鉴权 API 的所有自动跳转均拒绝，必须直接配置最终端点。返回图片使用独立、无鉴权的 HTTPS 下载请求。
 
+- `pending` 是正常排队状态，和 `submitted`、`processing` 一样继续查询当前任务。失败、取消或未知状态会停止；持续排队仍受超时限制。已取得 `task_id` 后，不因本地轮询报错重新提交生图，应先核对同一任务。状态定义见[官方任务文档](https://docs.apimart.ai/en/api-reference/tasks/status)。
 - `image_urls` 同时承担参考图生成与编辑，不等于像素级保护。真实商品、菜品和门店仍需逐张验收。
 - 当前适配器没有实现蒙版字段；需要像素级保护时，优先分层合成或改用已验证支持蒙版的执行层。
 - APIMart 官方文档示例会在完成结果中返回实际 `cost`，但费用随模型、输入和分辨率变化。批量前重新查定价并先做 1 张。

@@ -2,7 +2,7 @@
 
 一个可下载的餐饮Skill：菜品主图、食品摄影风格、门头预览、菜单、海报、活动素材和推广笔记工作流，连同Image2接口脚本装在同一目录。
 
-[下载Jiang-local-store.zip](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/Jiang-local-store-v0.1.0/Jiang-local-store.zip) · [安装与配置](references/workbuddy-install.md) · [三种可填模板](references/builtin-templates.md)
+[下载Jiang-local-store.zip](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/Jiang-local-store-v0.1.1/Jiang-local-store.zip) · [安装与配置](references/workbuddy-install.md) · [三种可填模板](references/builtin-templates.md)
 
 ## 包里有什么
 

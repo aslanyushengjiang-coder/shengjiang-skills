@@ -1,6 +1,6 @@
 {
   "package": "jiang-local-store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "source_policy": "Distribution-only transformations; canonical sources are not edited. Paths identify source Skill resources, never a private machine location.",
   "files": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "distribution_file": "README.md",
-      "distribution_sha256": "5f180e019272584c3940fa9430048eef425630371f0ed60d7762b0242742b3a1",
+      "distribution_sha256": "046708c916c142f9a2f3f79a0c51dad4ce03f0775064bc1ec726dfcbc853ef33",
       "operation": "copied",
       "source": "Authored for this single-Skill distribution"
     },
@@ -403,11 +403,11 @@
     },
     {
       "distribution_file": "references/image2/apimart-setup.md",
-      "distribution_sha256": "b9d62d4af4d956cce906b3fdb405a5613fb94b08f652a45654f108a6389efeea",
-      "operation": "remove personal fallback; single-root paths; clarify absent resume/status; trusted HTTPS and authenticated redirect rejection documented",
+      "distribution_sha256": "eb54109caeb1151ec842f6c21fd5d5b57f38e4261a364fa7825ecb7126f2c71d",
+      "operation": "public config namespace and existing safety guidance; pending status and no-resubmit guidance; preserve published provider route",
       "source_skill": "ecommerce-image-studio",
       "source_relative_file": "references/apimart-setup.md",
-      "source_sha256": "d7d7529153076bf1cc18218d624deaaf8708df0f2c14da144e576c345e43c598"
+      "source_sha256": "668e29b7eba3272fe27274c72a40fcf0a3bc48c736acfd98f7cce221ae81c866"
     },
     {
       "distribution_file": "references/image2/overview.md",
@@ -489,11 +489,11 @@
     },
     {
       "distribution_file": "scripts/apimart_image.py",
-      "distribution_sha256": "bd440191fc2dcb128cc1203fc5749b5382cea67e53921b8436fc80960ce2a731",
-      "operation": "bundled authenticated-redirect-safe adapter or tests; public namespace; APIMart personal fallback removed",
+      "distribution_sha256": "518e496064905368ac4e3216f7287d2a0a199df204932a9b172998f769d99522",
+      "operation": "public namespace; remove personal fallback; pending polling compatibility; preserve published gpt-image-2 model default",
       "source_skill": "ecommerce-image-studio",
       "source_relative_file": "scripts/apimart_image.py",
-      "source_sha256": "04d8181fd17d0e51679031ac7e4a2b504350b31987bd43897db24d860fae2d94"
+      "source_sha256": "d5f41ae696d45477b25e5bc31af15ca1c4a8b31d1cf4bd8601e971d22ad93625"
     },
     {
       "distribution_file": "scripts/fill_builtin_template.py",
@@ -513,11 +513,11 @@
     },
     {
       "distribution_file": "tests/test_image_adapters.py",
-      "distribution_sha256": "04ee2ca645634baaae1c2f7b4f321913ebba8df69edee55473088a5a2912cf78",
-      "operation": "bundled authenticated-redirect-safe adapter or tests; public namespace; APIMart personal fallback removed",
+      "distribution_sha256": "8418f59cc77958eb0f8fd096f80993f208ac6c30fde89a8cd1b671ba285383f1",
+      "operation": "public namespace; pending lifecycle and timeout regression; preserve published model choice without official-channel-only assertion",
       "source_skill": "ecommerce-image-studio",
       "source_relative_file": "tests/test_image_adapters.py",
-      "source_sha256": "04ee2ca645634baaae1c2f7b4f321913ebba8df69edee55473088a5a2912cf78"
+      "source_sha256": "bf1cbaa1fb9ee056015a3d756f9db6ab02b6e1d6c6f2073c78c70eaa79733dd4"
     }
   ],
   "manifest_excludes_itself": true,

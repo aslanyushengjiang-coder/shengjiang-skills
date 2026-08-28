@@ -248,7 +248,7 @@ def poll_task(base_url: str, api_key: str, task_id: str, timeout: int, interval:
             error = data.get("error") if isinstance(data, dict) else response
             detail = redact_sensitive(json.dumps(error, ensure_ascii=False), api_key)[:1000]
             raise SystemExit(f"APIMart task failed: {detail}")
-        if status not in {"submitted", "processing", None}:
+        if status not in {"pending", "submitted", "processing", None}:
             detail = redact_sensitive(str(status), api_key)
             raise SystemExit(f"Unexpected APIMart task status: {detail}")
         remaining = deadline - time.monotonic()

@@ -10,11 +10,11 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
-| [`Jiang-local-store`](skills/jiang-local-store/) | 实体门店菜品、菜单、活动海报与图文笔记；内置模板、参考图和图片API脚本 | v0.1.0；真实门店待验收 |
+| [`Jiang-local-store`](skills/jiang-local-store/) | 实体门店菜品、菜单、活动海报与图文笔记；内置模板、参考图和图片API脚本 | v0.1.1；真实门店待验收 |
 
 ## Jiang-local-store｜实体门店 Skill
 
-[下载单个Skill包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/Jiang-local-store-v0.1.0/Jiang-local-store.zip) · [使用说明](skills/jiang-local-store/README.md)
+[下载单个Skill包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/Jiang-local-store-v0.1.1/Jiang-local-store.zip) · [使用说明](skills/jiang-local-store/README.md)
 
 一个Skill入口，内置Image 2同步/异步调用脚本、三种SVG模板、四张完整示例预览和番茄牛腩风格参考。不需要另装电商Skill；已有图片可以直接填图和精确文字。
 
