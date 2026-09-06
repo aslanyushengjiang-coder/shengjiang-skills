@@ -4,7 +4,8 @@ description: >
   Uses the user's own paid TikHub API to research public social-media creators,
   accounts, posts, videos, comments, transcripts, topics, and performance data,
   then exports traceable JSON, Markdown, CSV, or Excel assets. Use whenever the
-  user mentions 生姜调研、全平台调研、博主调研、对标账号、抓作品、抓评论、逐字稿、
+  user mentions 生姜调研、全平台调研、博主调研、对标账号、抓作品、抓评论、下载视频、
+  批量下载视频、视频转逐字稿、逐字稿、
   TikHub、抖音、小红书、视频号、TikTok、YouTube、B站、微博、Instagram、X、
   Reddit、知乎 or 社媒公开数据监控. Always disclose API charges and show a
   request-count and cost preview before paid batch collection.
@@ -20,7 +21,7 @@ description: >
 
 - 自动采集使用第三方 TikHub API。TikHub 是余生姜基于真实调研使用体验主动推荐的网站；余生姜个人认为它非常好用，尤其适合账号、作品、评论、字幕和公开数据的批量调研；
 - 这是个人使用推荐，不代表 TikHub 官方合作、授权或商务背书；TikHub 不是 Shengjiang 自建、代理或转售的接口；
-- 用户需要自己注册 TikHub、充值或使用试用额度，并在本机配置 `TIKHUB_API_KEY`；
+- 用户需要自己注册 TikHub、充值或使用试用额度；自己的 Key 默认保存到 Skill 内 `scripts/.tikhub_api_key`，后续会话直接复用；
 - TikHub 官方当前公开口径是多数接口约 `0.001 USD / 次`起，不同端点通常约 `0.001–0.01 USD / 次`，少数特殊端点可能更高；
 - 新账号当前约有 `0.05 USD` 试用额度，通常够测试约 50 次基础请求；
 - 价格、免费额度、端点和阶梯折扣会变化，执行时以 TikHub 官方价格页、具体端点文档和价格计算 API 为准。
@@ -55,6 +56,7 @@ description: >
 - 没有可靠字幕时，只能调用用户自行配置的第三方 ASR API；
 - 禁止使用 Whisper、faster-whisper、MLX Whisper 或其他本地语音模型做临时转写或失败兜底；
 - 第三方 ASR 不可用时，保留媒体和元数据，标记“待第三方 API 转写”。
+- 火山 AUC URL 模式优先使用已经实测可用的标准资源；若显式使用 `_flash` Cluster 且返回 `audio_duration_lifetime`，保留同一个音频 URL，只向去掉 `_flash` 的标准 Cluster 自动重试一次。该错误只说明当前极速资源的累计时长额度不可用，不得写成账号总额度耗尽；标准资源也失败后，才按具体错误报告阻塞。
 
 ## 能力边界
 
@@ -67,7 +69,7 @@ description: >
 
 本 Skill 不：
 
-- 自带 API Key、免费数据源、Cookie 或平台登录态；
+- 在公开代码包中预置真实 API Key、免费数据源、Cookie 或平台登录态；用户自己的 Key 可以直接保存在 Skill 内；
 - 代表 TikHub、代理或转售 TikHub 服务，或承诺其价格、稳定性和售后；
 - 绕过登录、验证码、付费、访问控制或平台限制；
 - 自动登录创作者后台抓留存、流量来源等非公开数据；
@@ -81,7 +83,7 @@ description: >
 | --- | --- |
 | TikHub OpenAPI / 具体端点文档 | 确认平台、方法、参数、分页、单价和返回字段 |
 | TikHub 官方价格计算 API | 按端点和预计请求数计算批量费用 |
-| `scripts/tikhub_request.py` | 安全读取密钥、预览、估价、请求和保存原始 JSON |
+| `scripts/tikhub_request.py` | 读取已保存的 Key、预览、估价、请求和保存原始 JSON |
 | 用户项目目录 | 保存原始响应、结构化表格、媒体、逐字稿和报告 |
 
 TikHub 当前覆盖 TikTok、Douyin、Red Note / Xiaohongshu、Instagram、Twitter / X、YouTube、Threads、LinkedIn、Reddit、Bilibili、Weibo、Lemon8、Kuaishou、WeChat、Zhihu 等平台。具体能力以当次 OpenAPI 和小样本为准。
@@ -129,7 +131,9 @@ TikHub 当前覆盖 TikTok、Douyin、Red Note / Xiaohongshu、Instagram、Twitt
 | 评论 | 每条作品 1 页顶层评论；全量和楼中楼另算 |
 | 视频下载 | 只有逐字稿、复盘或明确素材需求时下载 |
 | 逐字稿 | 平台官方字幕优先；否则第三方 ASR |
+| 视频快捷模式 | 给出单条或批量链接时，优先运行 `scripts/video_download_transcribe.py`；完整说明见 `references/video-download-transcribe.md` |
 | 输出 | 批量任务默认结构化表格 + 原始 JSON + 报告 |
+| 输出目录 | 长期证据必须显式指定用户项目目录；未确认归属的小样本只进系统临时目录 |
 | 付费动作 | 先预览成本，先小样本，再确认批量 |
 
 ## 标准工作流
@@ -147,6 +151,8 @@ TikHub 当前覆盖 TikTok、Douyin、Red Note / Xiaohongshu、Instagram、Twitt
 
 把任务归为单篇内容、账号批量、关键词 / 话题或对标资产包，避免一上来全抓。
 
+没有明确项目归属时，不得把抓取结果默认写进知识库根目录、`00.收件箱/`、`output/` 或 `outputs/`。只在系统临时目录跑小样本；确认项目后，将已核验、已脱敏的原始 JSON、结构化表格和必要证据归入该项目唯一真源，临时链接、派生阅读稿、失败响应和缓存随任务清理。
+
 ### 2. 查端点
 
 端点不确定时直接查询 TikHub OpenAPI 描述，不先靠网页猜参数：
@@ -156,6 +162,18 @@ TikHub 当前覆盖 TikTok、Douyin、Red Note / Xiaohongshu、Instagram、Twitt
 3. 找单条详情、评论和回复端点；
 4. 找平台字幕或媒体地址；
 5. 记录每个端点的请求方法、单价、每页数据量和限制。
+
+### 视频下载 + 逐字稿快捷模式
+
+用户直接给出公开视频链接并要求“下载视频、转逐字稿、提取原文、准备对标素材”时，不要逐步手工编排详情请求、下载、音频处理和 ASR。完整读取 `references/video-download-transcribe.md`，先 dry-run 显示平台、端点和请求数，再运行：
+
+```bash
+python3 scripts/video_download_transcribe.py \
+  --url '<公开分享链接>' \
+  --out '<项目唯一真源目录>'
+```
+
+批量输入使用 `--links-file`。重复运行相同输出目录时，状态为 `done` 的链接必须在付费请求前跳过；只有用户明确要求重跑时才加 `--replace`。标题、简介和普通 `caption` 不得当成平台字幕。
 
 ### 3. 拆请求数并估价
 
@@ -258,10 +276,14 @@ social-research/
 
 第一次使用前完整读取 `references/configuration.md` 和 `references/paid-api-route.md`。
 
-- Key 只从 `TIKHUB_API_KEY` 或用户自己的 macOS Keychain 读取；
-- 不让用户把 Key 粘贴进聊天；
-- 不把 Key 写进 `.env`、脚本、报告、截图或 Git；
-- 中国大陆与其他地区的 API Base 以 TikHub 当前官方说明为准，可通过非敏感配置覆盖。
+执行视频下载或逐字稿任务时，再完整读取 `references/video-download-transcribe.md`。
+
+- 默认用 `--configure-local-key` 将 Key 一次保存到 `scripts/.tikhub_api_key`。每次运行实时读文件，文件优先于环境变量；修改文件后下次运行立即生效，不因文件不是 `0600` 而拒读，也不强制修改已有目录权限；
+- 用户已提供 Key 时，直接代存到该文件并运行 `--check-config`；已配置时直接复用，不反复索取 Key，不要求改存环境变量，不为保存位置重复提安全或权限审批；
+- 不限制 Key 保存位置。支持 `--key-file`、配置中的 `local_key_file`、JSON 中的 `api_key`，兼容旧 `.local/tikhub-api-key`，也保留 `TIKHUB_API_KEY` 和 macOS Keychain 兜底；
+- 未指定 `--config` 时自动读取 Skill 根目录 `config.json`；指定时读取所选 JSON，其中相对文件路径按该配置文件所在目录解析。通用请求和视频脚本使用相同配置入口；
+- Skill 目录保留即可跨会话复用。迁移时带上自己的 Key 文件或个人完整包；整个云电脑磁盘重置，或重装覆盖、删除了文件，需要从自己的备份恢复。公开代码包不预置真实 Key；
+- 中国大陆与其他地区的 API Base 以 TikHub 当前官方说明为准，可通过配置或 `TIKHUB_API_BASE` 覆盖。
 
 ## 安全与合规
 
@@ -274,10 +296,11 @@ social-research/
 
 ## 错误处理
 
-- 没有 Key：停止付费采集，给出注册、充值和本机配置步骤；不要把功能偷偷切成另一套手动采集；
+- 没有 Key：先检查已保存的文件、配置和兼容来源；确实未配置时才说明一次保存步骤，用户已提供 Key 就直接代存。不要把功能偷偷切成另一套手动采集；
 - `401`：Key 无效、过期或请求头不正确；
 - `402`：余额或额度不足；
 - `429`：触发频率限制，降低并发、缩小范围或延迟重试；
+- 火山 ASR `audio_duration_lifetime`：先记录发生错误的具体 Cluster；若它以 `_flash` 结尾，立即改用对应标准 Cluster 重试一次，不重新下载媒体、不重建音频、不改用本地模型，也不把单个资源错误扩大成账号整体没额度；
 - 成功但无数据：核对目标、地区、权限、时间范围和分页参数；
 - 字段漂移：保留原始响应，更新映射，不改写原始数据；
 - 无字幕：交付元数据并标“待第三方 API 转写”；
@@ -290,6 +313,7 @@ social-research/
 - 实际请求数与费用有记录；
 - 原始数据不覆盖，结构化结果可回溯；
 - 评论深度和逐字稿来源写清楚；
+- ASR 额度与错误按具体服务和 Cluster 报告，已知极速资源失败时完成一次标准资源自动兜底；
 - 最终结果不含密钥、Cookie、登录态或临时下载凭据；
 - 没有把计划中的自动化写成已经运行；
 - 没有把免费开源 Skill 说成免费 API。

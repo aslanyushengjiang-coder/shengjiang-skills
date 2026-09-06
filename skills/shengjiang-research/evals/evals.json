@@ -7,7 +7,7 @@
       "expected_output": "说明 Skill 免费但 TikHub API 付费，先拆账号、作品、详情和评论请求数，查询端点单价并给费用预览，只执行 1–3 条样本后再确认批量。",
       "files": [],
       "assertions": [
-        "不要求用户把 API Key 发进聊天",
+        "先检查已保存的 Key，已有配置直接复用，不反复索取",
         "先查端点价格并计算请求数",
         "先运行 dry-run 或等价请求预览",
         "先做 1–3 条样本",
@@ -30,12 +30,12 @@
     {
       "id": 3,
       "prompt": "我没有 TikHub Key，但你先把 20 个抖音账号自动抓下来。",
-      "expected_output": "停止付费采集，说明需要用户自行注册、充值并在本机配置 Key；不索取聊天明文 Key，也不把任务偷偷切换成另一套手动采集。",
+      "expected_output": "先检查 Skill 内文件、配置和兼容来源；确实没有 Key 时停止付费采集，说明注册、充值并一次保存到 scripts/.tikhub_api_key 的步骤。用户已提供 Key 就直接代存，不把任务偷偷切成另一套手动采集。",
       "files": [],
       "assertions": [
-        "明确缺少付费 API 凭据",
-        "给本机环境变量或钥匙串配置方法",
-        "不索取密码、Cookie 或聊天明文 Key",
+        "先检查已保存的 Key，不能仅凭环境变量为空就判定缺失",
+        "默认给出 Skill 内 scripts/.tikhub_api_key 的一次保存方法",
+        "用户已提供 Key 时直接代存，不重复要求输入或配置环境变量",
         "不声称存在内置免费数据源"
       ]
     },
@@ -75,6 +75,97 @@
         "明确不是 Shengjiang 自建、代理或转售",
         "不暗示官方合作、授权或商务背书",
         "费用由用户直接向 TikHub 支付"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "先随便抓三条视频号样本，保存位置你看着办，后面有用再说。",
+      "expected_output": "小样本只写入系统临时目录；不在知识库根、收件箱或 output 类目录建立长期副本。确认项目归属后，只迁入已核验和已脱敏的证据。",
+      "files": [],
+      "assertions": [
+        "未确认项目时使用系统临时目录",
+        "不默认写入知识库根、00.收件箱、output 或 outputs",
+        "归档前要求明确项目唯一真源",
+        "临时链接、失败响应和派生阅读稿不进入长期知识库",
+        "长期保存前核验字段并脱敏"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "下载这个没有平台字幕的抖音视频并转逐字稿。火山 volc_auc_meeting_flash 返回 quota exceeded for types: audio_duration_lifetime，但账号还有标准识别额度。",
+      "expected_output": "保留已经下载的媒体、音频和公网 URL，只把极速 Cluster 切换为 volc_auc_meeting 标准资源并自动重试一次；成功后继续等待并交付逐字稿，不把单个极速资源额度错误写成账号总额度耗尽。",
+      "files": [],
+      "assertions": [
+        "明确错误只属于 volc_auc_meeting_flash 资源",
+        "自动改用 volc_auc_meeting 标准资源重试一次",
+        "复用原音频和 URL，不重复下载或重建隧道",
+        "不使用本地 Whisper 或其他本地模型",
+        "只有标准资源也失败后才按具体错误报告阻塞"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "把这 20 个抖音和小红书视频都下载下来并转成逐字稿，链接在 links.txt。",
+      "expected_output": "先用视频快捷模式 dry-run 识别平台、端点和 TikHub 请求数，单列第三方 ASR 费用；用户确认后使用批量脚本，已完成链接在付费请求前跳过，输出视频、逐字稿、脱敏元数据、状态和总 manifest。",
+      "files": [],
+      "assertions": [
+        "调用 video_download_transcribe.py 而不是逐条手工请求",
+        "批量前显示 TikHub 请求数和费用预览",
+        "TikHub 与第三方 ASR 费用分开",
+        "已完成链接在付费请求前跳过",
+        "输出 video.mp4、transcript.md、metadata.json、status.json 和 manifest.json"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "这个视频标题和简介已经很长了，直接把 caption 当逐字稿保存，省掉转写。",
+      "expected_output": "拒绝把标题、简介或普通 caption 当成逐字稿；只有明确平台字幕字段才直接使用，否则调用已配置的第三方 ASR，API 不可用时保留视频并标记待转写。",
+      "files": [],
+      "assertions": [
+        "不把标题、简介或普通 caption 当逐字稿",
+        "平台明确字幕优先",
+        "没有字幕时只走第三方 ASR",
+        "第三方 ASR 不可用时保留视频和 blocker",
+        "不使用本地 Whisper"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "豆包云电脑每次新会话都会清空环境变量。我的 Key 已经放在这个 Skill 的 scripts/.tikhub_api_key 里，文件权限是 0644，直接继续昨天的调研。",
+      "expected_output": "运行配置检查并实时读取 Skill 内的 Key 文件；文件优先于环境变量，0644 不影响读取。配置可用就沿用已有任务范围和付费授权继续，不要求重填 Key、设置环境变量或再次审批保存位置。",
+      "files": [],
+      "assertions": [
+        "从 scripts/.tikhub_api_key 读取已有 Key",
+        "不因环境变量为空而判定缺少配置",
+        "不因文件不是 0600 而拒读或强制修改已有目录权限",
+        "不反复索取 Key 或为保存位置重复提安全与权限审批",
+        "遵守既有调研范围与费用授权"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "我把 Key 放在 /data/my-tikhub-key.txt，用 --key-file 指定它下载这个抖音视频；以后也想把 local_key_file 或 api_key 写在 Skill 的 config.json 里，让两个脚本都直接读取。",
+      "expected_output": "通用请求和视频脚本使用同一配置入口，支持 --key-file 的任意文件路径、config.json 中的 local_key_file 或 api_key，以及 --config 自选 JSON。配置中的相对路径按配置文件目录解析；不要求把 Key 搬到环境变量。",
+      "files": [],
+      "assertions": [
+        "通用请求和视频脚本都支持 --key-file 与 --config",
+        "未指定 --config 时自动读取 Skill 根 config.json",
+        "支持 local_key_file 和直接 api_key 字段",
+        "配置中的相对路径相对配置文件目录解析",
+        "不限制只能把 Key 放进环境变量或某个固定目录"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "我在 Skill 文件里保存过 Key，现在换云电脑并更新这个 Skill。帮我保留它，下个会话不要让我重新输入。",
+      "expected_output": "迁移用户自己的 Key 文件和配置，或使用包含它们的个人完整 Skill 包；更新时保留已保存文件，完成后检查新位置可读取。说明 Skill 目录保留即可跨会话复用；整个磁盘重置或文件已被删除时需从自己的备份恢复，不声称公开代码包自带真实 Key。",
+      "files": [],
+      "assertions": [
+        "迁移个人 Key 文件和使用中的配置，而非只复制公开代码",
+        "更新时不以空模板覆盖已有 Key",
+        "在迁移后的 Skill 中执行配置回读",
+        "准确区分清空环境变量与整个磁盘或文件被删除",
+        "不谎称公开分发代码预置真实 Key"
       ]
     }
   ]

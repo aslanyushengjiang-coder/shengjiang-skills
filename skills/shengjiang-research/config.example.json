@@ -2,6 +2,7 @@
   "api_base": "https://api.tikhub.io",
   "timeout_seconds": 45,
   "api_key_env": "TIKHUB_API_KEY",
+  "local_key_file": "scripts/.tikhub_api_key",
   "macos_keychain_service": "tikhub-api",
   "macos_keychain_account": "tikhub"
 }

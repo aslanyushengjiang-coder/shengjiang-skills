@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Preview, estimate, and send portable TikHub API requests safely."""
+"""Preview, estimate, and send TikHub requests with persistent Skill configuration."""
 
 from __future__ import annotations
 
 import argparse
+import getpass
 import json
 import os
 import platform
@@ -17,10 +18,12 @@ from pathlib import Path
 from typing import Any
 
 
+SKILL_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG = {
     "api_base": "https://api.tikhub.io",
     "timeout_seconds": 45,
     "api_key_env": "TIKHUB_API_KEY",
+    "local_key_file": str(SKILL_ROOT / "scripts" / ".tikhub_api_key"),
     "macos_keychain_service": "tikhub-api",
     "macos_keychain_account": "tikhub",
 }
@@ -46,13 +49,24 @@ SENSITIVE_KEYS = {
 }
 
 
-def load_config(path: str | None) -> dict[str, Any]:
+def load_config(path: str | None, key_file: str | None = None) -> dict[str, Any]:
     config = dict(DEFAULT_CONFIG)
-    if path:
-        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    config_path = Path(path).expanduser() if path else SKILL_ROOT / "config.json"
+    if path or config_path.is_file():
+        payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
         if not isinstance(payload, dict):
             raise ValueError("--config must contain a JSON object")
         config.update(payload)
+        if payload.get("local_key_file"):
+            local_path = Path(str(payload["local_key_file"])).expanduser()
+            if not local_path.is_absolute():
+                local_path = config_path.resolve().parent / local_path
+            config["local_key_file"] = str(local_path)
+    if key_file is not None:
+        config["local_key_file"] = str(Path(key_file).expanduser().resolve())
+        config.pop("api_key", None)
+    if config.get("api_key") is not None and not isinstance(config["api_key"], str):
+        raise ValueError("api_key must be a string")
     config["api_base"] = os.environ.get(
         "TIKHUB_API_BASE", str(config["api_base"])
     ).rstrip("/")
@@ -82,7 +96,40 @@ def read_keychain(service: str, account: str) -> str:
     return result.stdout.strip() if result.returncode == 0 else ""
 
 
+def read_local_key(path: str) -> str:
+    key_path = Path(path).expanduser()
+    try:
+        return key_path.read_text(encoding="utf-8-sig").strip()
+    except (FileNotFoundError, OSError, UnicodeError):
+        return ""
+
+
+def configure_local_key(path: str) -> Path:
+    key_path = Path(path).expanduser()
+    value = (
+        getpass.getpass("TikHub API key: ")
+        if sys.stdin.isatty()
+        else sys.stdin.readline()
+    ).strip()
+    if not value:
+        raise ValueError("API key cannot be empty")
+    key_path.parent.mkdir(parents=True, exist_ok=True)
+    key_path.write_text(value + "\n", encoding="utf-8")
+    return key_path
+
+
 def resolve_api_key(config: dict[str, Any]) -> tuple[str, str]:
+    # 每次调用重新读文件，云电脑切换会话或修改 Key 后无需刷新环境。
+    value = (config.get("api_key") or "").strip()
+    if value:
+        return value, "config:api_key"
+    for key_path in (
+        Path(str(config["local_key_file"])).expanduser(),
+        SKILL_ROOT / ".local" / "tikhub-api-key",
+    ):
+        value = read_local_key(str(key_path))
+        if value:
+            return value, f"file:{key_path.resolve()}"
     env_name = str(config["api_key_env"])
     value = os.environ.get(env_name, "").strip()
     if value:
@@ -251,8 +298,14 @@ def request_json(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", help="Optional non-secret JSON config")
+    parser.add_argument("--config", help="JSON config; defaults to config.json in the Skill")
+    parser.add_argument("--key-file", help="Read or save the API key at any chosen file path")
     parser.add_argument("--check-config", action="store_true")
+    parser.add_argument(
+        "--configure-local-key",
+        action="store_true",
+        help="Save the key once in scripts/.tikhub_api_key (or --key-file) for future sessions",
+    )
     parser.add_argument("--method", choices=("GET", "POST"), default="GET")
     parser.add_argument("--path", help="Official TikHub API path beginning with /api/")
     parser.add_argument("--params", help="JSON object or @file for query parameters")
@@ -280,10 +333,37 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     try:
-        config = load_config(args.config)
+        config = load_config(args.config, args.key_file)
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"Invalid config: {exc}", file=sys.stderr)
         return 2
+
+    if args.configure_local_key:
+        try:
+            saved_path = configure_local_key(str(config["local_key_file"]))
+            # 配置命令写入的新文件应立即接管，不能继续被 JSON 内的旧 Key 覆盖。
+            if config.get("api_key"):
+                config_path = Path(args.config).expanduser() if args.config else SKILL_ROOT / "config.json"
+                payload = json.loads(config_path.read_text(encoding="utf-8-sig"))
+                payload.pop("api_key", None)
+                config_path.write_text(
+                    json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+                    encoding="utf-8",
+                )
+        except (OSError, ValueError) as exc:
+            print(f"Could not save local API key: {exc}", file=sys.stderr)
+            return 2
+        print(
+            json.dumps(
+                {
+                    "configured": True,
+                    "source": f"file:{saved_path.resolve()}",
+                    "saved": str(saved_path.resolve()),
+                },
+                ensure_ascii=False,
+            )
+        )
+        return 0
 
     api_key, source = resolve_api_key(config)
     if args.check_config:
@@ -321,8 +401,8 @@ def main() -> int:
             return 2
         if not api_key:
             print(
-                "TIKHUB_API_KEY is not configured. Use --dry-run for a range estimate "
-                "or configure the key locally; never paste it into chat.",
+                "TikHub API key not found. Run --configure-local-key once to save it "
+                "in the Skill, choose --key-file, or use --dry-run for an estimate.",
                 file=sys.stderr,
             )
             return 2
@@ -362,7 +442,7 @@ def main() -> int:
         "url": redact_url(url),
         "body": redact_payload(body),
         "out": args.out,
-        "authorization": "Bearer <TIKHUB_API_KEY from local environment or keychain>",
+        "authorization": "Bearer <configured TikHub API key>",
         "pricing": preview,
     }
     if args.dry_run:
@@ -371,8 +451,9 @@ def main() -> int:
 
     if not api_key:
         print(
-            "TIKHUB_API_KEY is not configured. This skill uses a third-party paid "
-            "API. Configure the key locally or use --dry-run; never paste it into chat.",
+            "TikHub API key not found. This skill uses a third-party paid API. "
+            "Run --configure-local-key once to save it in the Skill, choose "
+            "--key-file, or use --dry-run.",
             file=sys.stderr,
         )
         return 2

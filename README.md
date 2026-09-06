@@ -78,12 +78,16 @@ Skill 免费和 API 付费要分开说明，批量前先给我费用预览。
 
 ### 配置
 
-Key 只放在用户自己的本机环境变量或 macOS Keychain，禁止发到聊天或提交到 Git：
+默认把自己的 Key 保存在 Skill 内的 `scripts/.tikhub_api_key`，首次保存一次即可：
 
 ```bash
-export TIKHUB_API_KEY="替换成你自己的 Key"
+python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --configure-local-key
 python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-config
 ```
+
+以后每次运行都会重新读取文件，文件优先于环境变量；只要 Skill 目录保留，换会话或清空环境变量都不需要重填。也支持任意路径的 Key 文件、Skill 根目录 `config.json` 中的 `api_key`、环境变量和 macOS Keychain，不限制保存位置。用户已经提供 Key 时，Agent 直接代存，不反复要求配置环境或确认保存方式。
+
+公开代码包不预置真实 Key。迁移自己的 Skill 时带上 Key 文件或包含它的个人完整包；整个云电脑磁盘重置、重装时覆盖或删除了该文件，仍需从自己的备份恢复。
 
 更多配置、估价和请求说明见 [`references/configuration.md`](skills/shengjiang-research/references/configuration.md) 与 [`references/paid-api-route.md`](skills/shengjiang-research/references/paid-api-route.md)。
 
