@@ -9,7 +9,7 @@
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
-| [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | v0.7.1 |
+| [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | [v0.8.0](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/tag/v0.8.0) |
 | [`Jiang-local-store`](skills/jiang-local-store/) | 实体门店菜品、菜单、活动海报与图文笔记；内置模板、参考图和图片API脚本 | v0.1.1；真实门店待验收 |
 
 ## Jiang-local-store｜实体门店 Skill
@@ -21,6 +21,8 @@
 图片服务由使用者自行选择、配置和付费，本包不含Key。真实门店素材仍需独立验收；不自动操作外卖后台、发布图文或上线网站。完整图文排版与网站实现还需要宿主提供相应能力。
 
 ## shengjiang-research
+
+[独立仓库](https://github.com/aslanyushengjiang-coder/shengjiang-research) · [直接下载最新 Skill ZIP](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/latest/download/shengjiang-research.zip)
 
 `shengjiang-research` 是从余生姜本地长期使用的全平台调研 Skill 开源出来的 API-first 版本。
 
