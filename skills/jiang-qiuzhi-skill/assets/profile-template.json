@@ -1,0 +1,12 @@
+{
+  "route": "campus",
+  "graduation_year": null,
+  "graduation_month": null,
+  "degree": null,
+  "major": null,
+  "cities": [],
+  "city_strict": false,
+  "job_keywords": [],
+  "timezone": null,
+  "facts": []
+}

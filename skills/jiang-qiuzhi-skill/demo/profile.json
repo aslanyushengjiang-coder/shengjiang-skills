@@ -1,0 +1,46 @@
+{
+  "route": "campus",
+  "graduation_year": 2027,
+  "graduation_month": "2027-06",
+  "degree": "本科",
+  "major": "信息管理",
+  "cities": [
+    "杭州"
+  ],
+  "city_strict": true,
+  "job_keywords": [
+    "数据分析",
+    "数据运营"
+  ],
+  "timezone": "Asia/Shanghai",
+  "facts": [
+    {
+      "id": "f-edu",
+      "experience_id": "edu-1",
+      "text": "示例大学（虚构），信息管理本科，2023年9月至2027年6月。",
+      "source": "虚构演示简历：教育段",
+      "confirmed": true
+    },
+    {
+      "id": "f-p1",
+      "experience_id": "project-1",
+      "text": "在课程项目中使用Python清洗订单数据，制作月度对账表；负责需求梳理和结果汇报。",
+      "source": "虚构演示简历：课程项目",
+      "confirmed": true
+    },
+    {
+      "id": "f-a1",
+      "experience_id": "activity-1",
+      "text": "在校园社团活动中负责报名信息整理与宣传文案撰写。",
+      "source": "虚构演示简历：社团活动",
+      "confirmed": true
+    },
+    {
+      "id": "f-s1",
+      "experience_id": "skills",
+      "text": "技能：Python、SQL、Excel。",
+      "source": "虚构演示简历：技能段",
+      "confirmed": true
+    }
+  ]
+}

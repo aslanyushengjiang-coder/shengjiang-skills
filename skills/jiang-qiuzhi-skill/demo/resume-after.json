@@ -1,0 +1,89 @@
+{
+  "name": "演示同学（虚构）",
+  "target": "数据分析 · 2027届秋招",
+  "contact": [
+    "demo@example.invalid",
+    "意向城市：杭州"
+  ],
+  "version": "data-analysis-v1",
+  "job_id": "demo-job",
+  "jd_reference": "虚构演示JD",
+  "sections": [
+    {
+      "heading": "教育背景",
+      "entries": [
+        {
+          "title": "示例大学（虚构）｜信息管理 · 本科",
+          "period": "2023.09 - 2027.06",
+          "experience_id": "edu-1",
+          "fact_ids": [
+            "f-edu"
+          ],
+          "bullets": []
+        }
+      ]
+    },
+    {
+      "heading": "课程项目",
+      "entries": [
+        {
+          "title": "订单数据整理与月度对账",
+          "period": "",
+          "experience_id": "project-1",
+          "fact_ids": [
+            "f-p1"
+          ],
+          "bullets": [
+            {
+              "text": "使用 Python 清洗订单数据，制作月度对账表。",
+              "fact_ids": [
+                "f-p1"
+              ]
+            },
+            {
+              "text": "负责项目需求梳理与结果汇报。",
+              "fact_ids": [
+                "f-p1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "校园活动",
+      "entries": [
+        {
+          "title": "社团活动支持",
+          "period": "",
+          "experience_id": "activity-1",
+          "fact_ids": [
+            "f-a1"
+          ],
+          "bullets": [
+            {
+              "text": "负责报名信息整理与宣传文案撰写。",
+              "fact_ids": [
+                "f-a1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "技能",
+      "entries": [
+        {
+          "title": "Python · SQL · Excel",
+          "period": "",
+          "experience_id": "skills",
+          "fact_ids": [
+            "f-s1"
+          ],
+          "bullets": []
+        }
+      ]
+    }
+  ]
+}

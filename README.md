@@ -8,9 +8,16 @@
 
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
+| [`jiang-qiuzhi-skill`](skills/jiang-qiuzhi-skill/) | 求职找岗、秋招表筛选、STAR简历、网申草稿、进度和面试陪练 | v1.0.0-rc.2 候选版 |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | [v0.8.0](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/tag/v0.8.0) |
 | [`Jiang-local-store`](skills/jiang-local-store/) | 实体门店菜品、菜单、活动海报与图文笔记；内置模板、参考图和图片API脚本 | v0.1.1；真实门店待验收 |
+
+## Jiang-qiuzhi-skill｜生姜求职 Skill
+
+[下载独立技能包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/jiang-qiuzhi-skill-v1.0.0-rc.2/jiang-qiuzhi-skill.zip) · [安装提示词](skills/jiang-qiuzhi-skill/prompts/安装提示词.txt) · [使用说明](skills/jiang-qiuzhi-skill/README.md)
+
+支持 WorkBuddy / Codex 按实际宿主能力使用。53项本地自动测试通过；真实网申兼容性需逐站验证，填表停在最终提交前。包内仅含虚构演示，不含真实5000条岗位表或个人资料。
 
 ## Jiang-local-store｜实体门店 Skill
 

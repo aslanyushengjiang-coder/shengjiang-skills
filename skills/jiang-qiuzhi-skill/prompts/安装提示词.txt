@@ -1,0 +1,10 @@
+帮我安装这套生姜求职 Skill：
+https://github.com/aslanyushengjiang-coder/shengjiang-skills/tree/main/skills/jiang-qiuzhi-skill
+
+只下载并安装 jiang-qiuzhi-skill，不安装仓库里的其他技能。也可以直接下载技能包：
+https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/jiang-qiuzhi-skill-v1.0.0-rc.2/jiang-qiuzhi-skill.zip
+
+根据我当前使用的 WorkBuddy 或 Codex，选择实际支持的 Skill 安装方式。先读取 SKILL.md 并检查文件完整性；如果已经装过，先保留旧版和个人数据，再更新。
+安装后确认能否识别并调用这个 Skill，告诉我是否安装成功。若只能在当前会话读取，就明确说明，不要当作已经安装。
+检查找岗、筛表、改简历、导出PDF和浏览器代填所需能力；缺少依赖时说明缺什么，再由我决定是否安装。不要动我的旧求职数据，不要自动投递。
+完成后引导我上传简历，补充毕业时间、求职城市、方向，以及找实习还是正式岗；已经提供的信息不要重复问。

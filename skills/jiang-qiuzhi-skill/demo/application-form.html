@@ -1,0 +1,13 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>虚构网申表｜仅离线演示</title>
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:20px;line-height:1.6}label{display:block;margin:14px 0}input,textarea,select{display:block;width:96%;padding:10px;font:inherit}strong{color:#9a3412}button{padding:12px}</style>
+<h1>虚构网申表</h1><p><strong>只用于填写与回读测试，不是真实招聘。不发送、不保存数据。</strong></p>
+<form onsubmit="event.preventDefault()">
+<label>姓名<input name="name" autocomplete="off"></label>
+<label>邮箱<input name="email" type="email" autocomplete="off"></label>
+<label>学校<input name="school" autocomplete="off"></label>
+<label>毕业年月<input name="graduation" type="month"></label>
+<label>项目经历<textarea name="projects"></textarea></label>
+<label>上传简历（仅本地选择）<input name="resume" type="file" accept=".pdf"></label>
+<label>真实性声明（需用户本人处理）<input name="declaration" type="checkbox"></label>
+<button type="submit" disabled>最终提交（演示中禁用）</button>
+</form><p id="status">状态：尚未提交</p></html>

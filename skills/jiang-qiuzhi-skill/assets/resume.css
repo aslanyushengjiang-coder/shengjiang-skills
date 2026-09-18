@@ -1,0 +1,20 @@
+@page { size: A4 portrait; margin: 14mm 16mm; }
+* {box-sizing:border-box;}
+html {color:#182534;background:#e8edf2;}
+body {width:210mm;min-height:297mm;margin:0 auto;padding:14mm 16mm;background:white;font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:10.5pt;line-height:1.55;display:flex;flex-direction:column;gap:9pt;}
+.notice {font-size:8pt;color:#687787;border-bottom:1px solid #d9e0e7;padding-bottom:5pt;}
+header {position:relative;padding-bottom:10pt;border-bottom:2pt solid #183b52;}
+h1 {font-size:26pt;line-height:1.2;margin:0 0 7pt;letter-spacing:1pt;}
+.target {font-size:12pt;font-weight:600;margin:0 0 5pt;}
+.contact {font-size:8.5pt;color:#607080;margin:0;overflow-wrap:anywhere;}
+section {break-inside:avoid;}
+h2 {font-size:12pt;color:#183b52;background:#edf2f6;border-left:3pt solid #183b52;padding:4pt 7pt;margin:0 0 7pt;break-after:avoid;}
+.entry-head {display:flex;justify-content:space-between;gap:10pt;align-items:baseline;}
+h3 {font-size:10.5pt;font-weight:650;margin:0;}
+.entry-head span {white-space:nowrap;flex-shrink:0;font-size:9pt;color:#657483;}
+article {margin:0 0 6pt;break-inside:avoid;}
+article:last-child {margin-bottom:0;}
+ul {padding-left:14pt;margin:5pt 0 0;}
+li {padding-left:1pt;margin:0 0 4pt;}
+li:last-child {margin-bottom:0;}
+@media print {html {background:white;}body {width:auto;min-height:269mm;margin:0;padding:0;justify-content:space-between;}}
