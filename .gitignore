@@ -4,3 +4,13 @@ __pycache__/
 .pytest_cache/
 audit-report.md
 audit-report.json
+
+# 视频项目与运行产物放在各自工作区。
+/output/
+/outputs/
+/tmp/
+/*.zip
+**/.local/
+**/.env
+**/.env.*
+!**/.env.example

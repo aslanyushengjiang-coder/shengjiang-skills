@@ -1,31 +1,19 @@
-# Shengjiang Skills
+# Shengjiang Skills · 自媒体 Skill 库
 
-余生姜在真实业务中持续使用、测试和迭代的开源 AI Skills。
+余生姜用于自媒体内容生产的开源 AI Skills，集中维护自媒体知识库搭建、账号与内容调研，以及后续可复用的创作能力。
 
-各Skill按使用场景独立命名。这里不收集“看起来很厉害”的提示词；每个 Skill 都必须来自重复发生的真实任务，有明确输入、执行边界、输出结果和自动化验收。
+## 仓库范围
+
+自媒体相关 Skill 统一维护在这个仓库。每个 Skill 应有明确输入、执行边界、输出结果和验收方法。
+
+每条视频的完整演示项目单独建库。视频素材、录屏、客户资料、实际工作区和运行结果保存在对应项目；这里只保存可复用的 Skill、必要脚本和通用模板。维护要求见 [AGENTS.md](AGENTS.md)。
 
 ## 系列目录
 
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
-| [`jiang-qiuzhi-skill`](skills/jiang-qiuzhi-skill/) | 求职找岗、秋招表筛选、STAR简历、网申草稿、进度和面试陪练 | v1.0.0-rc.2 候选版 |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | [v0.8.0](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/tag/v0.8.0) |
-| [`Jiang-local-store`](skills/jiang-local-store/) | 实体门店菜品、菜单、活动海报与图文笔记；内置模板、参考图和图片API脚本 | v0.1.1；真实门店待验收 |
-
-## Jiang-qiuzhi-skill｜生姜求职 Skill
-
-[下载独立技能包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/jiang-qiuzhi-skill-v1.0.0-rc.2/jiang-qiuzhi-skill.zip) · [安装提示词](skills/jiang-qiuzhi-skill/prompts/安装提示词.txt) · [使用说明](skills/jiang-qiuzhi-skill/README.md)
-
-支持 WorkBuddy / Codex 按实际宿主能力使用。53项本地自动测试通过；真实网申兼容性需逐站验证，填表停在最终提交前。包内仅含虚构演示，不含真实5000条岗位表或个人资料。
-
-## Jiang-local-store｜实体门店 Skill
-
-[下载单个Skill包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/Jiang-local-store-v0.1.1/Jiang-local-store.zip) · [使用说明](skills/jiang-local-store/README.md)
-
-一个Skill入口，内置Image 2同步/异步调用脚本、三种SVG模板、四张完整示例预览和番茄牛腩风格参考。不需要另装电商Skill；已有图片可以直接填图和精确文字。
-
-图片服务由使用者自行选择、配置和付费，本包不含Key。真实门店素材仍需独立验收；不自动操作外卖后台、发布图文或上线网站。完整图文排版与网站实现还需要宿主提供相应能力。
 
 ## shengjiang-research
 
@@ -108,6 +96,8 @@ python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-con
 
 它提供搭建、自媒体模式、资料接入、健康检查、修复和自我纠错六个工作流。
 
+用于搭建自媒体库时，选择 `creator` 模式，建立账号定位、对标调研、用户洞察、素材、选题、稿件、发布和复盘入口。生成的知识库保存在自己的内容工作区。
+
 安装：
 
 ```bash
@@ -115,6 +105,23 @@ npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills \
   --skill shengjiang-knowledge \
   -y
 ```
+
+安装后可以直接说：
+
+```text
+调用 shengjiang-knowledge，在我指定的工作区搭建自媒体知识库，使用 creator 模式。
+先检查已有资料和目录，再补充账号定位、对标、素材、选题、稿件、发布和复盘入口。
+每条视频的完整项目放到独立仓库，在知识库中保留链接。
+```
+
+## 历史版本
+
+求职和实体店老板 Skill 已退出当前目录：
+
+- 求职助手继续使用 [独立仓库 jiang-qiuzhi-skill](https://github.com/aslanyushengjiang-coder/jiang-qiuzhi-skill)。
+- 实体店老板 Skill 的 [历史发行包](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/tag/Jiang-local-store-v0.1.1) 保留供找回。
+
+历史标签中的内容不代表本仓库当前收录范围。
 
 ## 开源标准
 

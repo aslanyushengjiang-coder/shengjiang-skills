@@ -1,3 +1,0 @@
-# 可选PDF依赖。先获得安装许可；基础CLI不需要第三方库。
-playwright
-pypdf
