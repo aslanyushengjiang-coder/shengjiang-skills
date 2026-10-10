@@ -35,7 +35,7 @@ npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills --skill sheng
 
 ## 方法来源与验证
 
-方法参考润宇《如何拆解一条爆款短视频？》的公开文章和图示，来源及本地执行补充见 [来源说明](references/source-map.md)。本 Skill 不代表润宇官方产品，也不包含其内部提示词或课程 PDF。
+执行流程与材料核对见 [参考说明](references/source-map.md)。安装包包含拆解规则、报告模板和评测说明，不附带原始课程 PDF。
 
 [历史验收记录](evals/validation.md) 仅覆盖基于 PDF 的部分拆解；其余用例属于规则走查。发布打包检查不代表完整视频采集和分析已通过在线实测。复现历史评测需自行提供合法取得的原件。
 
