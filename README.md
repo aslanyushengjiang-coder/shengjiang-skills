@@ -14,6 +14,17 @@
 | --- | --- | --- |
 | [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | [v0.8.0](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/tag/v0.8.0) |
+| [`shengjiang-viral-breakdown`](skills/shengjiang-viral-breakdown/) | 拆解指定短视频、复盘自己的作品，交付观看价值、逐段分析、评论、分镜和逐字稿 | v1.0.0 |
+
+## shengjiang-viral-breakdown
+
+[生姜爆款拆解](skills/shengjiang-viral-breakdown/) · [下载独立 Skill ZIP](https://github.com/aslanyushengjiang-coder/shengjiang-skills/releases/download/shengjiang-viral-breakdown-v1.0.0/shengjiang-viral-breakdown.zip)
+
+分析指定短视频的观看价值、开头、逐段内容、评论、分镜和时间戳逐字稿，并提炼可迁移的方法。已有素材可以直接分析；需要采集作品时配合 `shengjiang-research`。
+
+```bash
+npx -y skills@latest add aslanyushengjiang-coder/shengjiang-skills --skill shengjiang-viral-breakdown -y
+```
 
 ## shengjiang-research
 
