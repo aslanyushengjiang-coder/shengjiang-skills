@@ -103,6 +103,8 @@ python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-con
 
 企业资料使用 `enterprise` 模式：**产品库**放线路、酒店、景点、报价和公众号内容；**客户库**放客户名单、档案和已导出的聊天；**技能库**放团队 SOP、清单和通用模板。先了解公司和已有资料，保持原文件不动，交付每个库的内容与缺口清单。[企业三库安装与完整提示词](skills/shengjiang-knowledge/README.md#企业三库产品库客户库技能库)。
 
+三库进一步提供24类可调整的文旅行业子库，覆盖产品研发、供应采购、团期交付、交易服务和方法维护。按真实资料启用，随模板交付任务导航、执行条件、结果核验、失败续办与反馈规则。完整结构见 [企业三库模式](skills/shengjiang-knowledge/references/enterprise-mode.md)。
+
 ![shengjiang-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/shengjiang-knowledge/assets/shengjiang-knowledge-harness.png)
 
 > 你的文件不是知识库。只有当 AI 能稳定读到用户画像、当前工作、业务规则和原始事实，执行后还能接受检查、记录纠正并升级经验，它才是一套能运行的知识库。
