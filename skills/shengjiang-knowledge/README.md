@@ -1,5 +1,31 @@
 # shengjiang-knowledge
 
+## 企业三库：产品库、客户库、技能库
+
+面向公司资料整理，已增加 `enterprise` 模式。亲子游、研学、旅行社和营地机构可以直接使用：
+
+| 业务库 | 放什么 |
+| --- | --- |
+| 产品库 | 线路、酒店、景点、报价、公众号内容、活动介绍和图片 |
+| 客户库 | 客户名单、档案、报名与跟进、已导出的聊天记录 |
+| 技能库 | 团队做事的 SOP（标准操作流程）、清单和通用模板 |
+
+先了解公司、资料范围和保存位置，再按正文与用途分类。原文件保持位置与内容，三库通过索引引用；搭完说明每个库接入了什么、还缺哪些资料。技能库可以直接保存普通流程文档。
+
+将下面提示词中的文件夹换成真实路径，发给 WorkBuddy、Codex 或 Claude Code：
+
+```text
+帮我安装 shengjiang-knowledge 这个 Skill，地址是 https://github.com/aslanyushengjiang-coder/shengjiang-skills 。装好以后调用它，把「这里换成你放公司资料的文件夹」搭成我们公司的企业知识库，使用企业三库模式，分成产品库（线路、酒店、景点、报价、公众号内容）、客户库（客户名单、档案、聊天记录）、技能库（我们做事的 SOP）。开始前先问我几个问题，了解公司是做什么的、手里有哪些资料，以及知识库保存在哪里；原文件不要动，搭完告诉我每个库放了什么、还缺哪些资料。
+```
+
+初始化命令（只预览，已授权执行时加 `--apply`）：
+
+```bash
+python3 scripts/init_knowledge_base.py --root "<知识库绝对路径>" --name "<公司名称>" --profile enterprise
+```
+
+脚本从 Skill 安装目录调用，也可以使用脚本绝对路径。命令只建立结构，正文读取、分类和实际检索验收由 Agent 完成。已有成熟库保留现有目录，只补三库导航。详细规则见 [企业三库模式](references/enterprise-mode.md)。原有 `general` 通用模式和 `creator` 自媒体模式继续可用，下文是这两种模式的通用说明。
+
 ![shengjiang-knowledge Harness 全景闭环](assets/shengjiang-knowledge-harness.png)
 
 > 不是整理文件，而是给 AI 装上一套能持续进化的业务驾驶系统。

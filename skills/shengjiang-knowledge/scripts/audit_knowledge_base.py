@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Read-only health check for folder-based AI knowledge bases."""
-
 from __future__ import annotations
 
 import argparse
@@ -60,7 +57,6 @@ RECOMMENDED_P1 = {
     "AGENT.md": "缺少跨 Agent 的镜像入口。",
     "CLAUDE.md": "缺少 Claude Code 入口。",
     "_本周.md": "缺少当前工作文件。",
-    "01.资料库/_资料索引.md": "缺少可追溯的资料接入索引。",
     "system/HEALTH.md": "缺少知识库健康检查频率和状态处理规则。",
     "system/log.md": "缺少知识库变更日志。",
     "system/MEMORY_LOG.md": "缺少用户纠正记录。",
@@ -193,7 +189,14 @@ def check_required(root: Path, files: list[Path], findings: list[Finding]) -> No
                 message,
                 "创建或恢复该文件，再重新验证启动链路。",
             )
-    for relative, message in RECOMMENDED_P1.items():
+    recommended = dict(RECOMMENDED_P1)
+    enterprise_libraries = ("01.产品库", "02.客户库", "03.技能库")
+    if any((root / library).is_dir() for library in enterprise_libraries):
+        for library in enterprise_libraries:
+            recommended[f"{library}/_资料索引.md"] = "缺少三库资料索引。"
+    else:
+        recommended["01.资料库/_资料索引.md"] = "缺少可追溯的资料接入索引。"
+    for relative, message in recommended.items():
         exists = (root / relative).exists()
         if relative == "_本周.md" and any(path.name == "_本周.md" for path in files):
             exists = True

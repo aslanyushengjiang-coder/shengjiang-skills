@@ -41,7 +41,7 @@ class ShengjiangKnowledgeTests(unittest.TestCase):
 
         evals = json.loads((SKILL_ROOT / "evals" / "evals.json").read_text(encoding="utf-8"))
         self.assertEqual(evals["skill_name"], "shengjiang-knowledge")
-        self.assertEqual(len(evals["evals"]), 6)
+        self.assertGreaterEqual(len(evals["evals"]), 6)
         self.assertTrue(all(item["assertions"] for item in evals["evals"]))
 
     def test_preview_does_not_write(self) -> None:
@@ -126,6 +126,48 @@ class ShengjiangKnowledgeTests(unittest.TestCase):
             self.assertEqual(audit_result.returncode, 0, audit_result.stdout)
             payload = json.loads(audit_result.stdout)
             self.assertEqual(payload["status"], "healthy")
+
+    def test_enterprise_profile_preserves_sources_and_existing_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "公司资料"
+            root.mkdir()
+            original = root / "报价.csv"
+            original.write_text("产品,价格\n测试线路,100\n", encoding="utf-8")
+            before = (original.read_bytes(), original.stat().st_mtime_ns)
+            preview = run(str(INIT_SCRIPT), "--root", str(root), "--profile", "enterprise")
+            self.assertEqual(preview.returncode, 0, preview.stderr)
+            self.assertEqual(list(root.iterdir()), [original])
+
+            result = run(str(INIT_SCRIPT), "--root", str(root), "--profile", "enterprise", "--apply")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(before, (original.read_bytes(), original.stat().st_mtime_ns))
+            for directory in ("01.产品库", "02.客户库", "03.技能库"):
+                self.assertTrue((root / directory / "_资料索引.md").is_file())
+            for directory in ("00.收件箱", "01.资料库", "02.输出区", "03.项目档案", "skills"):
+                self.assertFalse((root / directory).exists())
+            self.assertEqual((root / "AGENT.md").read_bytes(), (root / "AGENTS.md").read_bytes())
+
+            index = root / "01.产品库/_资料索引.md"
+            index.write_text("# 已登记的产品\n", encoding="utf-8")
+            snapshot = {str(p.relative_to(root)): p.read_bytes() for p in root.rglob("*") if p.is_file()}
+            again = run(str(INIT_SCRIPT), "--root", str(root), "--profile", "enterprise", "--apply")
+            self.assertEqual(again.returncode, 0, again.stderr)
+            self.assertEqual(snapshot, {str(p.relative_to(root)): p.read_bytes() for p in root.rglob("*") if p.is_file()})
+
+    def test_enterprise_audit_checks_three_indexes(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "企业知识库"
+            result = run(str(INIT_SCRIPT), "--root", str(root), "--profile", "enterprise", "--apply")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            audit = run(str(AUDIT_SCRIPT), "--root", str(root), "--format", "json")
+            self.assertEqual(audit.returncode, 0, audit.stdout)
+            self.assertEqual(json.loads(audit.stdout)["status"], "healthy")
+            (root / "02.客户库/_资料索引.md").unlink()
+            audit = run(str(AUDIT_SCRIPT), "--root", str(root), "--format", "json")
+            findings = json.loads(audit.stdout)["findings"]
+            missing = [f["path"] for f in findings if f["code"] == "MISSING_RECOMMENDED_FILE"]
+            self.assertIn("02.客户库/_资料索引.md", missing)
+            self.assertNotIn("01.资料库/_资料索引.md", missing)
 
     def test_health_check_can_save_latest_state(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

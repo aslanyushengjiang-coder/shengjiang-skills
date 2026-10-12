@@ -1,6 +1,6 @@
 # Shengjiang Skills · 自媒体 Skill 库
 
-余生姜用于自媒体内容生产的开源 AI Skills，集中维护自媒体知识库搭建、账号与内容调研，以及后续可复用的创作能力。
+余生姜用于自媒体内容生产的开源 AI Skills，集中维护知识库搭建、账号与内容调研，以及可复用的创作能力。`shengjiang-knowledge` 同时提供企业三库定制模式，适合公司资料整理与文旅机构使用。
 
 ## 仓库范围
 
@@ -12,7 +12,7 @@
 
 | Skill | 解决什么问题 | 状态 |
 | --- | --- | --- |
-| [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建个人 / 团队 / 自媒体系统知识库，接入已有资料，持续检查健康状态 | v0.4.0 |
+| [`shengjiang-knowledge`](skills/shengjiang-knowledge/) | 搭建企业三库（产品 / 客户 / 技能），也支持通用、自媒体知识库 | enterprise 三库模式已加入 |
 | [`shengjiang-research`](skills/shengjiang-research/) | 用用户自己的付费 TikHub API 调研全平台账号、作品、评论、字幕和公开数据，执行前先算请求与费用 | [v0.8.0](https://github.com/aslanyushengjiang-coder/shengjiang-research/releases/tag/v0.8.0) |
 | [`shengjiang-viral-breakdown`](skills/shengjiang-viral-breakdown/) | 拆解指定短视频、复盘自己的作品，交付观看价值、逐段分析、评论、分镜和逐字稿 | v1.0.0 |
 
@@ -100,6 +100,8 @@ python3 .agents/skills/shengjiang-research/scripts/tikhub_request.py --check-con
 更多配置、估价和请求说明见 [`references/configuration.md`](skills/shengjiang-research/references/configuration.md) 与 [`references/paid-api-route.md`](skills/shengjiang-research/references/paid-api-route.md)。
 
 ## shengjiang-knowledge
+
+企业资料使用 `enterprise` 模式：**产品库**放线路、酒店、景点、报价和公众号内容；**客户库**放客户名单、档案和已导出的聊天；**技能库**放团队 SOP、清单和通用模板。先了解公司和已有资料，保持原文件不动，交付每个库的内容与缺口清单。[企业三库安装与完整提示词](skills/shengjiang-knowledge/README.md#企业三库产品库客户库技能库)。
 
 ![shengjiang-knowledge：输入、约束、执行、输出、反馈与进化的 Harness 闭环](skills/shengjiang-knowledge/assets/shengjiang-knowledge-harness.png)
 

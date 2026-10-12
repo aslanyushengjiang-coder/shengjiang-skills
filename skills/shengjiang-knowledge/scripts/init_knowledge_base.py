@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-"""Preview or create the shengjiang-knowledge minimal folder structure."""
-
 from __future__ import annotations
 
 import argparse
@@ -17,9 +14,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--name", help="Human-readable knowledge-base name")
     parser.add_argument(
         "--profile",
-        choices=("general", "creator"),
+        choices=("general", "creator", "enterprise"),
         default="general",
-        help="Template profile: general-purpose or creator/self-media.",
+        help="Template profile: general, creator/self-media, or enterprise three libraries.",
     )
     parser.add_argument(
         "--apply",
@@ -66,6 +63,13 @@ def main() -> int:
         for path in template_root.rglob("*")
         if path.is_file()
     }
+    if args.profile == "enterprise":
+        # 三库使用独立业务目录，共用启动和系统文件。
+        sources = {
+            relative: source
+            for relative, source in sources.items()
+            if len(relative.parts) == 1 or relative.parts[0] == "system"
+        }
     if args.profile != "general":
         profile_root = assets_root / "profiles" / args.profile
         if not profile_root.is_dir():
